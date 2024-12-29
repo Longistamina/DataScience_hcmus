@@ -1,0 +1,3 @@
+Cho dữ liệu ageinc_g.csv chứa thông tin khách hàng. 
+Phân tích thông tin sơ bộ về dữ liệu trên các thuộc tính income, age, gender. Xem xét mối quan hệ giữa hai thuộc tính là income và age. Trực quan hóa dữ liệu. 
+Để thực hiện bài toán Customer Segmentation (Phân cụm/ nhóm khách hàng) cần phải kiểm tra và chuẩn hóa dữ liệu. Hãy chọn một phương pháp để chuẩn hóa dữ liệu dựa trên thông tin nêu trên. Trực quan hóa dữ liệu sau khi chuẩn hóa.

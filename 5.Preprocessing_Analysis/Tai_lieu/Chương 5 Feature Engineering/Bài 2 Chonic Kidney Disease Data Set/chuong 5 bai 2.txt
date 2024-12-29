@@ -1,0 +1,33 @@
+Cho dữ liệu chronic_kidney_disease.csv chứa thông tin của các bệnh nhân. Bộ dữ liệu này cóthể được sử dụng để dự đoán bệnh thận mãn tính và nó được thu thập trong bệnh viện gần 2 tháng.
+Thông tin dữ liệu:
+Dữ liệu có thể tham khảo và download tại: https://archive.ics.uci.edu/ml/datasets/chronic_kidney_disease
+
+Data Information:
+age - age
+bp - blood pressure
+sg - specific gravity
+al - albumin
+su - sugar
+rbc - red blood cells
+pc - pus cell
+pcc - pus cell clumps
+ba - bacteria
+bgr - blood glucose random
+bu - blood urea
+sc - serum creatinine
+sod - sodium
+pot - potassium
+hemo - hemoglobin
+pcv - packed cell volume
+wc - white blood cell count
+rc - red blood cell count
+htn - hypertension
+dm - diabetes mellitus
+cad - coronary artery disease
+appet - appetite
+pe - pedal edema
+ane - anemia
+class - class
+Yêu cầu
+Đọc dữ liệu, tìm hiểu sơ bộ về dữ liệu
+Chọn phương pháp để chuẩn hóa dữ liệu và thực hiện việc chuẩn hóa.

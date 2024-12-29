@@ -1,0 +1,15 @@
+Cho dữ liệu train.tsv, test.tsv nằm trong thư mục movies - Rotten Tomatoes movie review dataset . Bộ dữ liệu này được sử dụng để dự đoán tình cảm của người dùng dành cho các phim.
+
+Có các nhãn "sentiment" sau:
+0 - negative
+1 - somewhat negative
+2 - neutral
+3 - somewhat positive
+4 - positive
+
+Yêu cầu:
+1. Đọc dữ liệu
+2. Phân tích sơ bộ dữ liệu
+3. Tạo wordcloud của Positive và Negative review. In danh sách 20 từ có trọng số lớn (chữ to)trong word cloud. Trực quan hóa dữ liệu
+4. Lọc lại dữ liệu, chỉ giữ lại những mẫu có phần Phrase nhận xét từ 50 ký tự trở lên. Chia dữliệu thành 2 bộ source và target
+5. Chọn phương pháp để chuẩn hóa dữ liệu và thực hiện việc chuẩn hóa (với dữ liệu đã lọc ởphần 4)
