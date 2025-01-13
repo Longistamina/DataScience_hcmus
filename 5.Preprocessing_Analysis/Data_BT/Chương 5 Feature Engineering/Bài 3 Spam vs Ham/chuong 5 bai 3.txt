@@ -1,0 +1,6 @@
+Cho dữ liệu spam.csv chứa thông tin là nội dung các email. Bộ dữ liệu này có thể được sửdụng để dự đoán một email gửi đến là ham hay spam. (link: https://www.kaggle.com/uciml/sms-spam-collection-dataset)
+
+
+Yêu cầu:
+Đọc dữ liệu, tìm hiểu sơ bộ về dữ liệu
+Chọn phương pháp để chuẩn hóa dữ liệu và thực hiện việc chuẩn hóa.

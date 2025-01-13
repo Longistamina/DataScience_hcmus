@@ -1,0 +1,6 @@
+Cho dữ liệu spam.csv chứa thông tin là nội dung các email. Bộ dữ liệu này có thể được sử dụng để dự đoán một email gửi đến là ham hay spam.
+Yêu cầu:
+Đọc dữ liệu, tìm hiểu sơ bộ về dữ liệu
+Chọn phương pháp để chuẩn hóa dữ liệu và thực hiện việc chuẩn hóa.
+Áp dụng Logistic Regression để xác định một email được gửi đến là ham hay spam
+Với nội dung là: ["Hi, I have received your email. I will send my assigment on time", "Valid 12 hours only."] thì sẽ là ham hay spam?
