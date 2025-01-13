@@ -1,0 +1,25 @@
+Câu 1: Cho dữ liệu employees1.csv và employees2.csv 
+Đọc dữ liệu từ 2 tập tin trên 
+Kết hợp 2 dữ liệu trên thành 1 DataFrame 
+Câu 2: Cho dữ liệu department.csv 
+Đọc dữ liệu từ tập tin trên 
+Kết hợp dữ liệu này với dữ liệu kết quả từ câu 1 
+Câu 3: Cho dữ liệu skills.csv 
+Đọc dữ liệu từ tập tin trên 
+Kết hợp dữ liệu này với dữ liệu kết quả từ câu 2
+Câu 4: Cho dữ liệu salary.csv 
+Đọc dữ liệu từ tập tin trên 
+Kết hợp dữ liệu này với dữ liệu ở câu 1 (gợi ý: dùng right_on & left_on khi merge vì trong salay có cột name, còn df ở câu 1 lại có cột employee trùng nội dung, bỏ cột name) 
+Câu 1+: Cho dữ liệu employees1.csv và employees2.csv 
+Đọc dữ liệu từ 2 tập tin trên vào 2 DataFrame với index của các DataFrame là 'employee' 
+Kết hợp 2 DataFrame trên thành 1 DataFrame dùng chung 1 index là 'employee' (gợi ý: dùng left_index hoặc/và right_index hoặc dùng dataframe1.join(dataframe2))
+Câu 5: Cho dữ liệu như sau: 
+1. df6 = pd.DataFrame({'name': ['Peter', 'Paul', 'Mary'], 'food': ['fish', 'beans', 'bread']}, columns= ['name', 'food']) 
+2. df7 = pd.DataFrame({'name': ['Mary', 'Joseph'], 'drink': ['wine', 'beer']}, columns=['name', 'drink']) 
+- Kết hợp 2 bộ dữ liệu này với tham số how='inner', how='outer', how='left', how='right'. 
+Quan sát kết quả trong từng trường hợp.
+
+Câu 6: Cho dữ liệu như sau: 
+1. df8 = pd.DataFrame({'name': ['Bob', 'Jake', 'Lisa', 'Sue'], 'rank': [1, 2, 3, 4]}) 
+2. df9 = pd.DataFrame({'name': ['Bob', 'Jake', 'Lisa', 'Sue'], 'rank': [3, 1, 4, 2]}) 
+- Kết hợp 2 bộ dữ liệu này với tham số on='tên_cột_trùng_lắp' và/hoặc suffixes=["_L", "_R"]

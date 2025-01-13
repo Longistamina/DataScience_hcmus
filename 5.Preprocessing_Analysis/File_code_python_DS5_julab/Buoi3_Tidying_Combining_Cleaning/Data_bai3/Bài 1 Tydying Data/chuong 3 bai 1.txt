@@ -1,0 +1,17 @@
+Câu 1: 
+Cho dữ liệu BMI.xlsx. Bộ dữ liệu này ghi lại BMI của một số quốc gia trong một số năm. 
+Đọc dữ liệu 
+Xem xét vấn đề về dữ liệu cần khắc phục 
+Chuẩn lại dữ liệu để khắc phục vấn dề trên 
+
+Đặt yêu cầu ngược lại là cần phải tạo pivot table để xem thống kê theo country, year. 
+Hãy chuyển dữ liệu mới làm ở trên về dạng thống kê
+
+Câu 2: 
+Cho dữ liệu student.xlsx. Bộ dữ liệu này ghi lại điểm các môn của sinh viên 
+Đọc dữ liệu 
+Xem xét vấn đề về dữ liệu cần khắc phục 
+Chuẩn lại dữ liệu để khắc phục vấn dề trên 
+
+Đặt yêu cầu ngược lại là cần phải tạo pivot table để xem thống kê theo từng student và các subject. 
+Hãy chuyển dữ liệu mới làm ở trên về dạng thống kê
