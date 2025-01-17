@@ -1,5 +1,0 @@
-Illinois Male Baby Names 
-Cho dữ liệu 201*-baby-names-illinois.csv. Bộ dữ liệu này thống kê tần suất các tên gọi được đặt. 
-Đọc dữ liệu 
-Xem xét vấn đề về dữ liệu cần khắc phục 
-Chuẩn lại dữ liệu để khắc phục vấn đề trên
