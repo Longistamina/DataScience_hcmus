@@ -1,7 +1,0 @@
-Xem xét việc có được vào trường đại học hay không dựa trên bộ dữ liệu sinh viên 400 mẫu có tên là binary.csv
-
-Yêu cầu: Hãy đọc dữ liệu từ tập tin này, áp dụng Logistic Regression để thực hiện việc xác định có được vào trường đại học hay không dựa vào các thông tin như: gre, gpa, rank.
-Đọc dữ liệu, tiền xử lý dữ liệu nếu cần, trực quan hóa dữ liệu để thấy sự tương quan giữa các biến
-Tạo X_train, X_test, y_train, y_test từ dữ liệu đọc được với tỷ lệ dữ liệu test là 0.2
-Áp dụng thuật toán Logistic RegressionKiểm tra độ chính xác. Đánh giá mô hình bằng kiểm tra underfiting và overfiting
-Tìm kết quả Cho dữ liệu Test: X_now = [[600, 4, 2],[400, 3, 3]]
