@@ -1,0 +1,7 @@
+Cho dữ liệu WA_Fn-UseC_-Telco-Customer-Churn.csv chứa thông tin khách hàng. Bộ dữ liệu này được dùng để xây dựng mô hình dự đoán một khách hàng kết thúc mối quan hệ hay hủy/không gia hạn (churn) với doanh nghiệp hay không?
+Bộ dữ liệu gồm 7043 mẫu và 21 thuộc tính
+Yêu cầu:
+Đọc dữ liệu WA_Fn-UseC_-Telco-Customer-Churn.csv, tiền xử lý dữ liệu.
+Chia dữ liệu thành 2 bộ là train và test theo tỷ lệ 80-20.
+Xem xét tính cân bằng giữa hai loại mẫu ở train. Trực quan hóa. Nhận xét.
+Nếu 2 loại mẫu ở train này không cân bằng, hãy chọn một phương pháp cân bằng dữ liệu và thực hiện. Trực quan hóa kết quả.
