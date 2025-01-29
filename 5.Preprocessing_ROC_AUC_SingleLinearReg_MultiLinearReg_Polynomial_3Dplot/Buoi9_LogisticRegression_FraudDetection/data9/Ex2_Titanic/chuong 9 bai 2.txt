@@ -1,0 +1,8 @@
+Xem xét việc một hành khách có sống sót hay không dựa trên bộ dữ liệu titanic (train.csv có 891 mẫu và test.csv có 418 mẫu )
+Yêu cầu: Hãy đọc dữ liệu từ các tập tin này, áp dụng Logistic Regression để thực hiện việc xác định một hành khách có sống sót hay không dựa trên những thông tin được cung cấp.
+Đọc dữ liệu train.csv, tiền xử lý dữ liệu nếu cần
+Tạo X_train, X_test, y_train, y_test từ dữ liệu ở câu 1 với tỷ lệ dữ liệu test là 0.2
+Áp dụng thuật toán Logistic Regression: fit model, tìm độ chính xác, đánh giá mô hình bằng kiểm tra underfiting và overfiting?
+Đọc dữ liệu test.csv. Tiền xử lý dữ liệu như train.csv. Tìm kết quả cho dữ liệu test.
+Ghi kết quả vào file test_pred.csv
+Áp dụng Pipeline. Lưu kết quả khi áp dụng Pipeline vào file test_pred.csv (thêm 1 cột kết quả mới)
