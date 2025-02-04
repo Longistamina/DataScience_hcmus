@@ -103,6 +103,14 @@ Delete table:
 	+Scroll down until "Delete data or table"
 	+Choose "Delete the table (DROP)"
 
+Import table into database:
+	+In MySQL interface, choose wanted database
+	+Click "Import"
+	+Click "Choose File" and choose target table file (.csv, .xlsx, etc.)
+	+Scroll down, tick "The first line of the file contains the table column names (if this is unchecked, the first line will become part of the data)"
+	+Click "Import" (at the end of the page)
+
+
 #-----------------------------------------------#
 #--------------- SQL and IBM cloud -------------#
 #-----------------------------------------------#
