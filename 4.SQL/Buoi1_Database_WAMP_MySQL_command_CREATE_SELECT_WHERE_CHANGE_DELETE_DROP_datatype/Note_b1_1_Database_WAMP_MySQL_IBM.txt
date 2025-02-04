@@ -110,6 +110,15 @@ Import table into database:
 	+Scroll down, tick "The first line of the file contains the table column names (if this is unchecked, the first line will become part of the data)"
 	+Click "Import" (at the end of the page)
 
+Export table from database into local file:
+	+In MySQL interface, choose database, then choose table
+	+Click "Export"
+	+If having no special requirements, choose "Quick -...." then scroll down and click "Export"
+	+Else, choose "Custom -...."
+	+Then, choose format .csv, .sql, ....
+	+Scroll down, tick "Put columns names in the first row"
+	+Then click "Export"
+
 
 #-----------------------------------------------#
 #--------------- SQL and IBM cloud -------------#
