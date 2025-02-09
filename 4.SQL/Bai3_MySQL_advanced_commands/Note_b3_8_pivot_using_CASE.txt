@@ -7,12 +7,15 @@ Therefore, the only way is using CASE to pivot the SQL table manually
 
 SELECT YEAR(HIRE_DATE) AS HIRE_YEAR, COUNT(*) AS Tong_so_nv_vao_lam_trong_nam
 FROM `employees`
-GROUP BY YEAR(HIRE_DATE);
+GROUP BY YEAR(HIRE_DATE)
+ORDER BY HIRE_YEAR;
 
 
 #------------- Pivot table using CASE_WHEN_THEN 1_ELSE 0_END_AS column_name -------------------------#
 
 SELECT
+    CASE WHEN YEAR(HIRE_DATE)=2001 THEN 1 ELSE 0 END AS year_2001,
+    CASE WHEN YEAR(HIRE_DATE)=2002 THEN 1 ELSE 0 END AS year_2002,
     CASE WHEN YEAR(HIRE_DATE)=2003 THEN 1 ELSE 0 END AS year_2003,
     CASE WHEN YEAR(HIRE_DATE)=2004 THEN 1 ELSE 0 END AS year_2004,
     CASE WHEN YEAR(HIRE_DATE)=2005 THEN 1 ELSE 0 END AS year_2005,
@@ -28,6 +31,8 @@ FROM `employees`;
 
 #------------- Combine with SUM() to count the total cases of that year -------------------------#
 SELECT
+    SUM(CASE WHEN YEAR(HIRE_DATE)=2001 THEN 1 ELSE 0 END) AS year_2001,
+    SUM(CASE WHEN YEAR(HIRE_DATE)=2002 THEN 1 ELSE 0 END) AS year_2002,
     SUM(CASE WHEN YEAR(HIRE_DATE)=2003 THEN 1 ELSE 0 END) AS year_2003,
     SUM(CASE WHEN YEAR(HIRE_DATE)=2004 THEN 1 ELSE 0 END) AS year_2004,
     SUM(CASE WHEN YEAR(HIRE_DATE)=2005 THEN 1 ELSE 0 END) AS year_2005,
