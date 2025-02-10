@@ -58,3 +58,19 @@ SELECT
 FROM `employees`;
 
 -- Now, the value of each year_200x is the total number of employees being hired in that year
+
+
+
+SELECT
+	JOB_ID,
+    SUM(IF(YEAR(HIRE_DATE)=2001,1,0)) AS year_2001,
+    SUM(IF(YEAR(HIRE_DATE)=2002,1,0)) AS year_2002,
+    SUM(IF(YEAR(HIRE_DATE)=2003,1,0)) AS year_2003,
+    SUM(IF(YEAR(HIRE_DATE)=2004,1,0)) AS year_2004,
+    SUM(IF(YEAR(HIRE_DATE)=2005,1,0)) AS year_2005,
+    SUM(IF(YEAR(HIRE_DATE)=2006,1,0)) AS year_2006,
+    SUM(IF(YEAR(HIRE_DATE)=2007,1,0)) AS year_2007,
+    SUM(IF(YEAR(HIRE_DATE)=2008,1,0)) AS year_2008
+FROM `employees`
+GROUP BY JOB_ID;
+-- Dung them GROUP BY JOB_ID de phan nhom ket qua theo tung job
