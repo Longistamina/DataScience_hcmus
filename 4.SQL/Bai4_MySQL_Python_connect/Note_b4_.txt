@@ -39,3 +39,50 @@ query_result = %sql select * from customer where country='code'
 df = query_result.DataFrame() 
 #Store the query result from sql server into query_result variable
 #Then, create a dataframe from it using .DataFrame(), and store into df
+
+
+
+#----------------------------------------------------#
+#-------- DB_API_library_connect_cursor -------------#
+#----------------------------------------------------#
+
+Connection object => connect to database, manage sessions
+
+Cursor object => carry out queries via Connection
+
+#####
+cursor() => return a cursor object to execute commands
+
+commit() => update changes in Database
+
+rollback() => undo the changes and updates in Database, back to previous status
+
+close()
+
+####
+
+from mysql.connector import connect
+
+username='longsql'
+pwd='Longsql123#'
+server='192.168.1.13/phpmyadmin/' #Get from local PHPMyAdmin, without https
+db='salesdb'
+
+#Create connection object with these parameters
+conn = connection(host=server, database=db, user=username, password=pwd, port=3306) 
+
+
+
+#Create an sql command string
+sql_commands = 'select id, ProductName, UnitPrice from `products` where IsDiscontinued=0'
+
+#create cursor() object from connection()
+curs1 = conn.cursor()
+
+#execute sql_commands with cursor curs1
+curs1.execute(sql_commands)
+
+
+#Read and print out executed results
+for row in curs1: #fetch one
+	print(row)
