@@ -115,10 +115,13 @@ conn1.close()
 
 
 .fetchone() to read the query results line-by-line
+            #show the result of current line
 
 .fetchmany() to read the query results in many groups, each group contains many lines
+             #example: .fetchmany(5) is equal to 5 .fetchone(), starts from the 1st result
 
 .fetchall() to read the query in one only group containing all lines
+            #show the result of .fetchone() from the 1st line to the last line
 
 
 .close() to close the cursor
