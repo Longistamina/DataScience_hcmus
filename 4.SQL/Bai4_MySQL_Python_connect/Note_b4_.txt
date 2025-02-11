@@ -72,12 +72,20 @@ db='salesdb'
 conn = connection(host=server, database=db, user=username, password=pwd, port=3306) 
 
 
-
 #Create an sql command string
 sql_commands = 'select id, ProductName, UnitPrice from `products` where IsDiscontinued=0'
 
+
+#sql command string with multiple lines
+sql_commands2 = '''
+select id, ProductName, UnitPrice 
+from `products` 
+where IsDiscontinued=0;
+'''
+
+
 #create cursor() object from connection()
-curs1 = conn.cursor()
+curs1 = conn1.cursor()
 
 #execute sql_commands with cursor curs1
 curs1.execute(sql_commands)
@@ -86,3 +94,7 @@ curs1.execute(sql_commands)
 #Read and print out executed results
 for row in curs1: #fetch one
 	print(row)
+
+#Close cursor and connection
+curs1.close()
+conn1.close()
