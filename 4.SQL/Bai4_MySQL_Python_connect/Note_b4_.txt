@@ -143,6 +143,7 @@ while row: #If row is not None, then run while loop, else don't run while loop
 #-----------------------------------------------------#
 
 cursor = connection.cursor()
+cursor.execute(.....)
 
 cursor.column_names: return the list of column names in query result
 
