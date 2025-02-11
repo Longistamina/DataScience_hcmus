@@ -142,17 +142,19 @@ while row: #If row is not None, then run while loop, else don't run while loop
 #-------------- cursor() attributes ------------------#
 #-----------------------------------------------------#
 
-column_names: return the list of column names in query result
+cursor = connection.cursor()
 
-with_rows: True if the query has data, False if the query has no data
+cursor.column_names: return the list of column names in query result
 
-description: returns the informations of query columns like name, type_code, display_size,...
+cursor.with_rows: True if the query has data, False if the query has no data
 
-lastrowid: returns the Id of the latest Update or Insert row, returns None if nothing is updated or inserted
+cursor.description: returns the informations of query columns like name, type_code, display_size,...
 
-statement: returns the content of the latest executed query command
+cursor.lastrowid: returns the Id of the latest Update or Insert row, returns None if nothing is updated or inserted
 
-rowcount: the number of rows of the query
+cursor.statement: returns the content of the latest executed query command
+
+cursor.rowcount: the number of rows of the query
 
 #------------------------------------------------#
 #------------- Procedure ------------------------#
