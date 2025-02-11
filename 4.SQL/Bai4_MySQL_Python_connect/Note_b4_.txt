@@ -98,3 +98,26 @@ for row in curs1: #fetch one
 #Close cursor and connection
 curs1.close()
 conn1.close()
+
+
+#--------------------------------------------------#
+#-------------- cursor() methods ------------------#
+#--------------------------------------------------#
+
+.callproc() is a method to store a bunch of commands, like def function()
+            when the commands are needed, just call out this method, instead of executing long command string
+
+
+.execute() to execute an sql commands stored in a command string
+
+.executemany() like execute but with many commands separated by ';'
+
+
+.fetchone() to read the query results line-by-line
+
+.fetchmany() to read the query results in many groups, each group contains many lines
+
+.fetchall() to read the query in one only group containing all lines
+
+
+.close() to close the cursor
