@@ -116,12 +116,17 @@ conn1.close()
 
 .fetchone() to read the query results line-by-line
             #show the result of current line
+            #doc ket qua theo tung dong, doc toi dau xu ly toi do, hien ra toi do
+            #rat huu ich khi du lieu nhieu dong
 
 .fetchmany() to read the query results in many groups, each group contains many lines
              #example: .fetchmany(5) is equal to 5 .fetchone(), starts from the 1st result
+             #doc ket qua theo tung block
 
 .fetchall() to read the query in one only group containing all lines
             #show the result of .fetchone() from the 1st line to the last line
+            #doc toan bo ket qua, doc xong roi moi xu ly
+            #vi doc het roi moi xu ly nen neu du lieu co qua nhieu dong, ket qua se tra ve cham
 
 
 .close() to close the cursor
