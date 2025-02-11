@@ -184,3 +184,38 @@ cur.execute(sql, data)
 
 for row in cur: # fetch one
     print(row)
+
+
+
+#----------------------------------------------------------------------------------------------#
+#------------- Execute a command with a data_list containing many data ------------------------#
+#----------------------------------------------------------------------------------------------#
+
+server ='localhost'
+db = 'salesdb'
+username = 'root'
+pwd = ''
+conn = connect(host=server, database=db, user=username, password=pwd)
+curs = conn.cursor()
+
+sql = '''
+update products
+set UnitPrice = %(unit_price)s
+where ProductName = %(name)s and SupplierId = %(sid)s
+'''
+
+data_list = [
+    {'unit_price': 20.0, 'sid': 1, 'name': 'Chang'},
+    {'unit_price': 31.5, 'sid': 4, 'name': 'Ikura'},
+    {'unit_price': 23.5, 'sid': 6, 'name': 'Tofu'},
+]
+
+for data in data_list:
+    curs.execute(sql, data)
+
+#If data = data_list[0] =  {'unit_price': 20.0, 'sid': 1, 'name': 'Chang'}
+# It will pass 20.0 value into %(unit_price)s
+#         pass 'Chang' value into %(name)s
+# and     pass 1 value into %(sid)
+#Final command = set UnitPrice = 20.0 where ProductName = 'Chang' ans SupplierId = 1
+#Do the same as the others
