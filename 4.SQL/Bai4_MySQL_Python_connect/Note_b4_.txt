@@ -69,12 +69,12 @@ server='192.168.1.13/phpmyadmin/' #Get from local PHPMyAdmin, without https
 db='salesdb'
 
 #Create connection object with these parameters
-conn = connection(host=server, database=db, user=username, password=pwd, port=3306) 
+conn1 = connection(host=server, database=db, user=username, password=pwd, port=3306) 
+
 
 
 #Create an sql command string
 sql_commands = 'select id, ProductName, UnitPrice from `products` where IsDiscontinued=0'
-
 
 #sql command string with multiple lines
 sql_commands2 = '''
@@ -82,7 +82,6 @@ select id, ProductName, UnitPrice
 from `products` 
 where IsDiscontinued=0;
 '''
-
 
 #create cursor() object from connection()
 curs1 = conn1.cursor()
@@ -158,7 +157,6 @@ DELIMITER ;
 When querying an SQL server via python, .callproc('procedure_name', arguments...)
 
 
-
 #------------------------------------------------------------------#
 #------------- Pass values into parameters ------------------------#
 #------------------------------------------------------------------#
@@ -200,8 +198,11 @@ pwd = ''
 conn = connect(host=server, database=db, user=username, password=pwd)
 curs = conn.cursor()
 
-sql2 = '''
-select * from products
+***********************************
+
+sql1 = '''
+update products
+set UnitPrice = %(unit_price)s 
 where ProductName = %(name)s and SupplierId = %(sid)s;
 '''
 
@@ -212,9 +213,48 @@ data_list = [
 ]
 
 for data in data_list:
+    curs.execute(sql1, data)
+
+*******************
+
+sql2 = '''
+select * from products
+where ProductName = %(name)s and SupplierId = %(sid)s;
+'''
+
+for data in data_list:
     result = curs.execute(sql2, data)
     result=curs.fetchone()
     print(result)
+
+curs.close()
+conn.close()
+
+
+#--------------------------------------------------#
+#------------- Executemany ------------------------#
+#--------------------------------------------------#
+
+server ='localhost'
+db = 'salesdb'
+username = 'root'
+pwd = ''
+conn = connect(host=server, database=db, user=username, password=pwd)
+curs = conn.cursor()
+
+sql1 = '''
+update products
+set UnitPrice = %(unit_price)s 
+where ProductName = %(name)s and SupplierId = %(sid)s;
+'''
+
+data_list = [
+    {'unit_price': 20.0, 'sid': 1, 'name': 'Chang'},
+    {'unit_price': 31.5, 'sid': 4, 'name': 'Ikura'},
+    {'unit_price': 23.5, 'sid': 6, 'name': 'Tofu'},
+]
+
+curs.executemany(sql1, data_list) #Use EXECUTEMANY()
 
 curs.close()
 conn.close()
