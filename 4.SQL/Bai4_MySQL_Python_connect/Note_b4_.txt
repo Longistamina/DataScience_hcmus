@@ -130,6 +130,29 @@ conn1.close()
 
 .close() to close the cursor
 
+##example:
+
+row = cursor.fectchone() #get the first row of query
+
+while row: #If row is not None, then run while loop, else don't run while loop
+	print(row)
+	row = cursor.fetchone() #get the next row of query
+
+#-----------------------------------------------------#
+#-------------- cursor() attributes ------------------#
+#-----------------------------------------------------#
+
+column_names: return the list of column names in query result
+
+with_rows: True if the query has data, False if the query has no data
+
+description: returns the informations of query columns like name, type_code, display_size,...
+
+lastrowid: returns the Id of the latest Update or Insert row, returns None if nothing is updated or inserted
+
+statement: returns the content of the latest executed query command
+
+rowcount: the number of rows of the query
 
 #------------------------------------------------#
 #------------- Procedure ------------------------#
