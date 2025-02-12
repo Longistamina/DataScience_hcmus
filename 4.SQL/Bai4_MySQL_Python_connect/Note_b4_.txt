@@ -14,6 +14,8 @@ pip3 install pymysql
 #-------- Connect python-mysql -------------#
 #-------------------------------------------#
 
+### Using magic SQL
+
 user='root'
 password=''
 hostname='localhost:8888' #Get from the jupyter lab tab
@@ -24,7 +26,17 @@ connection_string = f"mysql+pymysql://{user}:{password}@{hostname}/{database}?ch
 
 %sql $connection_string #Run this command to connect python to sql
 
+#### Using .connection() method
 
+from mysql.connector import connect
+
+username='longsql'
+pwd='Longsql123#'
+server='192.168.1.13/phpmyadmin/' #Get from local PHPMyAdmin, without https
+db='salesdb'
+
+#Create connection object with these parameters
+conn1 = connection(host=server, database=db, user=username, password=pwd, port=3306) 
 
 
 #-------------------------------------------------------#
@@ -63,9 +75,9 @@ close()
 
 from mysql.connector import connect
 
-username='longsql'
-pwd='Longsql123#'
-server='192.168.1.13/phpmyadmin/' #Get from local PHPMyAdmin, without https
+username='root'
+pwd=''
+server='localhost' #Get from local PHPMyAdmin, without https
 db='salesdb'
 
 #Create connection object with these parameters
@@ -286,6 +298,7 @@ curs.close()
 conn.close()
 
 
+
 #------------------------------------------------------------------#
 #------------- Transaction_Commit_Rollback ------------------------#
 #------------------------------------------------------------------#
@@ -331,3 +344,25 @@ SELECT COUNT(*) AS 'After commit' FROM test_transaction;
 -- After commit, the changes have been saved so now count = 0 = after delete
 
 DROP TABLE test_transaction;
+
+
+
+
+#------------------------------------------------------------------#
+#------------- Magic SQl (% sql commands0 -------------------------#
+#------------------------------------------------------------------#
+
+pip3 install ipython-sql
+pip3 install pymysql
+
+%load_ext sql
+
+user='root'
+password=''
+hostname='localhost:8888' #Get from the jupyter lab tab
+database='salesdb'
+
+connection_string = f"mysql+pymysql://{user}:{password}@{hostname}/{database}?charset=utf8"
+#Create a connection string
+
+%sql $connection_string #Run this command to connect python to sql
