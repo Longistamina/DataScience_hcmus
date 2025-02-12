@@ -28,8 +28,8 @@ pwd=''
 server='localhost' #Get from local PHPMyAdmin, without https
 db='salesdb'
 
-#Create connection object with these parameters
-conn1 = connection(host=server, database=db, user=username, password=pwd, port=3306) 
+#Create connect object with these parameters
+conn1 = connect(host=server, database=db, user=username, password=pwd, port=3306) 
 
 
 
