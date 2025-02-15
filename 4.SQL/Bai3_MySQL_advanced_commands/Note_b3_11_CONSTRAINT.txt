@@ -1,0 +1,29 @@
+Constraint is a set of principles applied onto table's columns
+
+It is used to limit the datatype being inserted into the column,
+to ensure the righteousness and reliability of the data
+
+2 levels of Constraint:
+	+Column level: applied only onto specific columns
+	+Table level: applied onto the whole table (meaning onto all columns of that table)
+
+
+Can set up a Constraint while creating table (CREATE TABLE) or while modifying table (ALTER TABLE)
+
+
+Some types of popular constraint:
+	+NOT NULL: not accept NULL values as input
+	+DEFAULT: provide a default value for that position if it is NULL
+	+UNIQUE: all values in the column/table must be unique (no overlap)
+	+PRIMARY KEY: to set a column as primary key (generally ID column), other columns must be NOT NULL
+
+	+FOREIGN KEY: if primary key is applied for "father" table, then foreign key is applied for "daughter" table
+
+
+### Example:
+
+CREATE TABLE pets(
+	ID integer primary key autoincrement,
+	NAME varchar(30) NOT NULL,
+	AGE int NOT NULL
+)
