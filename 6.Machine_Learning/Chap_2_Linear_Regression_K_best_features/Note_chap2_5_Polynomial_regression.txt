@@ -72,6 +72,19 @@ same for MSE, MAE, R^2, intercept, coef,...
 plots also same
 
 
+
+*********************************************
+************* Visualization *****************
+*********************************************
+x_draw = np.linspace(min(x_test_pf[:,1]),max(x_test_pf[:,1]),60)
+x_draw_pf = PolynomialFeatures(degree=3).fit_transform(x_draw.reshape(-1,1))
+
+sbn.lineplot(x=x_draw, y=linreg_pf.predict(x_draw_pf))
+sbn.scatterplot(x = x_test_pf[:,1], y = y_test_pf)
+plt.show()
+
+
+
 ***********************************************
 ************** NOTES for Polynomial ***********
 ***********************************************
