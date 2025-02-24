@@ -66,14 +66,14 @@ With this idea, they have established the loss function for Logistic Regression 
 Assume we have a dataset with 4 classes as outputs, and X input contain i observations + j features
 
 => In the linear regression part, the output Z now must have 4 columns (each column for each classes)
-=> so the score Z dimension is (ix4)
+=> so the score Z dimension is (i,4)
 
 But, we have:
 	+ X @ W = Z
 	+ X dimension is (i, 1+j)
-	+ and Z dimensions is (ix4)
+	+ and Z dimensions is (i,4)
 	+ Therefore, => W dimension is now (1+j, 4)
-	+ So that X @ W = (i, 1+j) @ (1+j, 4) = Z(ix4)
+	+ So that X @ W = (i, 1+j) @ (1+j, 4) = Z(i,4)
 
 => There will be 4 weight vectors (weight = parameter = beta.....)
    Because (i, 1+j) @ (1+j, 4) = Z(i,4)
