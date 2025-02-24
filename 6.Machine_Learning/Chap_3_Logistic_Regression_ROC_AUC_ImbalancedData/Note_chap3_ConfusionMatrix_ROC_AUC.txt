@@ -45,6 +45,15 @@ High recall + Low precision: the model can detect many true cases, but the accur
 
 Low recal + Low precision: worst result, model is not appropriate, cannot be used this one, so try to build new model
 
+******** code *************
+from sklearn.metrics import classification_report
+labels = ['class1', 'class2',...]
+print(f'Classification report:\n {classification_report(y_test, y_test_pred, target_names=labels)}') 
+
+#This will return a summary table containing recall, precision and F1_score for each class
+
+
+
 #-----------------------------------------------------------------#
 #-------------------- ROC curves - AUC ---------------------------#
 #-----------------------------------------------------------------#
