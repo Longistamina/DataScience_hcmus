@@ -7,7 +7,7 @@ Logistic regression is a classification algorithm, belongs to the supervised lea
 Binary classification => 2 labels => Yes/No, Positive/Negative,...
 Multi-class classification => more than 2 labels
 
-First, calculate z = b0 + b1*x1 + b2*x2 +.... (linear regression)
+First, calculate score z = b0 + b1*x1 + b2*x2 +.... (linear regression)
 Then, calculate y_predict = 1 / [1 + e^(-z)] (Sigmoid function)
 => The y_predict now is ranged from 0 to 1, indicating the probability of an instance to have label = 1
 
@@ -60,16 +60,20 @@ With this idea, they have established the loss function for Logistic Regression 
 #------------------- For Multinomial Classes (more than 2 classes) -------------------------#
 #-------------------------------------------------------------------------------------------#
 
+1. Calculate the Z score by using multiple linear regression
+------------------------------------------------------------
+
 Assume we have a dataset with 4 classes as outputs, and X input contain i observations + j features
 
 => In the linear regression part, the output Z now must have 4 columns (each column for each classes)
-=> so Z dimension is (ix4)
+=> so the score Z dimension is (ix4)
 
 But, we have:
 	+ X @ W = Z
 	+ X dimension is (i, 1+j)
 	+ and Z dimensions is (ix4)
 	+ Therefore, => W dimension is now (1+j, 4)
+	+ So that X @ W = (i, 1+j) @ (1+j, 4) = Z(ix4)
 
 => There will be 4 weight vectors (weight = parameter = beta.....)
    Because (i, 1+j) @ (1+j, 4) = Z(i,4)
@@ -84,7 +88,7 @@ ___            X (i, 1+j)   ____           ___        W (j+1, 4)        ____    
 |  1  x_i1   x_i2  ...  x_ij   |          |   w_j1    w_j2     w_j3    w_j4 |       |  z_i1   z_i2    z_i3    z_i4 |
 ------                     -----          ----                            __|       ----                         ---
 
-Let calculate the first observation (i = 1), or X_1j
+Let calculate the score z of each Class for the first observation (i = 1), or X_1j
 
 => Class_1: z_11 = w_01  + x_11*w_11  + x_12*w_21 + ... + x_1j*w_j1
    
@@ -96,8 +100,8 @@ Let calculate the first observation (i = 1), or X_1j
 
 For multiple classes, we will use softmax function to calculate the propability for each class (not sigmoid)
    
-1. Softmax Function: Calculate the Probability for Each Class
--------------------------------------------------------------
+2. Softmax Function: Calculate the Probability for Each Class from Z score
+--------------------------------------------------------------------------
 
 First, you use the softmax function to convert the raw scores (also called logits) into probabilities for each class.
 
@@ -108,7 +112,7 @@ Given an input x, you calculate the score z_j for each class j (as described ear
   +Class_4:   P(y_pred = 4 | X_1j) = e^(z_14) / [e^(z_11) + e^(z_12) + e^(z_13) + e^(z_14)]
 
 
-2. Cross-Entropy Loss: Measure the Difference Between Predicted and True Labels
+3. Cross-Entropy Loss: Measure the Difference Between Predicted and True Labels
 -------------------------------------------------------------------------------
 
 Formula for each observation:  error = -ln(P(y_pred = class | x))
