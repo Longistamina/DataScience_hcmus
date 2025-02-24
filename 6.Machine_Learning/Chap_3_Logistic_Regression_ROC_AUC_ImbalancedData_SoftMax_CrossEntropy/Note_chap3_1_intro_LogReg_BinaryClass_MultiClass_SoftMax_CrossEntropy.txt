@@ -156,13 +156,13 @@ C is the number of classes
 y_c is 1 if the observation belongs to class c and 0 otherwise
 ŷ_c is the predicted probability for class c
 
-Let's use a concrete example with 3 classes (C=3):
+Let's use a concrete example with 4 classes (C=4):
 Assume we have one observation that belongs to class 2, so the true labels are:
-y = [0, 1, 0]
+y = [0, 1, 0, 0]
 And our model predicts the following probabilities:
-ŷ = [0.2, 0.7, 0.1]
+ŷ = [0.1, 0.7, 0.1, 0,1]
 The loss would be:
-L = -(0×ln(0.2) + 1×ln(0.7) + 0×ln(0.1))
+L = -(0×ln(0.2) + 1×ln(0.7) + 0×ln(0.1)) + 0×ln(0.1))
 L = -ln(0.7)
 L = -(-0.357)
 L = 0.357
