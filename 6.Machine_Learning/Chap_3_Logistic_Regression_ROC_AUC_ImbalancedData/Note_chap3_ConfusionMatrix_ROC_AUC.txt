@@ -13,13 +13,26 @@ then the Confusion Matrix size is 2x2, if 3 classes then Confusion Matrix is 3x3
 The diagonal cells of confusionmatrix show the correctly predicted case of each label
 The other cells show wrongly predicted case
 
+
+******** code *************
+from sklearn.metrics import confusion_matrix
+print(f'Confusion matrix:\n {confusion_matrix(y_test, y_test_pred)}')
+
+When use ConfusionMatrix() function in python, the row must be predicted result, the column is ground-truth
+
+
+
+#-------------------------------------------------------------------------#
+#-------------------- Precision_Recall_F1score ---------------------------#
+#-------------------------------------------------------------------------#
+
 Accuracy = (correct class1 + correct class2) / all cases
 
 Precision class1 = correct class1 / all predicted as class1 (correct class1 + false positive class1)
 
 Recall class1 = correct class1 / all ground-truth class1 (correct class1 + false positive class2)
 
-When use ConfusionMatrix() function in python, the row must be predicted result, the column is ground-truth
+F1_score = (2*Precision*Recall)/(Precision+Recall) #This is like the combination of precision and recall
 
 Some problems rely more on Precision, some more on Recall, some more on F1-Score
 
@@ -31,12 +44,6 @@ Low recall + High precision: the model cannot detect all true cases, but once it
 High recall + Low precision: the model can detect many true cases, but the accuracy is low
 
 Low recal + Low precision: worst result, model is not appropriate, cannot be used this one, so try to build new model
-
-
-******** code *************
-from sklearn.metrics import confusion_matrix
-print(f'Confusion matrix:\n {confusion_matrix(y_test, y_test_pred)}')
-
 
 #-----------------------------------------------------------------#
 #-------------------- ROC curves - AUC ---------------------------#
@@ -69,4 +76,3 @@ Sometimes, using ROC Curves to validate the model might be subjectively, there f
 	+Use integration to calculate this Area
 	+AUC ranges from 0 to 1
 	+The more it is closed to 1, the better the model is
-
