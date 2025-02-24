@@ -1,0 +1,138 @@
+#----------------------------------------------------------------------------#
+#---------------- Introduction _ Formula _ Loss function --------------------#
+#----------------------------------------------------------------------------#
+
+Logistic regression is a classification algorithm, belongs to the supervised learning group
+
+Binary classification => 2 labels => Yes/No, Positive/Negative,...
+Multi-class classification => more than 2 labels
+
+First, calculate z = b0 + b1*x1 + b2*x2 +.... (linear regression)
+Then, calculate y_predict = 1 / [1 + e^(-z)] (Sigmoid function)
+=> The y_predict now is ranged from 0 to 1, indicating the probability of an instance to have label = 1
+
+Set a threshold = 0.5
+=> if probability of output > 0.5, then return 1
+=> else (probability of output < 0.5), return 0
+
+
+*************** Accuracy _ Optimization ***************************
+
+If the Y_true is 1, then the accuracy of the prediction is also Y_predict
+If the Y_true is 0, then the accuracy of the prediction is (1 - Y_predict) #since Y_predict is the probability to be label 1
+							                   #So to calculate for label 0, use (1 - Y_predict)
+
+
+Therefore, if our data have 5 observations => 5 accuracy values for each observation
+	+Y_true_1 => acc_1
+	+Y_true_2 => acc_2
+	+Y_true_3 => acc_3
+	+Y_true_4 => acc_4
+	+Y_true_5 => acc_5
+
+Target:
+	+Find the parameters b0, b1, b2,... where the (acc_1 * acc_2 *...*acc_5) is largest
+	+But, the accuracy values are probalbility, so the multiplication among them will get smaller and smaller
+
+=> Find the parameters b0, b1, b2,... where the [ln(acc_1) + ln(acc_2) +...+ ln(acc_5)] is smallest (absolute(ln()) to change the sign)
+
+(Since the accuracy range from 0 - 1, the more acc closed to 1, the smaller ln(acc) is
+				      the more acc closed to 0, the larger ln(acc) is
+therefore, when change from acc to ln(acc), must optimize the sum of ln(acc) to be smallest, not largest))
+
+=> This is the idea of logistic regression
+
+
+With this idea, they have established the loss function for Logistic Regression like below
+(2 formulas are the same)
+
+	1) For each datapoint:	 E(y, ŷ) = -[y*ln(ŷ) + (1-y)*ln(1-ŷ)]
+
+	2) For the entire training set: J(θ) = -1/m ∑[yi*ln(ŷi) + (1-yi)*ln(1-ŷi)]
+	   (θ represents the model parameters)
+
+(Since 0 < ŷ < 1, the ln(ŷ) will < 0, so the minus sign "-" is added to change the value sign into positive)
+(Same for the ln(1-ŷ) case)
+
+
+
+#-------------------------------------------#
+#---------------- Steps --------------------#
+#-------------------------------------------#
+
+1) Choose model: Logistic Regression
+2) Collecting data, loading data into computer, preprocessing
+3) Create X[features] as inputs, and Y[label] as output
+4) Split X and Y into train set and test set
+5) Train model with training set
+6) Test model with test set
+7) Validate the model's accuracy (For classification: accuracy score, precision, recall, F1-score, confusion matrix...)
+8) Visualize the results
+9) Apply model to predict new values
+
+
+
+#------------------------------------------#
+#---------------- Code --------------------#
+#------------------------------------------#
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sbn
+
+np.set_printoptions(suppress=True) #Suppress scientific notation
+pd.set_option('display.max_rows', 5)
+pd.set_option('display.max_columns', 500)
+pd.set_option('display.width', 1000)
+
+
+data = pd.read_.....()
+
+data.info()
+data.isnull().sum()
+
+x = data[['col1', 'col2',...]]
+y = data['label_col']
+
+#Here, can add more preprocessing step like fillna, dropna, one-hot enconder, get-dummies, label encoder, tf-idf,...
+
+from sklearn.model_selection import train_test_split
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state = 1)
+
+
+#Can use sklearn or imblearn Pipeline to create pipeline
+from sklearn.linear_model import LogisticRegression
+
+logreg = LogisticRegression().fit(x_train, y_train)
+
+logreg.intercept_
+logreg.coef_
+
+y_test_pred = logreg.predict(x_test)
+y_test_proba = logreg.predict_proba(x_test)
+
+print(f'Score on train set: {logreg.score(x_train, y_train)}')
+print(f'Score on test set: {logreg.score(x_test, y_test)}')
+
+from sklearn.metrics import accuracy_score
+print(f'Accuracy score on test set: {accuracy_score(y_test, y_pred)*100}%')
+
+from sklearn.metrics import confusion_matrix
+print(f'Confusion matrix:\n {confusion_matrix(y_test, y_test_pred)}')
+
+from sklearn.metrics import classification_report
+labels=['class1', 'class2',...]
+print(f'Classification report:\n {classification_report(y_test, y_test_pred, target_names=labels)}')
+
+
+#-----------------------------------------------#
+#---------------- Visualize --------------------#
+#-----------------------------------------------#
+
+#If X has only 2 features:
+plt.scatter(x['col1'], x['col2'], c=y) #Draw true set
+plt.scatter(x['col1'], x['col2'], c=logreg.predict(x)) #Draw predict value
+plt.legend()
+plt.show()
+
