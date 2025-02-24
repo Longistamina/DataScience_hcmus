@@ -76,3 +76,30 @@ Sometimes, using ROC Curves to validate the model might be subjectively, there f
 	+Use integration to calculate this Area
 	+AUC ranges from 0 to 1
 	+The more it is closed to 1, the better the model is
+
+
+
+#--------------------------------------------------------------------------#
+#-------------------- Draw ROC curve --------------------------------------#
+#--------------------------------------------------------------------------#
+
+from sklearn.metrics import roc_curve, auc
+
+y_proba_1 = classifier.predict_proba(x_test)[:, 1]  # Probabilities for class 1
+
+fpr, tpr, thresholds = roc_curve(y_test, y_proba_1)
+
+
+roc_auc = auc(fpr, tpr)
+
+
+plt.figure()
+plt.plot(fpr, tpr, color='darkorange', lw=2, label=f'ROC curve (area = {roc_auc:.2f})')
+plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+plt.xlim([0.0, 1.0])
+plt.ylim([0.0, 1.05])
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('Receiver Operating Characteristic (ROC) Curve')
+plt.legend(loc='lower right')
+plt.show()
