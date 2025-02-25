@@ -47,6 +47,10 @@ Low recal + Low precision: worst result, model is not appropriate, cannot be use
 
 
 ******** code *************
+from sklearn.metrics import precision_recall_fscore_support
+print(precision_recall_fscore_support(y_test, y_test_pred, average='macro'))
+print(precision_recall_fscore_support(y_test, y_test_pred, average='micro'))
+
 from sklearn.metrics import classification_report
 labels = ['class1', 'class2',...]
 print(f'Classification report:\n {classification_report(y_test, y_test_pred, target_names=labels)}') 
