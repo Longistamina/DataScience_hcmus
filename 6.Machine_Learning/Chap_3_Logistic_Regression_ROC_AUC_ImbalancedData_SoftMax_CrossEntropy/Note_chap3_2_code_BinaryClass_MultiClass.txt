@@ -83,8 +83,10 @@ x_train, x_test, y_train, y_test = train_test_split(x,y, test_size=0.2, random_s
 
 from sklearn.linear_model import LogisticRegression
 
-logreg_model = LogisticRegression(multi_class='multinomial', solver='lbfgs')
-#Must choose multi_class='multinomial' and solver='lbfgs' if output has more than 2 classes
+logreg_model = LogisticRegression(multi_class='multinomial', solver='lbfgs', max_iter=300)
+#Must choose multi_class='multinomial'
+#For multinomial, choose solver='lbfgs' or solver='saga'
+#max_iter is the loops of gradient descent to calculate. The default is max_iter=100. If cannot reach convergence, it will raise warnings, so need to increase max_iter
 
 logreg_model.fit(x_train, y_train)
 
