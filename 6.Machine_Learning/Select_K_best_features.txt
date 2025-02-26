@@ -72,3 +72,23 @@ SelectFwe
 
 GenericUnivariateSelect
 => Univariate feature selector with configurable mode.
+
+
+#------------------------------------------------------------#
+#---------------- Regression task ---------------------------#
+#------------------------------------------------------------#
+
+If the features are all numerical and continuous => f_regression
+
+If the features are mixed between continous and categorical => mutual_info_regression
+
+
+#------------------------------------------------------------#
+#---------------- Classification task -----------------------#
+#------------------------------------------------------------#
+
+If the features are all numerical and continuous => f_classif
+
+If the features are all categorical => chi2
+
+If the features are mixed between continous and categorical => mutual_info_classif
