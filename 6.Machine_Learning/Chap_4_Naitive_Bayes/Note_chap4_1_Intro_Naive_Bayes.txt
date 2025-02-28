@@ -79,3 +79,15 @@ But, Naive Bayes will ignore this co-dependency, and treat each one as independe
 => "happy", "not", "very"
 
 Hence, the probability P(class."word") will not be really accurate
+
+
+#------------------------------------------------#
+#------------------- Steps ----------------------#
+#------------------------------------------------#
+
+1) Choose model: Naive Bayes
+2) Create X as inputs, and Y as class output
+3) Choose the right type of sub-model: BernoulliNB, MultinomialNB, or GaussianNB
+4) Training the model (fitting)
+5) Use trained/fitted model to predict test data
+6) Evaluate the accuracy
