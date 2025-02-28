@@ -65,9 +65,9 @@ MultinomialNB:
 
 
 
-#-------------------------------------------------------------------#
-#---------------- BernouliNB Formual and Principle -----------------#
-#-------------------------------------------------------------------#
+#--------------------------------------------------------------------------#
+#---------------- MultinomialNB OLD Formual and Principle -----------------#
+#--------------------------------------------------------------------------#
 
 Assuming we have Y as class, and X as input (text, document), we want to classify the X into class Y
 => Calculate the probability P(Y.X)
@@ -170,13 +170,13 @@ We have input X:
 Now, if we have a new_text like this "hanoi buncha buncha pho"
 => Calculate: P(new_text . y1) = P(y1) * P("hanoi"|y1) * P("buncha"|y1)^2 * P("pho"|y1)
 			       = P(y1) * P(x5|y1)      * P(x3|y1)^2       * P(x8|y1)
-			       = 0.75  * 3/11          * (1/11)^2         * 3/11
+			       = 0.75  * (3/11)        * (1/11)^2         * (3/11)
 			       = 0.00046103408
 
 
 => Calculate: P(new_text . y2) = P(y2) * P("hanoi"|y2) * P("buncha"|y2)^2 * P("pho"|y2)
 			       = P(y2) * P(x5|y2)      * P(x3|y2)^2       * P(x8|y2)
-			       = 0.25  * 0             * 0^2              * 1/4
+			       = 0.25  * 0             * (0^2)            * 1/4
 			       = 0
 
 Since the P(new_text . y1) >  P(new_text . y2)
@@ -195,9 +195,9 @@ PROBLEM:
 => To avoid the probability becomes 0, see the following part:	MultinomialNB
 
 
-#----------------------------------------------------------------------#
-#---------------- MultinomialNB Formual and Principle -----------------#
-#----------------------------------------------------------------------#
+#--------------------------------------------------------------------------#
+#---------------- MultinomialNB NEW Formual and Principle -----------------#
+#--------------------------------------------------------------------------#
 
 Assuming we have Y as class, and X as input (text, document), we want to classify the X into class Y
 => Calculate the probability P(Y.X)
