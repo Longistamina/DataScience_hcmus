@@ -3,7 +3,6 @@ Reference link:
 BernoulliNB & MultinomialNB: https://www.youtube.com/watch?v=O2L2Uv9pdDA
 GaussianNB: https://www.youtube.com/watch?v=H3EjCKtlVog
 
-
 #--------------------------------------------------------------#
 #------------------- Naive Bayesian (NB) ----------------------#
 #--------------------------------------------------------------#
@@ -66,9 +65,9 @@ MultinomialNB:
 
 
 
-#---------------------------------------------------------------------------------#
-#---------------- BernouliNB (binary: 0,1) Formual and Principle -----------------#
-#---------------------------------------------------------------------------------#
+#-------------------------------------------------------------------#
+#---------------- BernouliNB Formual and Principle -----------------#
+#-------------------------------------------------------------------#
 
 Assuming we have Y as class, and X as input (text, document), we want to classify the X into class Y
 => Calculate the probability P(Y.X)
@@ -87,8 +86,17 @@ If Y and X share no overlap elements, meaning they are independent each other
 
 
 More general formual, assume X is the data with many independent elements (like a large text have many words):
-	P(y1.X) = P(y1|X)*P(y1) =  [P(y1|x1)*P(y1|x2)*P(y1|x3)*P(y2|x4)...P(y1|xn)]*P(y1)
-	P(y2.X) = P(y2|X)*P(y2) = [P(y2|x1)*P(y2|x2)*P(y2|x3)*P(y2|x4)...P(y2|xn)]*P(y2)
+	P(y1.X) = P(y1)*P(X|y1) = P(y1)*[P(x1|y1)*P(x2|y1)*P(x3|y1)*P(x4|y1)...P(xn|y1)]
+	P(y2.X) = P(y2)*P(X|y2) = P(y2)*[P(x1|y2)*P(x2|y2)*P(x3|y2)*P(x4|y2)...P(xn|y2)]
+
+
+
+############### Calculate the P(y_i | x_i) #####################################
+
+P(y_i | x_i) =  count(x_i | y_i) / Tc_y_i
+
+#count(x_i | y_i) is the number of words x_i existing in class y_i
+#Tc_y_i is the total number of all words existing in class y_i
 
 
 #################### Training/Fitting and Predicting ##############################
@@ -104,24 +112,16 @@ Then when the new input comes up (X_new), we will calculate the ouput is P(y1.X_
 After calculating the P(y1.X_new) and P(y2.X_new), we compare which one is higher
 => For example if P(y2.X_new) > P(y1.X_new), then we will classify the X_new into class y2
 
-#--------------------------------------------------------------------------------------------#
-#---------------- MultinomialNB (repeated many times) Formual and Principle -----------------#
-#--------------------------------------------------------------------------------------------#
-
-P(w∣y)= ()
-​
- 
 
 
-
-#------------------------------------------#
-#---------------- Example -----------------#
-#------------------------------------------#
+#------------------------------------------------------#
+#---------------- Example BernoulliNB -----------------#
+#------------------------------------------------------#
 
 Given a text data with label like this:
 
 	Id	Text				banhbo    banhgio    buncha    chaolong    hanoi     hutiu    omai    pho   saigon      Label       
-	1	"hanoi pho chaolong"     	   0	     0	       0           1         1         0        0      1      0         mien_Bac
+	1	"hanoi pho chaolong hanoi"     	   0	     0	       0           1         2         0        0      1      0         mien_Bac
 	2	"hanoi buncha pho omai"		   0	     0         1           0         1         0        1      1      0         mien_Bac
 	3	"pho banhgio omai"                 0         1         0           0         0         0        1      1      0         mien_Bac 
 	4	"saigon hutiu banhbo pho"          1         0         1           0         0         1        0      1      1         mien_Nam
@@ -144,7 +144,7 @@ We have input X:
 	+x4 = "chaolong"       => P(x4|y1) = P(y1)*P(x4.y1) = 0.75*(1/3) = 0.25
 				  P(x4|y2) = P(y2)*P(x4.y2) = 0.25*(0/1) = 0
 
-	+x5 = "hanoi"          => P(x5|y1) = P(y1)*P(x5.y1) = 0.75*(2/3) = 0.5
+	+x5 = "hanoi"          => P(x5|y1) = P(y1)*P(x5.y1) = 0.75*(2/3) = 0.5  #Ignore the number of showing up of the word in the text, count as 1
 				  P(x5|y2) = P(y2)*P(x5.y2) = 0.25*(0/1) = 0
 
 	+x6 = "hutiu"          => P(x6|y1) = P(y1)*P(x6.y1) = 0.75*(0/3) = 0
@@ -160,4 +160,64 @@ We have input X:
 				  P(x9|y2) = P(y2)*P(x9.y2) = 0.25*(1/1) = 0.25 
 
 
+Now, if we have a new_text like this "hanoi buncha buncha pho"
+=> Calculate: P(new_text . y1) = P(y1) * P("hanoi"|y1) * P("buncha"|y1)^2 * P("pho"|y1)
+			       = P(y1) * P(x5|y1)      * P(x3|y1)^2       * P(x8|y1)
+			       = 0.75  * 0.5           * 0.25^2           * 0.75
+			       = 0.01758
 
+
+=> Calculate: P(new_text . y2) = P(y2) * P("hanoi"|y2) * P("buncha"|y2)^2 * P("pho"|y2)
+			       = P(y2) * P(x5|y2)      * P(x3|y2)^2       * P(x8|y2)
+			       = 0.25  * 0             * 0.25^2           * 0.25
+			       = 0
+
+Since the P(new_text . y1) >  P(new_text . y2)
+=> We classify the new_text as class y1 or "mien_Bac"
+
+
+PROBLEM:
+	+Whenever a text has word "saigon" => P(text | "mien_Bac") = 0
+			          "hanoi"  => P(text | "mien_Nam") = 0
+
+	+This is due to the fact that in training set, no "mien_Bac" text has word "saigon"
+                                                   and no "mien_Nam" text has word "hanoi"
+
+=> To avoid the probability becomes 0, see the following part:	MultinomialNB
+
+
+#----------------------------------------------------------------------#
+#---------------- MultinomialNB Formual and Principle -----------------#
+#----------------------------------------------------------------------#
+
+Assuming we have Y as class, and X as input (text, document), we want to classify the X into class Y
+=> Calculate the probability P(Y.X)
+
+          P(Y.X) = P(Y)*P(X|Y) = P(X)*P(Y|X)
+Explain:
+	=> To calculate the probability where event Y and event X both occur P(Y.X)
+	=> First, calculate the probability for event Y to occur P(Y)
+	=> Then, calculate the probability for event X to occur after the occurrence of event A, P(X|Y)
+	   (This is also the conditional probability)
+	=> Then multiply P(Y)*P(X|Y), the result is P(Y.X) or P(X.Y)
+	   (do the same for P(X)*P(Y|X))
+
+If Y and X share no overlap elements, meaning they are independent each other
+	=> P(X.Y) = P(X)*P(Y)
+
+
+More general formual, assume X is the data with many independent elements (like a large text have many words):
+	P(y1.X) = P(y1|X)*P(y1) =  [P(y1|x1)*P(y1|x2)*P(y1|x3)*P(y2|x4)...P(y1|xn)]*P(y1)
+	P(y2.X) = P(y2|X)*P(y2) = [P(y2|x1)*P(y2|x2)*P(y2|x3)*P(y2|x4)...P(y2|xn)]*P(y2)
+
+
+############### Calculate the P(y_i | x_i) #####################################
+
+=> To avoid the probability becomes 0, we add a "black box" count for every feature (word)
+This "black box" count is called alpha, and usually set as 1
+
+P()
+
+Assuming we have:
+	+Y classes: y1 - "mien_Bac", y2 - spam
+	+X words in text: x1 - "Dear",
