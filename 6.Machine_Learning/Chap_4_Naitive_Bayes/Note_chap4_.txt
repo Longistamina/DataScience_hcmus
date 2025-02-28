@@ -65,27 +65,27 @@ MultinomialNB:
 #---------------- Formual and Principle -----------------#
 #--------------------------------------------------------#
 
-          P(AB) = P(A).P(B|A) = P(B).P(A|B)
+          P(A.B) = P(A)*P(B|A) = P(B)*P(A|B)
 Explain:
-	=> To calculate the probability where event A and event B both occur P(AB)
+	=> To calculate the probability where event A and event B both occur P(A.B)
 	=> First, calculate the probability for event A to occur P(A)
 	=> Then, calculate the probability for event B to occur after the occurrence of event A, P(B|A)
 	   (This is also the conditional probability)
-	=> Then multiply P(A).P(B|A), the result is P(AB)
-	   (do the same for P(B).P(A|B))
+	=> Then multiply P(A)*P(B|A), the result is P(A.B)
+	   (do the same for P(B)*P(A|B))
 
 If A and B share no overlap elements, meaning they are independent eachother
-	=> P(AB) = P(A).P(B)
+	=> P(A.B) = P(A)*P(B)
 
 
 
-So, base on this P(A).P(B|A) = P(B).P(A|B), we have:
+So, base on this P(A)*P(B|A) = P(B)*P(A|B), we have:
 	
-	P(B|A) = [P(B).P(A|B)] / P(A)
+	P(B|A) = [P(B)*P(A|B)] / P(A)
 
 More general formual, assume y is labels (y1, y2) and X is the data with many independent elements:
-	P(y1|X) = [P(y|x1).P(y|x2).P(y|x3).P(y|x4)...P(y|xn).P(y1)] / P(X)
-	P(y2|X) = [P(y|x1).P(y|x2).P(y|x3).P(y|x4)...P(y|xn).P(y1)] / P(X)
+	P(y1|X) = [P(y|x1)*P(y|x2)*P(y|x3)*P(y|x4)...P(y|xn)*P(y1)] / P(X)
+	P(y2|X) = [P(y|x1)*P(y|x2)*P(y|x3)*P(y|x4)...P(y|xn)*P(y1)] / P(X)
 
 
 #------------------------------------------#
@@ -100,8 +100,22 @@ Given a text data with label like this:
 	3	"pho banhgio omai"                 0         0         0           0         0         0        1      1      0         mien_Bac 
 	4	"saigon hutiu banhbo pho"          1         0         1           0         0         0        0      1      1         mien_Nam
 
-
 We have ouput labels y:
-	+y1 = "mien_Bac"
-	+y2 = "mien_Nam"
+	+y1 = "mien_Bac"     => P(y1) = 3/4 = 0.75
+	+y2 = "mien_Nam"     => P(y2) = 1/4 = 0.25
+
+
+We have input X:
+	+x1 = "banhbo"         => P(x1|y1) = P(y1)*P(x1.y1) = 0.75*0 = 0
+				  P(x1|y2) = P(y2)*P(x1.y2) = 0.25*1 = 0.25
+	+x2 = "banhgio"
+	+x3 = "buncha"
+	+x4 = "chaolong"
+	+x5 = "hanoi"
+	+x6 = "hutiu"
+	+x7 = "omai"
+	+x8 = "pho"
+	+x9 = "saigon" 
+
+
 
