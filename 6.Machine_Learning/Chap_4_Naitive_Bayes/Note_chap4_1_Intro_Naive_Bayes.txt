@@ -62,3 +62,20 @@ MultinomialNB:
 	2	"hanoi buncha pho omai"		   0	     0         1           0         1         0        1      1      0         [0,0,1,0,1,0,1,1,0]
 	3	"pho banhgio omai"                 0         1         0           0         0         0        1      1      0         [0,0,0,0,0,0,1,1,0] 
 	4	"saigon hutiu banhbo pho"          1         0         0           0         0         1        0      1      1         [1,0,0,0,0,1,0,1,1]
+
+
+
+#-----------------------------------------------------------#
+#------------------- Weak-point of NB ----------------------#
+#-----------------------------------------------------------#
+
+Some features may be co-dependent each other, for example:
+	+"happy"
+	+"very happy"
+	+"not happy"
+=> All these 3 words do not have the same meaning
+
+But, Naive Bayes will ignore this co-dependency, and treat each one as independent words
+=> "happy", "not", "very"
+
+Hence, the probability P(class."word") will not be really accurate
