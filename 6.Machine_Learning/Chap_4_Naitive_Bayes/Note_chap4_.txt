@@ -42,8 +42,8 @@ BernoulliNB:
 	Id	Text				banhbo    banhgio    buncha    chaolong    hanoi     hutiu    omai    pho   saigon      Array       
 	1	"hanoi pho chaolong"     	   0	     0	       0           1         1         0        0      1      0         [0,0,0,1,1,0,0,1,0]
 	2	"hanoi buncha pho omai"		   0	     0         1           0         1         0        1      1      0         [0,0,1,0,1,0,1,1,0]
-	3	"pho banhgio omai"                 0         0         0           0         0         0        1      1      0         [0,0,0,0,0,0,1,1,0] 
-	4	"saigon hutiu banhbo pho"          1         0         1           0         0         0        0      1      1         [1,0,1,0,0,0,0,1,1]
+	3	"pho banhgio omai"                 0         1         0           0         0         0        1      1      0         [0,0,0,0,0,0,1,1,0] 
+	4	"saigon hutiu banhbo pho"          1         0         1           0         0         1        0      1      1         [1,0,1,0,0,0,0,1,1]
 
 
 
@@ -56,14 +56,14 @@ MultinomialNB:
 	Id	Text				banhbo    banhgio    buncha    chaolong    hanoi     hutiu    omai    pho   saigon      Array       
 	1	"hanoi pho chaolong hanoi"     	   0	     0	       0           1         2         0        0      1      0         [0,0,0,1,2,0,0,1,0]
 	2	"hanoi buncha pho omai"		   0	     0         1           0         1         0        1      1      0         [0,0,1,0,1,0,1,1,0]
-	3	"pho banhgio omai"                 0         0         0           0         0         0        1      1      0         [0,0,0,0,0,0,1,1,0] 
-	4	"saigon hutiu banhbo pho"          1         0         1           0         0         0        0      1      1         [1,0,1,0,0,0,0,1,1]
+	3	"pho banhgio omai"                 0         1         0           0         0         0        1      1      0         [0,0,0,0,0,0,1,1,0] 
+	4	"saigon hutiu banhbo pho"          1         0         1           0         0         1        0      1      1         [1,0,1,0,0,0,0,1,1]
 
 
 
-#--------------------------------------------------------#
-#---------------- Formual and Principle -----------------#
-#--------------------------------------------------------#
+#---------------------------------------------------------------------------------#
+#---------------- BernouliNB (binary: 0,1) Formual and Principle -----------------#
+#---------------------------------------------------------------------------------#
 
           P(A.B) = P(A)*P(B|A) = P(B)*P(A|B)
 Explain:
@@ -88,6 +88,17 @@ More general formual, assume y is labels (y1, y2) and X is the data with many in
 	P(y2|X) = [P(y|x1)*P(y|x2)*P(y|x3)*P(y|x4)...P(y|xn)*P(y1)] / P(X)
 
 
+
+#--------------------------------------------------------------------------------------------#
+#---------------- MultinomialNB (repeated many times) Formual and Principle -----------------#
+#--------------------------------------------------------------------------------------------#
+
+P(w∣y)= ()
+​
+ 
+
+
+
 #------------------------------------------#
 #---------------- Example -----------------#
 #------------------------------------------#
@@ -95,10 +106,10 @@ More general formual, assume y is labels (y1, y2) and X is the data with many in
 Given a text data with label like this:
 
 	Id	Text				banhbo    banhgio    buncha    chaolong    hanoi     hutiu    omai    pho   saigon      Label       
-	1	"hanoi pho chaolong hanoi"     	   0	     0	       0           1         2         0        0      1      0         mien_Bac
+	1	"hanoi pho chaolong"     	   0	     0	       0           1         1         0        0      1      0         mien_Bac
 	2	"hanoi buncha pho omai"		   0	     0         1           0         1         0        1      1      0         mien_Bac
-	3	"pho banhgio omai"                 0         0         0           0         0         0        1      1      0         mien_Bac 
-	4	"saigon hutiu banhbo pho"          1         0         1           0         0         0        0      1      1         mien_Nam
+	3	"pho banhgio omai"                 0         1         0           0         0         0        1      1      0         mien_Bac 
+	4	"saigon hutiu banhbo pho"          1         0         1           0         0         1        0      1      1         mien_Nam
 
 We have ouput labels y:
 	+y1 = "mien_Bac"     => P(y1) = 3/4 = 0.75
@@ -106,16 +117,32 @@ We have ouput labels y:
 
 
 We have input X:
-	+x1 = "banhbo"         => P(x1|y1) = P(y1)*P(x1.y1) = 0.75*0 = 0
-				  P(x1|y2) = P(y2)*P(x1.y2) = 0.25*1 = 0.25
-	+x2 = "banhgio"
-	+x3 = "buncha"
-	+x4 = "chaolong"
-	+x5 = "hanoi"
-	+x6 = "hutiu"
-	+x7 = "omai"
-	+x8 = "pho"
-	+x9 = "saigon" 
+	+x1 = "banhbo"         => P(x1|y1) = P(y1)*P(x1.y1) = 0.75*(0/3) = 0
+				  P(x1|y2) = P(y2)*P(x1.y2) = 0.25*(1/1) = 0.25
+
+	+x2 = "banhgio"        => P(x2|y1) = P(y1)*P(x2.y1) = 0.75*(1/3) = 0.25
+				  P(x2|y2) = P(y2)*P(x2.y2) = 0.25*(0/1) = 0
+	
+	+x3 = "buncha"	       => P(x3|y1) = P(y1)*P(x3.y1) = 0.75*(1/3) = 0.25
+				  P(x3|y2) = P(y2)*P(x3.y2) = 0.25*(1/1) = 0.25
+
+	+x4 = "chaolong"       => P(x4|y1) = P(y1)*P(x4.y1) = 0.75*(1/3) = 0.25
+				  P(x4|y2) = P(y2)*P(x4.y2) = 0.25*(0/1) = 0
+
+	+x5 = "hanoi"          => P(x5|y1) = P(y1)*P(x5.y1) = 0.75*(2/3) = 0.5
+				  P(x5|y2) = P(y2)*P(x5.y2) = 0.25*(0/1) = 0
+
+	+x6 = "hutiu"          => P(x6|y1) = P(y1)*P(x6.y1) = 0.75*(0/3) = 0
+				  P(x6|y2) = P(y2)*P(x6.y2) = 0.25*(1/1) = 0.25
+
+	+x7 = "omai"           => P(x7|y1) = P(y1)*P(x7.y1) = 0.75*(2/3) = 0.5
+				  P(x7|y2) = P(y2)*P(x7.y2) = 0.25*(0/1) = 0
+
+	+x8 = "pho"	       => P(x8|y1) = P(y1)*P(x8.y1) = 0.75*(3/3) = 0.75
+				  P(x8|y2) = P(y2)*P(x8.y2) = 0.25*(1/1) = 0.25
+
+	+x9 = "saigon"         => P(x9|y1) = P(y1)*P(x9.y1) = 0.75*(0/3) = 0
+				  P(x9|y2) = P(y2)*P(x9.y2) = 0.25*(1/1) = 0.25 
 
 
 
