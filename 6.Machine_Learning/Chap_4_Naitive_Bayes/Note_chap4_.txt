@@ -27,7 +27,6 @@ Application of NB:
 	+MultinomialNB
 
 
-
 GaussianNB:
 	+Used when the features are continuous and numerical
 	+It stores the mean and std of each feature, for each class/label
@@ -65,29 +64,39 @@ MultinomialNB:
 #---------------- BernouliNB (binary: 0,1) Formual and Principle -----------------#
 #---------------------------------------------------------------------------------#
 
-          P(A.B) = P(A)*P(B|A) = P(B)*P(A|B)
+Assuming we have Y as class, and X as input (text, document), we want to classify the X into class Y
+=> Calculate the probability P(Y.X)
+
+          P(Y.X) = P(Y)*P(X|Y) = P(X)*P(Y|X)
 Explain:
-	=> To calculate the probability where event A and event B both occur P(A.B)
-	=> First, calculate the probability for event A to occur P(A)
-	=> Then, calculate the probability for event B to occur after the occurrence of event A, P(B|A)
+	=> To calculate the probability where event Y and event X both occur P(Y.X)
+	=> First, calculate the probability for event Y to occur P(Y)
+	=> Then, calculate the probability for event X to occur after the occurrence of event A, P(X|Y)
 	   (This is also the conditional probability)
-	=> Then multiply P(A)*P(B|A), the result is P(A.B)
-	   (do the same for P(B)*P(A|B))
+	=> Then multiply P(Y)*P(X|Y), the result is P(Y.X) or P(X.Y)
+	   (do the same for P(X)*P(Y|X))
 
-If A and B share no overlap elements, meaning they are independent eachother
-	=> P(A.B) = P(A)*P(B)
-
-
-
-So, base on this P(A)*P(B|A) = P(B)*P(A|B), we have:
-	
-	P(B|A) = [P(B)*P(A|B)] / P(A)
-
-More general formual, assume y is labels (y1, y2) and X is the data with many independent elements:
-	P(y1|X) = [P(y|x1)*P(y|x2)*P(y|x3)*P(y|x4)...P(y|xn)*P(y1)] / P(X)
-	P(y2|X) = [P(y|x1)*P(y|x2)*P(y|x3)*P(y|x4)...P(y|xn)*P(y1)] / P(X)
+If Y and X share no overlap elements, meaning they are independent each other
+	=> P(X.Y) = P(X)*P(Y)
 
 
+More general formual, assume X is the data with many independent elements (like a large text have many words):
+	P(y1.X) = P(y1|X)*P(y1) =  [P(y1|x1)*P(y1|x2)*P(y1|x3)*P(y2|x4)...P(y1|xn)]*P(y1)
+	P(y2.X) = P(y2|X)*P(y2) = [P(y2|x1)*P(y2|x2)*P(y2|x3)*P(y2|x4)...P(y2|xn)]*P(y2)
+
+
+#################### Training/Fitting and Predicting ##############################
+
+So, when fitting the data into model, we will calculate the P(y1|X) and P(y2|X) probabilities
+
+Then when the new input comes up (X_new), we will calculate the ouput is P(y1.X_new) and P(y2.X_new)
+
+=> The P(y1.X_new) is the probability of observation X_new belong to class y1
+   The P(y2.X_new) is the probability of observation X_new belong to class y2
+   (and so on if have more classes)
+
+After calculating the P(y1.X_new) and P(y2.X_new), we compare which one is higher
+=> For example if P(y2.X_new) > P(y1.X_new), then we will classify the X_new into class y2
 
 #--------------------------------------------------------------------------------------------#
 #---------------- MultinomialNB (repeated many times) Formual and Principle -----------------#
