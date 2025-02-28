@@ -93,10 +93,12 @@ More general formual, assume X is the data with many independent elements (like 
 
 ############### Calculate the P(y_i | x_i) #####################################
 
-P(y_i | x_i) =  count(x_i | y_i) / Tc_y_i
+           --------------------------------------------------
+	  |	P(y_i | x_i) =  count(x_i | y_i) / Tc_y_i    |
+           --------------------------------------------------
 
-#count(x_i | y_i) is the number of words x_i existing in class y_i
-#Tc_y_i is the total number of all words existing in class y_i
+# count(x_i | y_i) = the number of words x_i existing in class y_i
+# Tc_y_i           = the total number of all words existing in class y_i
 
 
 #################### Training/Fitting and Predicting ##############################
@@ -168,17 +170,19 @@ We have input X:
 Now, if we have a new_text like this "hanoi buncha buncha pho"
 => Calculate: P(new_text . y1) = P(y1) * P("hanoi"|y1) * P("buncha"|y1)^2 * P("pho"|y1)
 			       = P(y1) * P(x5|y1)      * P(x3|y1)^2       * P(x8|y1)
-			       = 0.75  * 0.5           * 0.25^2           * 0.75
-			       = 0.01758
+			       = 0.75  * 3/11          * (1/11)^2         * 3/11
+			       = 0.00046103408
 
 
 => Calculate: P(new_text . y2) = P(y2) * P("hanoi"|y2) * P("buncha"|y2)^2 * P("pho"|y2)
 			       = P(y2) * P(x5|y2)      * P(x3|y2)^2       * P(x8|y2)
-			       = 0.25  * 0             * 0.25^2           * 0.25
+			       = 0.25  * 0             * 0^2              * 1/4
 			       = 0
 
 Since the P(new_text . y1) >  P(new_text . y2)
 => We classify the new_text as class y1 or "mien_Bac"
+
+#To avoid too small number => use ln(P(x_i . y_i)), then compare which one is higher to classify
 
 
 PROBLEM:
@@ -217,11 +221,31 @@ More general formual, assume X is the data with many independent elements (like 
 
 
 ############### Calculate the P(y_i | x_i) #####################################
-
 => To avoid the probability becomes 0, we add a "black box" count for every feature (word)
 This "black box" count is called alpha, and usually set as 1
 
-P()
+               ----------------------------------------------------------------
+	      |	P(y_i | x_i) = [count(x_i | y_i) + alpha] / [Tc_y_i + alpha*V] |
+               ----------------------------------------------------------------
+
+# count(x_i | y_i) = the number of words x_i existing in class y_i
+# Tc_y_i           = the total number of all words existing in class y_i
+# alpha            = the "black box" count added to avoid the 0 probability (usually alpha = 1)
+# V                = Vocabulary size, i.e the number of unique words across all the texts of training dataset 
+
+#################### Training/Fitting and Predicting ##############################
+
+So, when fitting the data into model, we will calculate the P(y1|X) and P(y2|X) probabilities
+
+Then when the new input comes up (X_new), we will calculate the ouput is P(y1.X_new) and P(y2.X_new)
+
+=> The P(y1.X_new) is the probability of observation X_new belong to class y1
+   The P(y2.X_new) is the probability of observation X_new belong to class y2
+   (and so on if have more classes)
+
+After calculating the P(y1.X_new) and P(y2.X_new), we compare which one is higher
+=> For example if P(y2.X_new) > P(y1.X_new), then we will classify the X_new into class y2
+
 
 Assuming we have:
 	+Y classes: y1 - "mien_Bac", y2 - spam
