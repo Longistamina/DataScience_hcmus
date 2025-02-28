@@ -309,12 +309,20 @@ We have input X:
 
 
 Now, if we have a new_text like this "hanoi buncha buncha pho"
-=> Calculate: P(new_text . y1) = P(y1) * P("hanoi"|y1) * P("buncha"|y1)^2 * P("pho"|y1)
+=> Calculate: P(new_text.y1)   = P(y1) * P("hanoi"|y1) * P("buncha"|y1)^2 * P("pho"|y1)
 			       = P(y1) * P(x5|y1)      * P(x3|y1)^2       * P(x8|y1)
-			       = 0.75  * (3/20)          * (1/11)^2         * 3/11
-			       = 0.00046103408
+			       = 0.75  * (3/20)        * (2/20)^2         * (3/20)
+			       = 0.00016875
+ln(P(new_text.y1))             = ln(0.00016875)    = -8.68709222821
 
-
-=> Calculate: P(new_text . y2) = P(y2) * P("hanoi"|y2) * P("buncha"|y2)^2 * P("pho"|y2)
+=> Calculate: P(new_text.y2)   = P(y2) * P("hanoi"|y2) * P("buncha"|y2)^2 * P("pho"|y2)
 			       = P(y2) * P(x5|y2)      * P(x3|y2)^2       * P(x8|y2)
-			       = 0.25  * 0             * 0^2              * 1/4
+			       = 0.25  * (1/13)        * (1/13)^2         * (2/13)
+			       = 0.00001750638
+ln(P(new_text.y2))             = ln(0.00001750638) = -10.952945172
+
+
+since the  ln(P(new_text.y1)) > ln(P(new_text.y2))
+           (-8.68709222821 > -10.952945172)
+
+=> The new_text will be classified into class y1 = "mien_Bac"
