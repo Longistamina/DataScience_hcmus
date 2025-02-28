@@ -38,7 +38,7 @@ This "black box" count is called alpha, and usually set as 1
 
 # count(x_i | y_i) = the number of words x_i existing in class y_i
 # Tc_y_i           = the total number of all words existing in class y_i
-# alpha            = the "black box" count added to avoid the 0 probability (usually alpha = 1)
+# alpha            = the "black box" count added to avoid the 0 probability (usually alpha = 1) (aka Laplace Smoothing parameter)
 # V                = Vocabulary size, i.e the number of unique words across all the texts of training dataset 
 
 #################### Training/Fitting and Predicting ##############################
