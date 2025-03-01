@@ -26,7 +26,8 @@ These parameters define the Gaussian probability distribution for each feature w
 Prediction Phase:
 
 For a new data point with features (x₁,...,xₙ), calculate the likelihood of each feature belonging to each class using the Gaussian probability density function:
-P(xᵢ|y) = (1/√(2πσ²)) × e^(-(xᵢ-μ)²/(2σ²))
+	P(xᵢ|y) = (1/√(2πσ²)) × e^(-(xᵢ-μ)²/(2σ²))
+
 Multiply these likelihoods with the prior probability to get the posterior probability
 Classify to the class with the highest posterior probability
 
@@ -34,7 +35,7 @@ Classify to the class with the highest posterior probability
 
 Mathematical Representation:
 The Gaussian probability density function used is:
-P(xᵢ|y) = (1/√(2πσ²ᵢₖ)) × e^(-(xᵢ-μᵢₖ)²/(2σ²ᵢₖ))
+	P(xᵢ|y) = (1/√(2πσ²ᵢₖ)) × e^(-(xᵢ-μᵢₖ)²/(2σ²ᵢₖ))
 
 Where:
 μᵢₖ is the mean of feature i for class k
