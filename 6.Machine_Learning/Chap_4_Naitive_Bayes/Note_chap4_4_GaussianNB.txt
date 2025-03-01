@@ -1,0 +1,43 @@
+#------------------------------------------------------#
+#--------------------- GaussianNB ---------------------#
+#------------------------------------------------------#
+
+Gaussian Naive Bayes (GaussianNB) is a classification algorithm based on applying Bayes' theorem with the "naive" assumption of conditional independence between features. 
+Here's an explanation of how it works:
+
+Basic Principles:
+Bayes' Theorem: It uses Bayes' theorem to calculate the probability of a class given the features:
+	P(y|x₁,...,xₙ) ∝ P(y) × P(x₁,...,xₙ|y)
+
+Naive Assumption: It assumes that features are conditionally independent given the class:
+	P(x₁,...,xₙ|y) = P(x₁|y) × P(x₂|y) × ... × P(xₙ|y)
+
+Gaussian Distribution: For continuous features, GaussianNB assumes that values associated with each class follow a Gaussian (normal) distribution.
+
+How GaussianNB Works:
+
+Training Phase:
+
+For each class y, calculate the prior probability P(y)
+For each feature x given a class y, calculate the mean (μ) and variance (σ²)
+These parameters define the Gaussian probability distribution for each feature within each class
+
+
+Prediction Phase:
+
+For a new data point with features (x₁,...,xₙ), calculate the likelihood of each feature belonging to each class using the Gaussian probability density function:
+P(xᵢ|y) = (1/√(2πσ²)) × e^(-(xᵢ-μ)²/(2σ²))
+Multiply these likelihoods with the prior probability to get the posterior probability
+Classify to the class with the highest posterior probability
+
+
+
+Mathematical Representation:
+The Gaussian probability density function used is:
+P(xᵢ|y) = (1/√(2πσ²ᵢₖ)) × e^(-(xᵢ-μᵢₖ)²/(2σ²ᵢₖ))
+
+Where:
+μᵢₖ is the mean of feature i for class k
+σ²ᵢₖ is the variance of feature i for class k
+
+GaussianNB is particularly useful for continuous data and works well even with small training sets. However, its performance can be limited by the conditional independence assumption, which rarely holds in real-world scenarios.
