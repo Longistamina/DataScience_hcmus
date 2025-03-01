@@ -1,3 +1,7 @@
+#--------------------------------------------------------------#
+#----------------- make_column_transformer --------------------#
+#--------------------------------------------------------------#
+
 from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=1)
 
@@ -13,3 +17,30 @@ logreg_pipe = Pipeline([
 ])
 
 logreg_pipe.fit(x_train, y_train)
+
+
+#--------------------------------------------------------#
+#----------------- ColumnTransformer --------------------#
+#--------------------------------------------------------#
+
+sklearn.compose.ColumnTransformer(transformers, *, remainder='drop', sparse_threshold=0.3, n_jobs=None, transformer_weights=None, verbose=False, verbose_feature_names_out=True, force_int_remainder_cols=True)
+
+
+from sklearn.compose import ColumnTransformer
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.preprocessing import MinMaxScaler
+
+import pandas as pd   
+X = pd.DataFrame({
+    "documents": ["First item", "second one here", "Is this the last?"],
+    "width": [3, 4, 5],
+})  
+# "documents" is a string which configures ColumnTransformer to
+# pass the documents column as a 1d array to the CountVectorizer
+
+ct = ColumnTransformer(
+    transformers=[("text_preprocess", CountVectorizer(), "documents"),
+                 ("num_preprocess", MinMaxScaler(), ["width"])],
+    remainder='passthrough')
+
+X_trans = ct.fit_transform(X)  
