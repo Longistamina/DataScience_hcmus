@@ -1,3 +1,8 @@
+Reference link:
+
+BernoulliNB & MultinomialNB: https://www.youtube.com/watch?v=O2L2Uv9pdDA
+GaussianNB: https://www.youtube.com/watch?v=H3EjCKtlVog
+
 #------------------------------------------------------#
 #--------------------- GaussianNB ---------------------#
 #------------------------------------------------------#
