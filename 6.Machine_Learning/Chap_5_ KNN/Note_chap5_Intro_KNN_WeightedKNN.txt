@@ -6,9 +6,25 @@ It's a non-parametric method that makes predictions based on the similarity betw
 
 Basic Concept:
 # The core idea of KNN is intuitive: similar data points tend to have similar outputs. 
+
 # For a new data point: Find the K closest data points (neighbors) from the training set
 	For classification: use majority vote among neighbors
 	For regression: take the average (or weighted average) of neighbors' values
+
+
+Application:
+# Classification
+# Regression
+# Fill missing values
+# Pattern recognition
+# Identify gene expression
+# Protein-protein prediction
+# Protein 3D structure prediction
+# Document similarity: to find documents whose ideas are similar
+
+#-------------------------------------------------------#
+#------------- Distance calculating formula ------------#
+#-------------------------------------------------------#
 
 Distance Metrics: KNN uses distance metrics to measure similarity. 
 # The most common is Euclidean distance:
@@ -19,6 +35,11 @@ Distance Metrics: KNN uses distance metrics to measure similarity.
 	Manhattan distance: d(x,y)= |x1 - y1| + |x2 - y2| + ... + |x_i - y_i|
 	
 	Minkowski distance: d(x,y)= (|x1 - y1|^p + |x2 - y2|^p + ... + |x_i - y_i|^p)^(1/p)
+
+
+# For a new data point: Find the K closest data points (neighbors) from the training set based on distances
+	For classification: use majority vote among neighbors
+	For regression: take the average (or weighted average) of neighbors' values
 
 
 #-------------------------------------------------------#
@@ -138,7 +159,7 @@ For weighted KNN, we typically use inverse distance squared as weights:
 
 	w_i = 1 / d(x_i, x_new)^2
 
-Weight for A =   1 / (250)^2 = 1/62500  = 0.000016
+Weight for A = 1 / (250)^2 = 1/62500   = 0.000016
 Weight for B = 1 / (150)^2  = 1/2500   = 0.0004
 Weight for C = 1 / (450)^2 =  1/202500 ≈ 0.0000049
 Weight for D = 1 / (150)^2 =  1/22500  ≈ 0.0000444
