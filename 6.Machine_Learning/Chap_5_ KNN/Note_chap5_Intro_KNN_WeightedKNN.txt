@@ -12,10 +12,26 @@ Basic Concept:
 	For regression: take the average (or weighted average) of neighbors' values
 
 
+
 Which number of K to choose?
 # K should not be too low, since the low K number makes the model sensitive to noise
 # Set a for loop, test K range from 3 -> 10 (or more), and check for the best the accuracy score
-# Maximum K should be: K = sqrt(n) / 2 (n is sample size)
+# Maximum K should be: 
+	
+	Kmax = sqrt(n) / 2 (n is sample size)
+
+
+
+Pros:
+# Easy to deploy
+# Work well on simple classification tasks (even multi-class)
+# Flexible in selecting feature/distance
+# Very effective if the training data is large enough
+
+Cons:
+# Hard to choose suitable K values
+# The change of K can lead to the shift in output results
+# If the number of output classes is imbalanced for each class => weaken the KNN model
 
 Application:
 # Classification
