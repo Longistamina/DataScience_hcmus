@@ -37,6 +37,12 @@ Distance Metrics: KNN uses distance metrics to measure similarity.
 	Minkowski distance: d(x,y)= (|x1 - y1|^p + |x2 - y2|^p + ... + |x_i - y_i|^p)^(1/p)
 
 
+# If the features are all categorical:
+	Hamming Distance: Counts the number of features that differ between two samples.
+	Jaccard Distance: Measures dissimilarity as the proportion of features that differ.
+	Matching Coefficient: Counts the number of matching features.
+
+
 # For a new data point: Find the K closest data points (neighbors) from the training set based on distances
 	For classification: use majority vote among neighbors
 	For regression: take the average (or weighted average) of neighbors' values
@@ -76,7 +82,7 @@ Step 3: Use majority voting to determine the class of the new point.
 *************
 
 #-------------------------------------------------------#
-#------------- Example: Regression task ------------#
+#------------- Example: Regression task ----------------#
 #-------------------------------------------------------#
 Let's predict a house price based on its size (square feet).
 
@@ -112,6 +118,44 @@ Predicted price = ($250,000 + $210,000 + $200,000 + $270,000) / 4
 		= $930,000 / 4 
 		= $232,500
 
+
+
+#--------------------------------------------------------------------#
+#------------- Example: All features are categorical ----------------#
+#--------------------------------------------------------------------#
+
+Let's consider a simple dataset with 3 categorical features:
+
+Sample | Color | Size  | Shape
+-------|-------|-------|--------
+A      | Red   | Small | Round
+B      | Blue  | Small | Square
+C      | Red   | Large | Triangle
+X      | Red   | Small | Square
+
+Distance between X and A:
+# Color: Red vs Red → Same (0)
+# Size: Small vs Small → Same (0)
+# Shape: Square vs Round → Different (1)
+# Hamming distance = 0 + 0 + 1 = 1
+
+Distance between X and B:
+# Color: Red vs Blue → Different (1)
+# Size: Small vs Small → Same (0)
+# Shape: Square vs Square → Same (0)
+# Hamming distance = 1 + 0 + 0 = 1
+
+Distance between X and C:
+# Color: Red vs Red → Same (0)
+# Size: Small vs Large → Different (1)
+# Shape: Square vs Triangle → Different (1)
+# Hamming distance = 0 + 1 + 1 = 2
+
+Based on these calculations, 
+both A and B are equally  close to X with a distance of 1, 
+while C is farther away with a distance of 2.
+
+If using K=2 for KNN, both A and B would be considered the nearest neighbors to X.
 
 #-----------------------------------------------------------#
 #------------- Extensions to Basic KNN ---------------------#
