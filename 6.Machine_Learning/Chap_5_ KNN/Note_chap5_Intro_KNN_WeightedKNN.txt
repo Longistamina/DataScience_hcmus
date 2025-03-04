@@ -12,6 +12,11 @@ Basic Concept:
 	For regression: take the average (or weighted average) of neighbors' values
 
 
+Which number of K to choose?
+# K should not be too low, since the low K number makes the model sensitive to noise
+# Set a for loop, test K range from 3 -> 10 (or more), and check for the best the accuracy score
+# A conventional K = sqrt(n) / 2 (n is sample size)
+
 Application:
 # Classification
 # Regression
