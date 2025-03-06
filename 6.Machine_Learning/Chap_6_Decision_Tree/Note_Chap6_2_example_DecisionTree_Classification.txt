@@ -297,6 +297,51 @@ Best Split for Rain:
 
 The splits at Level 2 lead to pure nodes (Gini = 0), so we don't need further splitting.
 
+A node is considered "pure" when all instances in that node belong to the same class. 
+In our case, each of our leaf nodes contains instances that all have the same value for "Play Tennis" (either all "Yes" or all "No").
+
+When all instances belong to the same class, one of the probabilities becomes 1 and all others become 0. So the formula becomes:
+                  Gini(t) = 1 − 1^2 − 0^2 − ... −0^2 = 1 − 1 = 0
+
+---------------------
+Detailed explains
+
+#From the "Sunny" branch split on "Humidity": ###
+  
+  Sunny & Humidity = "High":
+    Contains 3 instances: Days 1, 2, and 8
+    All 3 instances have "Play Tennis = No"
+    Class distribution: 0 "Yes", 3 "No"
+    Gini impurity = 1 - (0/3)^2 - (3/3)^2 = 1 - 0 - 1 = 0
+
+  Sunny & Humidity = "Normal":
+    Contains 2 instances: Days 9 and 11
+    Both instances have "Play Tennis = Yes"
+    Class distribution: 2 "Yes", 0 "No"
+    Gini impurity = 1 - (2/2)^2 - (0/2)^2 = 1 - 1 - 0 = 0
+
+***
+# From the "Rain" branch split on "Windy": ###
+  
+  Rain & Windy = "No":
+    Contains 3 instances: Days 4, 5, and 10
+    All 3 instances have "Play Tennis = Yes"
+    Class distribution: 3 "Yes", 0 "No"
+    Gini impurity = 1 - (3/3)^2 - (0/3)^2 = 1 - 1 - 0 = 0
+
+  Rain & Windy = "Yes":
+    Contains 2 instances: Days 6 and 14
+    Both instances have "Play Tennis = No"
+    Class distribution: 0 "Yes", 2 "No"
+    Gini impurity = 1 - (0/2)^2 - (2/2)^2 = 1 - 0 - 1 = 0
+
+***
+The "Overcast" branch:
+Outlook = "Overcast":
+  Contains 4 instances: Days 3, 7, 12, and 13
+  All 4 instances have "Play Tennis = Yes"
+  Class distribution: 4 "Yes", 0 "No"
+  Gini impurity = 1 - (4/4)^2 - (0/4)^2 = 1 - 1 - 0 = 0
 
 #-----------------------------------------------------------------------------#
 #----------------------- Final Decision Tree ---------------------------------#
@@ -316,6 +361,23 @@ Root: Split on "Outlook"
     If "Yes" → Play Tennis = No       (Because P("No" | "Rain"."Windy_Yes") = 1 > P("Yes" | "Rain"."Windy_Yes") = 0 )
 
 
+                              Outlook
+                                 |
+           +-----------------+---+-------------------+
+           |                 |                       |
+        Sunny             Overcast                 Rain
+           |                 |                       |
+           |            Play Tennis = Yes            |
+           |                                         |
+       Humidity                                    Windy
+           |                                         |
+     +-----+------+                           +-----+------+
+     |            |                           |            |
+   High         Normal                       No           Yes
+     |            |                           |            |
+Play Tennis = No  Play Tennis = Yes   Play Tennis = Yes  Play Tennis = No
+
+
 
 #-----------------------------------------------------------------------------#
 #----------------------- Making a Prediction ---------------------------------#
@@ -329,9 +391,8 @@ Humidity = Normal
 Windy = Yes
 
 Following our decision tree:
-
-Outlook = Sunny → Check Humidity
-  Humidity = Normal → Prediction: Play Tennis = Yes
+  # Check Outlook = Sunny → Check Humidity
+  # Humidity = Normal → Prediction: Play Tennis = Yes
 
 Therefore, the prediction for this new instance is: Yes, Play Tennis.
 
