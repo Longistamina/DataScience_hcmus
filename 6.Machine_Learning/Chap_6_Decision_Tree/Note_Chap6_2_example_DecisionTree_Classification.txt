@@ -1,6 +1,4 @@
-#-----------------------------------------------------------------------------------------------------#
-#----------------------- Decision Tree _ Classification task example ---------------------------------#
-#-----------------------------------------------------------------------------------------------------#
+Decision Tree _ Classification task example
 
 Assuming a training dataset like this
 
@@ -22,7 +20,9 @@ Day | Outlook  | Temperature | Humidity | Windy | Play Tennis
 14  | Rain     | Mild        | High     | Yes   | No
 
 
-******************** Level 1: Root Node Split ***************************
+#----------------------------------------------------------------------------------#
+#----------------------- Level 1: Root Node Split ---------------------------------#
+#----------------------------------------------------------------------------------#
 
 First, calculate the Gini impurity for the root node:
 
@@ -117,3 +117,163 @@ Best Split for Level 1:
 # Gain(Temperature) = 0.019
 
 "Outlook" has the highest information gain, so it becomes our first split.
+
+
+#--------------------------------------------------------------------------------------------------#
+#----------------------- Level 2: Splits for each "Outlook" value ---------------------------------#
+#--------------------------------------------------------------------------------------------------#
+
+"Outlook" has 3 values: "Outcast", "Sunny" and "Rain"
+
+Each of these values will be a split
+
+------------------------------------
+For the "Overcast" branch, all instances are "Yes", 
+so this is a leaf node with prediction "Yes".
+
+Let's examine the "Sunny" and "Rain" branches:
+
+----------------------------------
+For "Sunny" branch:
+  We have 5 instances: 2 "Yes", 3 "No"
+  Gini(Sunny) = 0.48   (calculated above)
+
+Let's calculate the gain for each remaining feature:
+# For "Humidity" in Sunny:
+  For Sunny & Humidity = "High":
+    P("Yes" | "Sunny"."High") and P("No" | "Sunny"."High")
+    3 instances: 0 "Yes", 3 "No": 
+    Gini(Sunny.High) = 1 - (0/3)^2 - (3/3)^2 = 1 - 0 - 1 = 0
+
+  For Sunny & Humidity = "Normal":
+    P("Yes" | "Sunny"."Normal") and P("No" | "Sunny"."Normal")
+    2 instances: 2 "Yes", 0 "No"
+    Gini(Sunny.Normal) = 1 - (2/2)^2 - (0/2)^2 = 1 - 0 - 1 = 0
+
+Weighted Gini:
+  WeightedGini(Sunny.Humidity) = (3/5 × 0) + (2/5 × 0) = 0
+
+Information Gain for Humidity in Sunny:
+  Gain(Sunny.Humidity) = 0.48 - 0 = 0.48
+
+
+# For "Temperature" in Sunny:
+For Sunny & Temperature = "Hot":
+
+2 instances: 0 "Yes", 2 "No"
+Gini = 0
+
+For Sunny & Temperature = "Mild":
+
+2 instances: 1 "Yes", 1 "No"
+Gini = 0.5
+
+For Sunny & Temperature = "Cool":
+
+1 instance: 1 "Yes", 0 "No"
+Gini = 0
+
+Weighted Gini:
+
+(2/5 × 0) + (2/5 × 0.5) + (1/5 × 0) = 0.2
+
+Information Gain for Temperature in Sunny:
+
+Gain = 0.48 - 0.2 = 0.28
+
+For "Windy" in Sunny:
+For Sunny & Windy = "No":
+
+3 instances: 1 "Yes", 2 "No"
+Gini = 0.444
+
+For Sunny & Windy = "Yes":
+
+2 instances: 1 "Yes", 1 "No"
+Gini = 0.5
+
+Weighted Gini:
+
+(3/5 × 0.444) + (2/5 × 0.5) = 0.466
+
+Information Gain for Windy in Sunny:
+
+Gain = 0.48 - 0.466 = 0.014
+
+Best Split for Sunny:
+
+Gain(Humidity) = 0.48
+Gain(Temperature) = 0.28
+Gain(Windy) = 0.014
+
+"Humidity" has the highest gain, so it's the best split for the Sunny branch.
+For "Rain" branch:
+We have 5 instances: 3 "Yes", 2 "No"
+
+Gini(Rain) = 0.48
+
+Let's calculate the gain for each remaining feature:
+For "Windy" in Rain:
+For Rain & Windy = "No":
+
+3 instances: 3 "Yes", 0 "No"
+Gini = 0
+
+For Rain & Windy = "Yes":
+
+2 instances: 0 "Yes", 2 "No"
+Gini = 0
+
+Weighted Gini:
+
+(3/5 × 0) + (2/5 × 0) = 0
+
+Information Gain for Windy in Rain:
+
+Gain = 0.48 - 0 = 0.48
+
+For "Temperature" in Rain:
+For Rain & Temperature = "Mild":
+
+3 instances: 2 "Yes", 1 "No"
+Gini = 0.444
+
+For Rain & Temperature = "Cool":
+
+2 instances: 1 "Yes", 1 "No"
+Gini = 0.5
+
+Weighted Gini:
+
+(3/5 × 0.444) + (2/5 × 0.5) = 0.466
+
+Information Gain for Temperature in Rain:
+
+Gain = 0.48 - 0.466 = 0.014
+
+For "Humidity" in Rain:
+For Rain & Humidity = "High":
+
+2 instances: 1 "Yes", 1 "No"
+Gini = 0.5
+
+For Rain & Humidity = "Normal":
+
+3 instances: 2 "Yes", 1 "No"
+Gini = 0.444
+
+Weighted Gini:
+
+(2/5 × 0.5) + (3/5 × 0.444) = 0.466
+
+Information Gain for Humidity in Rain:
+
+Gain = 0.48 - 0.466 = 0.014
+
+Best Split for Rain:
+
+Gain(Windy) = 0.48
+Gain(Temperature) = 0.014
+Gain(Humidity) = 0.014
+
+"Windy" has the highest gain, so it's the best split for the Rain branch.
