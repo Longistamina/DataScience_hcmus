@@ -139,7 +139,7 @@ For "Sunny" branch:
   Gini(Sunny) = 0.48   (calculated above)
 
 Let's calculate the gain for each remaining feature:
-# For "Humidity" in Sunny:
+# For "Humidity" in Sunny: ###
   For Sunny & Humidity = "High":
     P("Yes" | "Sunny"."High") and P("No" | "Sunny"."High")
     3 instances: 0 "Yes", 3 "No": 
@@ -148,38 +148,36 @@ Let's calculate the gain for each remaining feature:
   For Sunny & Humidity = "Normal":
     P("Yes" | "Sunny"."Normal") and P("No" | "Sunny"."Normal")
     2 instances: 2 "Yes", 0 "No"
-    Gini(Sunny.Normal) = 1 - (2/2)^2 - (0/2)^2 = 1 - 0 - 1 = 0
+    Gini(Sunny.Normal) = 1 - (2/2)^2 - (0/2)^2 = 1 - 1 - 0 = 0
 
-Weighted Gini:
-  WeightedGini(Sunny.Humidity) = (3/5 × 0) + (2/5 × 0) = 0
+  Weighted Gini:
+    WeightedGini(Sunny.Humidity) = (3/5 × 0) + (2/5 × 0) = 0
 
-Information Gain for Humidity in Sunny:
-  Gain(Sunny.Humidity) = 0.48 - 0 = 0.48
+  Information Gain for Humidity in Sunny:
+    Gain(Sunny.Humidity) = 0.48 - 0 = 0.48
 
 
-# For "Temperature" in Sunny:
-For Sunny & Temperature = "Hot":
+# For "Temperature" in Sunny: ###
+  For Sunny & Temperature = "Hot":
+    P("Yes" | "Sunny"."Hot") and P("No" | "Sunny"."Hot")
+    2 instances: 0 "Yes", 2 "No"
+    Gini(Sunny.Hot) = 1 - (0/2)^2 - (2/2)^2 = 1 - 0 - 1 = 0
 
-2 instances: 0 "Yes", 2 "No"
-Gini = 0
+  For Sunny & Temperature = "Mild":
+    P("Yes" | "Sunny"."Mild") and P("No" | "Sunny"."Mild")
+    2 instances: 1 "Yes", 1 "No"
+    Gini(Sunny.Mild) = 1 - (1/2)^2 - (1/2)^2 = 1 - 1/4 - 1/4 = 0.5
 
-For Sunny & Temperature = "Mild":
+  For Sunny & Temperature = "Cool":
+    P("Yes" | "Sunny"."Cool") and P("No" | "Sunny"."Cool")
+    1 instance: 1 "Yes", 0 "No"
+    Gini(Sunny.Cool) = 1 - (1/1)^2 - (0/1)^2 = 1 - 1 - 0 = 0
 
-2 instances: 1 "Yes", 1 "No"
-Gini = 0.5
+  Weighted Gini:
+    WeightedGini(Sunny.Temperature) = (2/5 × 0) + (2/5 × 0.5) + (1/5 × 0) = 0.2
 
-For Sunny & Temperature = "Cool":
-
-1 instance: 1 "Yes", 0 "No"
-Gini = 0
-
-Weighted Gini:
-
-(2/5 × 0) + (2/5 × 0.5) + (1/5 × 0) = 0.2
-
-Information Gain for Temperature in Sunny:
-
-Gain = 0.48 - 0.2 = 0.28
+  Information Gain for Temperature in Sunny:
+    Gain = 0.48 - 0.2 = 0.28
 
 For "Windy" in Sunny:
 For Sunny & Windy = "No":
