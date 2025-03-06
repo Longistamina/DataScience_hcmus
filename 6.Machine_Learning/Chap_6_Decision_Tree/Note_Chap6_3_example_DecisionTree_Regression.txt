@@ -38,45 +38,38 @@ We need to evaluate potential splits on each feature to find the one that reduce
 Potential Split on Size (sq ft)
 
 Let's try splitting at 1700 sq ft:
-
+	
 	Left Group (Size < 1700 sq ft): Houses 1, 3, 6
+	Mean price: (200 + 170 + 210) / 3 = 193.33
+	Variance: ((200 - 193.33)^2 + (170 - 193.33)^2 + (210 - 193.33)^2) / 3 = 280.67
 
-Mean price: (200 + 170 + 210) / 3 = 193.33
-Variance: ((200 - 193.33)² + (170 - 193.33)² + (210 - 193.33)²) / 3 = 280.67
 
-Right Group (Size ≥ 1700 sq ft): Houses 2, 4, 5
+	Right Group (Size ≥ 1700 sq ft): Houses 2, 4, 5
+	Mean price: (300 + 240 + 320) / 3 = 286.67
+	Variance: ((300 - 286.67)^2 + (240 - 286.67)^2 + (320 - 286.67)²) / 3 = 1066.67
 
-Mean price: (300 + 240 + 320) / 3 = 286.67
-Variance: ((300 - 286.67)² + (240 - 286.67)² + (320 - 286.67)²) / 3 = 1066.67
+Weighted variance after split = (3/6) × 280.67 + (3/6) × 1066.67 = 673.67
 
-Weighted variance after split:
+Variance reduction = 2900 - 673.67 = 2226.33
 
-(3/6) × 280.67 + (3/6) × 1066.67 = 673.67
-
-Variance reduction:
-
-2900 - 673.67 = 2226.33
-
+---------------------------------------
 Potential Split on Age (years)
-Let's try splitting at 9 years:
-Left Group (Age < 9 years): Houses 2, 4, 5
 
-Mean price: (300 + 240 + 320) / 3 = 286.67
-Variance: ((300 - 286.67)² + (240 - 286.67)² + (320 - 286.67)²) / 3 = 1066.67
+	Let's try splitting at 9 years:
+	Left Group (Age < 9 years): Houses 2, 4, 5
+	Mean price: (300 + 240 + 320) / 3 = 286.67
+	Variance: ((300 - 286.67)^2 + (240 - 286.67)^2 + (320 - 286.67)^2) / 3 = 1066.67
 
-Right Group (Age ≥ 9 years): Houses 1, 3, 6
 
-Mean price: (200 + 170 + 210) / 3 = 193.33
-Variance: ((200 - 193.33)² + (170 - 193.33)² + (210 - 193.33)²) / 3 = 280.67
+	Right Group (Age ≥ 9 years): Houses 1, 3, 6
+	Mean price: (200 + 170 + 210) / 3 = 193.33
+	Variance: ((200 - 193.33)^2 + (170 - 193.33)^2 + (210 - 193.33)^2) / 3 = 280.67
 
-Weighted variance after split:
+Weighted variance after split = (3/6) × 1066.67 + (3/6) × 280.67 = 673.67
 
-(3/6) × 1066.67 + (3/6) × 280.67 = 673.67
+Variance reduction = 2900 - 673.67 = 2226.33
 
-Variance reduction:
-
-2900 - 673.67 = 2226.33
-
+----------------------------------------
 Both splits yield the same variance reduction in this simple example (which is common in small datasets), so let's choose the Size feature for the first split.
 
 #--------------------------------------------------------------------------------------------------#
