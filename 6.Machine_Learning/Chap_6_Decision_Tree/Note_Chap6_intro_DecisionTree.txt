@@ -9,6 +9,32 @@ A decision tree is a flowchart-like structure where:
 # Branches represent the outcomes of those tests
 # Leaf nodes represent class labels or predicted values
 
+
+#-------------------------------------------------------------------#
+#----------------- Steps of DT algorithm ---------------------------#
+#-------------------------------------------------------------------#
+
+Decision Tree Algorithm Steps
+
+# 1.Start with all data at the root node
+
+# 2.Calculate the impurity measure for the current node (Impurity(t) or Impurity(root))
+
+# 3.For each feature:
+For each possible split point:
+    + Calculate the impurity after the split
+    + Calculate the information gain or reduction in error
+Select the feature and split point with the highest gain/reduction
+
+# 4. Split the node according to the selected feature
+
+# 5. Repeat recursively for each child node until a stopping criterion is met (e.g., max depth, min samples, no improvement)
+
+
+#-------------------------------------------#
+#------------ Some key formulas ------------#
+#-------------------------------------------#
+
 Key Mathematical Formulas
 Decision trees use various metrics to determine the best splits. The most common are:
 
