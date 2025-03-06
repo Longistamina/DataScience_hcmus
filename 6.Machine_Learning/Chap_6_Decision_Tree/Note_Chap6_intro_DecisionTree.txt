@@ -1,0 +1,57 @@
+#-----------------------------------------------------------------------#
+#----------------------- Decision Tree ---------------------------------#
+#-----------------------------------------------------------------------#
+
+Decision trees are intuitive classification and regression models that work by recursively partitioning data based on feature values.
+
+A decision tree is a flowchart-like structure where:
+# Internal nodes represent tests on features (each feature is a split node)
+# Branches represent the outcomes of those tests
+# Leaf nodes represent class labels or predicted values
+
+Key Mathematical Formulas
+Decision trees use various metrics to determine the best splits. The most common are:
+
+*********** 1. For Classification Trees: *********************
+Gini Impurity -Measures the probability of misclassifying a randomly chosen element:
+
+  Impurity(t) = Gini(t) = 1 − [P(class_1 | Feature_t)^2 + P(class_2 | Feature_t)^2 + ... + P(class_n | Feature_t)^2]
+
+
+Entropy - Measures the information disorder or uncertainty:
+
+  Entropy(t) = −[P(class_1 | Feature_t)*log(P(class_1 | Feature_t)) + ... + P(class_n | Feature_t)*log(P(class_n | Feature_t))]
+
+Information Gain
+Quantifies the reduction in entropy or impurity after a split:
+
+Gain(t,a)=Impurity(t)−∑v∈Values(a)∣tv∣∣t∣Impurity(tv)Gain(t, a) = Impurity(t) - \sum_{v \in Values(a)} \frac{|t_v|}{|t|} Impurity(t_v)Gain(t,a)=Impurity(t)−v∈Values(a)∑​∣t∣∣tv​∣​Impurity(tv​)
+Where:
+
+tt
+t is the parent node
+
+aa
+a is the feature being considered for splitting
+
+tvt_v
+tv​ are the child nodes resulting from the split
+
+Values(a)Values(a)
+Values(a) are the possible values of feature aa
+a
+
+2. For Regression Trees:
+Mean Squared Error (MSE)
+MSE(t)=1Nt∑i∈t(yi−yˉt)2MSE(t) = \frac{1}{N_t} \sum_{i \in t} (y_i - \bar{y}_t)^2MSE(t)=Nt​1​i∈t∑​(yi​−yˉ​t​)2
+Where:
+
+NtN_t
+Nt​ is the number of samples at node tt
+t
+yiy_i
+yi​ is the target value of sample ii
+i
+yˉt\bar{y}_t
+yˉ​t​ is the mean target value at node tt
+t
