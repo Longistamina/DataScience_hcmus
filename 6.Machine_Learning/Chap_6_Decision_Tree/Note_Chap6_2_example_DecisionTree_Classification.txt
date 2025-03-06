@@ -378,6 +378,11 @@ Root: Split on "Outlook"
 Play Tennis = No  Play Tennis = Yes   Play Tennis = Yes  Play Tennis = No
 
 
+IF Outlook = Overcast THEN Play Tennis = Yes
+IF Outlook = Sunny AND Humidity = High THEN Play Tennis = No
+IF Outlook = Sunny AND Humidity = Normal THEN Play Tennis = Yes
+IF Outlook = Rain AND Windy = No THEN Play Tennis = Yes
+IF Outlook = Rain AND Windy = Yes THEN Play Tennis = No
 
 #-----------------------------------------------------------------------------#
 #----------------------- Making a Prediction ---------------------------------#
