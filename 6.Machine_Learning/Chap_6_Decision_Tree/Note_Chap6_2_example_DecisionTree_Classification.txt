@@ -267,28 +267,26 @@ Let's calculate the gain for each remaining feature:
 
 
 # For "Humidity" in Rain: ###
-For Rain & Humidity = "High":
+  For Rain & Humidity = "High":
+    P("Yes" | "Rain"."High") and P("No" | "Rain"."High")
+    2 instances: 1 "Yes", 1 "No"
+    Gini(High | Rain) = 1 - (1/2)^2 - (1/2)^2 = 1 - 1/4 - 1/4 = 0.5
 
-2 instances: 1 "Yes", 1 "No"
-Gini = 0.5
+  For Rain & Humidity = "Normal":
+    P("Yes" | "Rain"."Normal") and P("No" | "Rain"."Normal")
+    3 instances: 2 "Yes", 1 "No"
+    Gini(Normal | Rain) = 1 - (2/3)^2 - (1/3)^2 = 1 - 4/9 - 1/9 = 0.444
 
-For Rain & Humidity = "Normal":
+  Weighted Gini:
+    WeightedGini(Humidity | Rain) = (2/5 × 0.5) + (3/5 × 0.444) = 0.466
 
-3 instances: 2 "Yes", 1 "No"
-Gini = 0.444
+  Information Gain for Humidity in Rain:
+    Gain(Humidity | Rain) = 0.48 - 0.466 = 0.014
 
-Weighted Gini:
-
-(2/5 × 0.5) + (3/5 × 0.444) = 0.466
-
-Information Gain for Humidity in Rain:
-
-Gain = 0.48 - 0.466 = 0.014
 
 Best Split for Rain:
-
-Gain(Windy) = 0.48
-Gain(Temperature) = 0.014
-Gain(Humidity) = 0.014
+# Gain(Windy | Rain) = 0.48
+# Gain(Temperature | Rain) = 0.014
+# Gain(Humidity | Rain) = 0.014
 
 "Windy" has the highest gain, so it's the best split for the Rain branch.
