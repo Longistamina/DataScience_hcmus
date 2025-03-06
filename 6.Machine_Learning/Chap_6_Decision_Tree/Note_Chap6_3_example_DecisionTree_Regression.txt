@@ -72,253 +72,69 @@ Variance reduction = 2900 - 673.67 = 2226.33
 ----------------------------------------
 Both splits yield the same variance reduction in this simple example (which is common in small datasets), so let's choose the Size feature for the first split.
 
-#--------------------------------------------------------------------------------------------------#
-#----------------------- Level 2: Splits for each "Outlook" value ---------------------------------#
-#--------------------------------------------------------------------------------------------------#
-
-"Outlook" has 3 values: "Outcast", "Sunny" and "Rain"
-
-Each of these values will be a split
-
-------------------------------------
-For the "Overcast" branch, all instances are "Yes", 
-so this is a leaf node with prediction "Yes".
-
-Let's examine the "Sunny" and "Rain" branches:
-
-----------------------------------
-For "Sunny" branch:
-  We have 5 instances: 2 "Yes", 3 "No"
-  Gini(Sunny) = 0.48   (calculated above)
-
-Let's calculate the gain for each remaining feature:
-# For "Humidity" in Sunny: ###
-  For Sunny & Humidity = "High":
-    P("Yes" | "Sunny"."High") and P("No" | "Sunny"."High")
-    3 instances: 0 "Yes", 3 "No": 
-    Gini(Sunny.High) = 1 - (0/3)^2 - (3/3)^2 = 1 - 0 - 1 = 0
-
-  For Sunny & Humidity = "Normal":
-    P("Yes" | "Sunny"."Normal") and P("No" | "Sunny"."Normal")
-    2 instances: 2 "Yes", 0 "No"
-    Gini(Sunny.Normal) = 1 - (2/2)^2 - (0/2)^2 = 1 - 1 - 0 = 0
-
-  Weighted Gini:
-    WeightedGini(Humidity | Sunny) = (3/5 × 0) + (2/5 × 0) = 0
-
-  Information Gain for Humidity in Sunny:
-    Gain(Humidity | Sunny) = 0.48 - 0 = 0.48
 
 
+#---------------------------------------------------------------------------------------------#
+#----------------------- Step 3: Create the first split node ---------------------------------#
+#---------------------------------------------------------------------------------------------#
 
-# For "Temperature" in Sunny: ###
-  For Sunny & Temperature = "Hot":
-    P("Yes" | "Sunny"."Hot") and P("No" | "Sunny"."Hot")
-    2 instances: 0 "Yes", 2 "No"
-    Gini(Hot | Sunny) = 1 - (0/2)^2 - (2/2)^2 = 1 - 0 - 1 = 0
+Step 3: Create the first split node
 
-  For Sunny & Temperature = "Mild":
-    P("Yes" | "Sunny"."Mild") and P("No" | "Sunny"."Mild")
-    2 instances: 1 "Yes", 1 "No"
-    Gini(Mild | Sunny) = 1 - (1/2)^2 - (1/2)^2 = 1 - 1/4 - 1/4 = 0.5
+Our decision tree now has its first split:
+	If Size < 1700 sq ft, go left
+	If Size ≥ 1700 sq ft, go right
 
-  For Sunny & Temperature = "Cool":
-    P("Yes" | "Sunny"."Cool") and P("No" | "Sunny"."Cool")
-    1 instance: 1 "Yes", 0 "No"
-    Gini(Cool | Sunny) = 1 - (1/1)^2 - (0/1)^2 = 1 - 1 - 0 = 0
-
-  Weighted Gini:
-    WeightedGini(Temperature | Sunny) = (2/5 × 0) + (2/5 × 0.5) + (1/5 × 0) = 0.2
-
-  Information Gain for Temperature in Sunny:
-    Gain(Temperature | Sunny) = 0.48 - 0.2 = 0.28
+Left Node: Houses 1, 3, 6 (mean price = $193,330)
+Right Node: Houses 2, 4, 5 (mean price = $286,670)
 
 
+#------------------------------------------------------------------------------------------------#
+#----------------------- Step 4: Continue splitting recursively ---------------------------------#
+#------------------------------------------------------------------------------------------------#
 
-# For "Windy" in Sunny:
-  For Sunny & Windy = "No":
-    P("Yes" | "Sunny"."Windy_No") and P("No" | "Sunny"."Windy_No")
-    3 instances: 1 "Yes", 2 "No"
-    Gini(Windy_No | Sunny) = 1 - (1/3)^2 - (2/3)^2 = 1 - 1/9 - 4/9 = 0.444
-
-  For Sunny & Windy = "Yes":
-    P("Yes" | "Sunny"."Windy_Yes") and P("No" | "Sunny"."Windy_Yes")
-    2 instances: 1 "Yes", 1 "No"
-    Gini(Windy_Yes | Sunny) = 1 - (1/2)^2 - (1/2)^2 = 1 - 1/4 - 1/4 = 0.5
-
-  Weighted Gini:
-    WeightedGini(Windy | Sunny) = (3/5 × 0.444) + (2/5 × 0.5) = 0.466
-
-  Information Gain for Windy in Sunny:
-    Gain(Windy | Sunny) = 0.48 - 0.466 = 0.014
+Step 4: Continue splitting recursively
 
 
+Let's split the left node (Houses 1, 3, 6) further.
+-----------------------------
 
-Best Split for Sunny:
-# Gain(Humidity | Sunny)    = 0.48
-# Gain(Temperature | Sunny) = 0.28
-# Gain(Windy | Sunny)       = 0.014
+Potential Split on Age within the left node
 
-"Humidity" has the highest gain, so it's the best split for the Sunny branch.
+Let's try splitting at 11 years:
+	Left-Left Group (Size < 1700 sq ft AND Age < 11 years): House 1
+	Mean price: 200
+	Variance: 0 (only one data point)
 
+	Left-Right Group (Size < 1700 sq ft AND Age ≥ 11 years): Houses 3, 6
+	Mean price: (170 + 210) / 2 = 190
+	Variance: ((170 - 190)² + (210 - 190)²) / 2 = 400
 
+Weighted variance after split = (1/3) × 0 + (2/3) × 400 = 266.67
 
----------------------------------------------------------
-For "Rain" branch:
-  We have 5 instances: 3 "Yes", 2 "No"
-  Gini(Rain) = 0.48
+Variance reduction = 280.67 - 266.67 = 14
 
-Let's calculate the gain for each remaining feature:
-
-# For "Windy" in Rain: ###
-  For Rain & Windy = "No":
-    P("Yes" | "Rain"."Windy_No") and P("No" | "Rain"."Windy_No")
-    3 instances: 3 "Yes", 0 "No"
-    Gini(Windy_No | Rain) = 1 - (3/3)^2 - (0/3)^2 = 1 - 1 - 0 = 0
-
-  For Rain & Windy = "Yes":
-    P("Yes" | "Rain"."Windy_Yes") and P("No" | "Rain"."Windy_Yes")
-    2 instances: 0 "Yes", 2 "No"
-    Gini((Windy_Yes | Rain)) = 1 - (0/2)^2 - (2/2)^2 = 1 - 0 - 1 = 0
-
-  Weighted Gini:
-    WeightedGini(Windy | Rain) = (3/5 × 0) + (2/5 × 0) = 0
-
-  Information Gain for Windy in Rain:
-    Gain(Windy | Rain) = 0.48 - 0 = 0.48
+The variance reduction is relatively small, but let's implement it anyway for this example.
 
 
-
-# For "Temperature" in Rain: ###
-  For Rain & Temperature = "Mild":
-    P("Yes" | "Rain"."Mild") and P("No" | "Rain"."Mild")
-    3 instances: 2 "Yes", 1 "No"
-    Gini(Mild | Rain) = 1 - (2/3)^2 - (1/3)^2 = 1 - 4/9 - 1/9 = 0.444
-
-  For Rain & Temperature = "Cool":
-    P("Yes" | "Rain"."Cool") and P("No" | "Rain"."Cool")
-    2 instances: 1 "Yes", 1 "No"
-    Gini(Cool | Rain) = 1 - (1/2)^2 - (1/2)^2 = 1 - 1/4 - 1/4 = 0.5
-
-  Weighted Gini:
-    WeightedGini(Temperature | Rain) = (3/5 × 0.444) + (2/5 × 0.5) = 0.466
-
-  Information Gain for Temperature in Rain:
-    Gain(Temperature | Rain) = 0.48 - 0.466 = 0.014
-
-
-
-# For "Humidity" in Rain: ###
-  For Rain & Humidity = "High":
-    P("Yes" | "Rain"."High") and P("No" | "Rain"."High")
-    2 instances: 1 "Yes", 1 "No"
-    Gini(High | Rain) = 1 - (1/2)^2 - (1/2)^2 = 1 - 1/4 - 1/4 = 0.5
-
-  For Rain & Humidity = "Normal":
-    P("Yes" | "Rain"."Normal") and P("No" | "Rain"."Normal")
-    3 instances: 2 "Yes", 1 "No"
-    Gini(Normal | Rain) = 1 - (2/3)^2 - (1/3)^2 = 1 - 4/9 - 1/9 = 0.444
-
-  Weighted Gini:
-    WeightedGini(Humidity | Rain) = (2/5 × 0.5) + (3/5 × 0.444) = 0.466
-
-  Information Gain for Humidity in Rain:
-    Gain(Humidity | Rain) = 0.48 - 0.466 = 0.014
-
-
-Best Split for Rain:
-# Gain(Windy | Rain) = 0.48
-# Gain(Temperature | Rain) = 0.014
-# Gain(Humidity | Rain) = 0.014
-
-"Windy" has the highest gain, so it's the best split for the Rain branch.
-
-
-#-------------------------------------------------------------------------------#
-#----------------------- Level 3: Final Splits ---------------------------------#
-#-------------------------------------------------------------------------------#
-
-The splits at Level 2 lead to pure nodes (Gini = 0), so we don't need further splitting.
-
-A node is considered "pure" when all instances in that node belong to the same class. 
-In our case, each of our leaf nodes contains instances that all have the same value for "Play Tennis" (either all "Yes" or all "No").
-
-When all instances belong to the same class, one of the probabilities becomes 1 and all others become 0. So the formula becomes:
-                  Gini(t) = 1 − 1^2 − 0^2 − ... −0^2 = 1 − 1 = 0
-
----------------------
-Detailed explains
-
-#From the "Sunny" branch split on "Humidity": ###
-  
-  Sunny & Humidity = "High":
-    Contains 3 instances: Days 1, 2, and 8
-    All 3 instances have "Play Tennis = No"
-    Class distribution: 0 "Yes", 3 "No"
-    Gini impurity = 1 - (0/3)^2 - (3/3)^2 = 1 - 0 - 1 = 0
-
-  Sunny & Humidity = "Normal":
-    Contains 2 instances: Days 9 and 11
-    Both instances have "Play Tennis = Yes"
-    Class distribution: 2 "Yes", 0 "No"
-    Gini impurity = 1 - (2/2)^2 - (0/2)^2 = 1 - 1 - 0 = 0
-
-***
-# From the "Rain" branch split on "Windy": ###
-  
-  Rain & Windy = "No":
-    Contains 3 instances: Days 4, 5, and 10
-    All 3 instances have "Play Tennis = Yes"
-    Class distribution: 3 "Yes", 0 "No"
-    Gini impurity = 1 - (3/3)^2 - (0/3)^2 = 1 - 1 - 0 = 0
-
-  Rain & Windy = "Yes":
-    Contains 2 instances: Days 6 and 14
-    Both instances have "Play Tennis = No"
-    Class distribution: 0 "Yes", 2 "No"
-    Gini impurity = 1 - (0/2)^2 - (2/2)^2 = 1 - 0 - 1 = 0
-
-***
-The "Overcast" branch:
-Outlook = "Overcast":
-  Contains 4 instances: Days 3, 7, 12, and 13
-  All 4 instances have "Play Tennis = Yes"
-  Class distribution: 4 "Yes", 0 "No"
-  Gini impurity = 1 - (4/4)^2 - (0/4)^2 = 1 - 1 - 0 = 0
-
-#-----------------------------------------------------------------------------#
-#----------------------- Final Decision Tree ---------------------------------#
-#-----------------------------------------------------------------------------#
+#-------------------------------------------------------------------------------------#
+#----------------------- Step 5: Final Decision Tree ---------------------------------#
+#-------------------------------------------------------------------------------------#
 
 Based on our calculations, here's the final decision tree:
 
-Root: Split on "Outlook"
-  If "Overcast" → Play Tennis = Yes
-
-  If "Sunny" → Check "Humidity"
-    If "High" → Play Tennis = No      (Because P("No" | "Sunny"."High") = 1 > P("Yes" | "Sunny"."High") = 0 ) 
-    If "Normal" → Play Tennis = Yes   (Because P("Yes" | "Sunny"."Normal") = 1 > P("No" | "Sunny"."Normal") = 0 )
-
-  If "Rain" → Check "Windy"
-    If "No" → Play Tennis = Yes       (Because P("Yes" | "Rain"."Windy_No") = 1 > P("No" | "Rain"."Windy_No") = 0 )
-    If "Yes" → Play Tennis = No       (Because P("No" | "Rain"."Windy_Yes") = 1 > P("Yes" | "Rain"."Windy_Yes") = 0 )
-
-
-                              Outlook
-                                 |
-           +-----------------+---+-------------------+
-           |                 |                       |
-        Sunny             Overcast                 Rain
-           |                 |                       |
-           |            Play Tennis = Yes            |
-           |                                         |
-       Humidity                                    Windy
-           |                                         |
-     +-----+------+                           +-----+------+
-     |            |                           |            |
-   High         Normal                       No           Yes
-     |            |                           |            |
-Play Tennis = No  Play Tennis = Yes   Play Tennis = Yes  Play Tennis = No
+Root (All houses, mean = $240,000)
+|
+|--- Size < 1700 sq ft?
+|    |
+|    |--- YES: Check Age
+|    |    |
+|    |    |--- Age < 11 years? 
+|    |    |    |
+|    |    |    |--- YES: Predict $200,000 (House 1)
+|    |    |    |
+|    |    |    |--- NO: Predict $190,000 (Houses 3, 6)
+|    |
+|    |--- NO: Predict $286,670 (Houses 2, 4, 5)
 
 
 IF Outlook = Overcast THEN Play Tennis = Yes
@@ -331,25 +147,31 @@ IF Outlook = Rain AND Windy = Yes THEN Play Tennis = No
 #----------------------- Making a Prediction ---------------------------------#
 #-----------------------------------------------------------------------------#
 
-Let's make a prediction for a new instance:
-
-Outlook = Sunny
-Temperature = Cool
-Humidity = Normal
-Windy = Yes
+Let's predict the price of a new house with:
+	Size = 1400 sq ft
+	Age = 7 years
 
 Following our decision tree:
-  # Check Outlook = Sunny → Check Humidity
-  # Humidity = Normal → Prediction: Play Tennis = Yes
+	Size < 1700 sq ft? => YES (go left)
+	Age < 11 years? YES => (go left)
+=> Prediction: $200,000
 
-Therefore, the prediction for this new instance is: Yes, Play Tennis.
+-----------------------
 
-#----------------------------------------------------------------#
-#-----------------------Summary ---------------------------------#
-#----------------------------------------------------------------#
+If the house had:
+	Size = 1400 sq ft
+	Age = 14 years
+Then:
+	Size < 1700 sq ft? => YES (go left)
+	Age < 11 years? => NO (go right)
+=> Prediction: $190,000
 
-The complete decision tree has three levels with the following splits:
+#-----------------------------------------------------------------#
+#----------------------- Summary ---------------------------------#
+#-----------------------------------------------------------------#
 
-Level 1: Split on "Outlook"
-Level 2: For "Sunny" branch, split on "Humidity"; For "Rain" branch, split on "Windy"
-All leaf nodes are pure (Gini = 0)
+Key Regression Tree Principles Demonstrated
+# Variance Reduction: We split nodes to minimize variance within child nodes
+# Mean Value Predictions: Each leaf node predicts the mean target value of its samples
+# Feature Selection: We evaluate each feature to find the best split
+# Stopping Criteria: We would typically stop splitting when variance reduction is below a threshold or other stopping criteria are met
