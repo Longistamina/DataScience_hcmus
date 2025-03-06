@@ -35,22 +35,42 @@ Now, let's calculate the information gain for each feature:
 
 ---------------------------
 # For "Outlook": #
-For Outlook = "Sunny":
+
+For Outlook = "Sunny": P("Yes"|"Sunny") and  P("No"|"Sunny")
   5 instances: 2 "Yes", 3 "No"
   Gini(Sunny) = 1 - (2/5)^2 - (3/5)^2 = 1 - 0.16 - 0.36 = 0.48
 
-For Outlook = "Overcast":
+For Outlook = "Overcast":  P("Yes"|"Overcast") and P("No"|"Overcast")
   4 instances: 4 "Yes", 0 "No"
   Gini(Overcast) = 1 - (4/4)^2 - (0/4)^2 = 0
 
-For Outlook = "Rain":
+For Outlook = "Rain":  P("Yes"|"Rain") and P("No"|"Rain")
   5 instances: 3 "Yes", 2 "No"
-  Gini(Rain) = 1 - (3/5)² - (2/5)² = 1 - 0.36 - 0.16 = 0.48
+  Gini(Rain) = 1 - (3/5)^2 - (2/5)^2 = 1 - 0.36 - 0.16 = 0.48
 
-Weighted Gini after split on "Outlook":
-  WeightedGini = (5/14 × 0.48) + (4/14 × 0) + (5/14 × 0.48) = 0.343
+Weighted Gini after split on "Outlook":  P("Yes"|"Outlook") and P("No"|"Outlook")
+  WeightedGini(Outlook) = (5/14 × 0.48) + (4/14 × 0) + (5/14 × 0.48) = 0.343
 
 Information Gain for Outlook:
   Gain(Outlook) = 0.459 - 0.343 = 0.116
 
 ---------------------------
+# For "Temperature": #
+
+For Temperature = "Hot":  P("Yes"|"Hot") and P("No"|"Hot")
+  4 instances: 2 "Yes", 2 "No"
+  Gini(Hot) = 1 - (2/4)^2 - (2/4)^2 = 1 - 0.25 - 0.25 = 0.5
+
+For Temperature = "Mild": P("Yes"|"Mild") and P("No"|"Mild")
+  6 instances: 4 "Yes", 2 "No"
+  Gini(Mild) = 1 - (4/6)^2 - (2/6)^2 = 1 - 0.444 - 0.111 = 0.445
+
+For Temperature = "Cool": P("Yes"|"Cool") and P("No"|"Cool")
+  4 instances: 3 "Yes", 1 "No"
+  Gini(Cool) = 1 - (3/4)^2 - (1/4)^2 = 1 - 0.563 - 0.063 = 0.374
+
+Weighted Gini after split on "Temperature":
+  WeightedGini(Temperature) = (4/14 × 0.5) + (6/14 × 0.445) + (4/14 × 0.374) = 0.440
+
+Information Gain for Temperature:
+  Gain(Temperature) = 0.459 - 0.440 = 0.019
