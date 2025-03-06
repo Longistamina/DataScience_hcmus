@@ -46,15 +46,11 @@ Where:
 ***************** 2. For Regression Trees ******************
 ---------------
 Mean Squared Error (MSE)
-MSE(t) = 1/Nt * 
-Where:
+  MSE(t) = 1/Nt * sum[(y_t_i - mean(y_t))^2]
+  MSE(root) = 1/N * sum[(y_i - mean(y))^2]
 
-NtN_t
-Nt​ is the number of samples at node tt
-t
-yiy_i
-yi​ is the target value of sample ii
-i
-yˉt\bar{y}_t
-yˉ​t​ is the mean target value at node tt
-t
+Where:
+#  Nt is the number of samples belong to node/feature "t"
+#  N is the sample size of the whole training data
+#  y_t_i is the target values of node/feature "t"
+#  y_i is the target values of the whole training data
