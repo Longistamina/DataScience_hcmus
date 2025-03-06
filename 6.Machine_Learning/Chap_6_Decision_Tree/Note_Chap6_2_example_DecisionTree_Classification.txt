@@ -74,3 +74,46 @@ Weighted Gini after split on "Temperature":
 
 Information Gain for Temperature:
   Gain(Temperature) = 0.459 - 0.440 = 0.019
+
+--------------------------------
+# For "Humidity": #
+
+For Humidity = "High": P("Yes"|"High") and P("No"|"High")
+  7 instances: 3 "Yes", 4 "No"
+  Gini(High) = 1 - (3/7)^2 - (4/7)^2 = 1 - 0.184 - 0.327 = 0.489
+
+For Humidity = "Normal":  P("Yes"|"Normal") and P("No"|"Normal")
+  7 instances: 6 "Yes", 1 "No"
+  Gini(Normal) = 1 - (6/7)^2 - (1/7)^2 = 1 - 0.735 - 0.02 = 0.245
+
+Weighted Gini after split on "Humidity":
+   WeightedGini(Humidity) = (7/14 × 0.489) + (7/14 × 0.245) = 0.367
+
+Information Gain for Humidity:
+  Gain(Humidity) = 0.459 - 0.367 = 0.092
+
+--------------------------------
+# For "Windy": #
+
+For Windy = "No":  P("Yes"|"Wind_No") and P("No"|"Wind_No")
+  8 instances: 6 "Yes", 2 "No"
+  Gini(No) = 1 - (6/8)^2 - (2/8)^2 = 1 - 0.563 - 0.063 = 0.374
+
+For Windy = "Yes":  P("Yes"|"Wind_Yes") and P("No"|"Wind_Yes")
+  6 instances: 3 "Yes", 3 "No"
+  Gini(Yes) = 1 - (3/6)^2 - (3/6)^2 = 1 - 0.25 - 0.25 = 0.5
+
+Weighted Gini after split on "Windy":
+   WeightedGini(Windy) = (8/14 × 0.374) + (6/14 × 0.5) = 0.429
+
+Information Gain for Windy:
+  Gain(Windy) = 0.459 - 0.429 = 0.03
+
+--------------------------------
+Best Split for Level 1:
+# Gain(Outlook)     = 0.116
+# Gain(Humidity)    = 0.092
+# Gain(Windy)       = 0.03
+# Gain(Temperature) = 0.019
+
+"Outlook" has the highest information gain, so it becomes our first split.
