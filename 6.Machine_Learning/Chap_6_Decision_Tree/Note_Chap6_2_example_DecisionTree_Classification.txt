@@ -219,52 +219,54 @@ Best Split for Sunny:
 
 "Humidity" has the highest gain, so it's the best split for the Sunny branch.
 
+
+
 ---------------------------------------------------------
 For "Rain" branch:
-We have 5 instances: 3 "Yes", 2 "No"
-
-Gini(Rain) = 0.48
+  We have 5 instances: 3 "Yes", 2 "No"
+  Gini(Rain) = 0.48
 
 Let's calculate the gain for each remaining feature:
-For "Windy" in Rain:
-For Rain & Windy = "No":
 
-3 instances: 3 "Yes", 0 "No"
-Gini = 0
+# For "Windy" in Rain: ###
+  For Rain & Windy = "No":
+    P("Yes" | "Rain"."Windy_No") and P("No" | "Rain"."Windy_No")
+    3 instances: 3 "Yes", 0 "No"
+    Gini(Windy_No | Rain) = 1 - (3/3)^2 - (0/3)^2 = 1 - 1 - 0 = 0
 
-For Rain & Windy = "Yes":
+  For Rain & Windy = "Yes":
+    P("Yes" | "Rain"."Windy_No") and P("No" | "Rain"."Windy_No")
+    2 instances: 0 "Yes", 2 "No"
+    Gini((Windy_Yes | Rain)) = 1 - (0/2)^2 - (2/2)^2 = 1 - 0 - 1 = 0
 
-2 instances: 0 "Yes", 2 "No"
-Gini = 0
+  Weighted Gini:
+    WeightedGini(Windy | Rain) = (3/5 × 0) + (2/5 × 0) = 0
 
-Weighted Gini:
+  Information Gain for Windy in Rain:
+    Gain(Windy | Rain) = 0.48 - 0 = 0.48
 
-(3/5 × 0) + (2/5 × 0) = 0
 
-Information Gain for Windy in Rain:
 
-Gain = 0.48 - 0 = 0.48
+# For "Temperature" in Rain: ###
+  For Rain & Temperature = "Mild":
+    P("Yes" | "Rain"."Mild") and P("No" | "Rain"."Mild")
+    3 instances: 2 "Yes", 1 "No"
+    Gini(Mild | Rain) = 1 - (2/3)^2 - (1/3)^2 = 1 - 4/9 - 1/9 = 0.444
 
-For "Temperature" in Rain:
-For Rain & Temperature = "Mild":
+  For Rain & Temperature = "Cool":
+    P("Yes" | "Rain"."Cool") and P("No" | "Rain"."Cool")
+    2 instances: 1 "Yes", 1 "No"
+    Gini(Cool | Rain) = 1 - (1/2)^2 - (1/2)^2 = 1 - 1/4 - 1/4 = 0.5
 
-3 instances: 2 "Yes", 1 "No"
-Gini = 0.444
+  Weighted Gini:
+    WeightedGini(Temperature | Rain) = (3/5 × 0.444) + (2/5 × 0.5) = 0.466
 
-For Rain & Temperature = "Cool":
+  Information Gain for Temperature in Rain:
+    Gain(Temperature | Rain) = 0.48 - 0.466 = 0.014
 
-2 instances: 1 "Yes", 1 "No"
-Gini = 0.5
 
-Weighted Gini:
 
-(3/5 × 0.444) + (2/5 × 0.5) = 0.466
-
-Information Gain for Temperature in Rain:
-
-Gain = 0.48 - 0.466 = 0.014
-
-For "Humidity" in Rain:
+# For "Humidity" in Rain: ###
 For Rain & Humidity = "High":
 
 2 instances: 1 "Yes", 1 "No"
