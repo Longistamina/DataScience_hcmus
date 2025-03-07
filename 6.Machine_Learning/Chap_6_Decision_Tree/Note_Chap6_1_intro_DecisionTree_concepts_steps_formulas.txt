@@ -1,6 +1,6 @@
 Classification Tree: https://www.youtube.com/watch?v=_L39rN6gz7Y
 
-Choose features for Tree: https://www.youtube.com/watch?v=wpNl-JwwplA
+Feature selection and Missing data in Tree: https://www.youtube.com/watch?v=wpNl-JwwplA
 
 Regression Tree: https://www.youtube.com/watch?v=g9c66TUylZ4
 
