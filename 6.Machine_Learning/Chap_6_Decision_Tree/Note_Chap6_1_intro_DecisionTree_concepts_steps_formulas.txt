@@ -12,7 +12,7 @@ Decision trees are intuitive classification and regression models that work by r
 
 A decision tree is a flowchart-like structure where:
 # Internal nodes represent tests on features (each feature is a split node)
-# Branches represent the outcomes of those tests
+# Branches represent the values of each feature
 # Leaf nodes represent class labels or predicted values
 
 If the Tree have too many branches and leaf nodes, the number of datapoints in each branch and notch will be very small
