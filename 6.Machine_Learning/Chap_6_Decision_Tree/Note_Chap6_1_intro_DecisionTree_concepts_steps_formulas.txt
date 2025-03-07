@@ -15,6 +15,10 @@ A decision tree is a flowchart-like structure where:
 # Branches represent the outcomes of those tests
 # Leaf nodes represent class labels or predicted values
 
+If the Tree have too many branches and leaf nodes, the number of datapoints in each branch and notch will be very small
+=> Cause overfitting
+
+Therefore, must set a threshold, for exampl: only split if the number of data in that branch >= 1000 data points
 
 #-------------------------------------------------------------------#
 #----------------- Steps of DT algorithm ---------------------------#
