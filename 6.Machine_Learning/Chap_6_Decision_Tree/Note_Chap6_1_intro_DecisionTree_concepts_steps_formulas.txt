@@ -1,4 +1,4 @@
-Reference link: https://www.youtube.com/watch?v=_L39rN6gz7Y
+Classification Tree: https://www.youtube.com/watch?v=_L39rN6gz7Y
 
 #-----------------------------------------------------------------------#
 #----------------------- Decision Tree ---------------------------------#
