@@ -34,7 +34,7 @@ Decision Tree Algorithm Steps
 For each possible split point:
     + Calculate the impurity after the split
     + Calculate the information gain or reduction in error
-Select the feature and split point with the highest gain/reduction
+Select the feature and split point with the highest gain/reduction (or lowest impurity)
 
 # 4. Split the node according to the selected feature
 
