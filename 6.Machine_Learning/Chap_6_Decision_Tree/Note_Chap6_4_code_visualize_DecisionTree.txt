@@ -98,7 +98,7 @@ Image(graph.create_png()) #show the graph from dot_data
 #---------------------------------------------------------#
 
 ***************** Get encoded feature names from Pipeline *******************************
-feature_names = treeC_pipe.named_steps['Onehot_Encoder'].get_feature_names_out()
+features = treeC_pipe.named_steps['Onehot_Encoder'].get_feature_names_out()
 print(feature_names)
 
 features_cleaned = [feat.replace("OneHotEnc__", "").replace("remainder__", "") for feat in feature_names]
