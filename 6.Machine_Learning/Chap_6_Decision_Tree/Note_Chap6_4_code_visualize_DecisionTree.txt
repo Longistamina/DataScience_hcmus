@@ -91,3 +91,31 @@ dot_data = export_graphviz(tree_model, out_file=None, feature_name = x.columns) 
 graph = pydotplus.graph_from_dot_data(dot_data) #create graph from dot_data
 
 Image(graph.create_png()) #show the graph from dot_data
+
+
+#---------------------------------------------------------#
+#--------- Visulize tree without graphviz ----------------#
+#---------------------------------------------------------#
+from sklearn.tree import plot_tree
+import matplotlib.pyplot as plt
+
+# Assuming treeC_pipe is your pipeline with a decision tree classifier
+# Extract the trained decision tree classifier from your pipeline
+tree_classifier = treeC_pipe.named_steps['Tree_Classifier']
+
+# Create a figure with the desired size
+plt.figure(figsize=(15, 10))
+
+# Plot the tree
+plot_tree(tree_classifier, 
+          filled=True,  # Color nodes by class
+          feature_names=feature_names,  # If you have feature names
+          class_names=class_names,      # If you have class names
+          rounded=True,                 # Round node corners
+          proportion=False)             # Show counts instead of proportions
+
+# Add a title
+plt.title("Decision Tree Visualization")
+
+# Display the plot
+plt.show()
