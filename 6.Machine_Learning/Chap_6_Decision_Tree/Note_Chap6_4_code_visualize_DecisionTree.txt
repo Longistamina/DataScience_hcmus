@@ -96,6 +96,20 @@ Image(graph.create_png()) #show the graph from dot_data
 #---------------------------------------------------------#
 #--------- Visulize tree without graphviz ----------------#
 #---------------------------------------------------------#
+
+***************** Get encoded feature names from Pipeline *******************************
+feature_names = treeC_pipe.named_steps['Onehot_Encoder'].get_feature_names_out()
+print(feature_names)
+
+features_cleaned = [feat.replace("OneHotEnc__", "").replace("remainder__", "") for feat in feature_names]
+
+print(features_encoded)
+
+del feature_names
+
+
+****************** Visulize tree ****************************************
+
 from sklearn.tree import plot_tree
 import matplotlib.pyplot as plt
 
