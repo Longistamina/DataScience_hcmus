@@ -5,7 +5,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import pandas as pd
+import seaborn as sbn
 
 data = pd.read_.....
 
@@ -53,7 +53,7 @@ Image(graph.create_png()) #show the graph from dot_data
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import pandas as pd
+import seaborn as sbn
 
 data = pd.read_.....
 
