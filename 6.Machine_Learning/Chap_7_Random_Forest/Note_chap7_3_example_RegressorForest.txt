@@ -85,19 +85,19 @@ If Bedrooms > 2 → Split on Age
 
 
                Root (Bedrooms)
-                    /                            \
-                  /                                \
-                /                                    \
+                    /        \
+                  /           \
+                /              \
        Bedrooms ≤ 2            Bedrooms > 2
-                   |                                             |
-                 Age                                       Age
-              /        \                               /              \
-            /            \                           /                   \
-     Age            Age                    Age                Age 
-  ≤ 10    > 10       ≤ 10      > 10
-           |                  |                       |                      |
-      Avg:              Avg:      Avg:      Avg:         
-$275K               $185K   $277.5K    $285K
+            |                           |
+           Age                         Age
+        /        \                  /         \
+      /            \               /           \
+     Age            Age           Age          Age 
+    ≤ 10           > 10           ≤ 10        > 10
+     |               |             |            |
+    Avg:            Avg:          Avg:         Avg:         
+   $275K           $185K        $277.5K       $285K
 
 
 #-----------------------------------------#
@@ -106,7 +106,7 @@ $275K               $185K   $277.5K    $285K
 
 New Example: 1900 sqft, 3 bedrooms, 12 years
 
-Tree 1: Size: > 1750 →  Age:  ≤ 15  →  $323.3K
-Tree 2: Bedrooms: > 2  →  Age: > 10  →  $285K
+Tree 1: Size: > 1750 →  Age:  ≤ 15  =>  $323.3K
+Tree 2: Bedrooms: > 2  →  Age: > 10  =>  $285K
 
 Final Prediction: ($323.3K + $285K)/2 = $304.15K
