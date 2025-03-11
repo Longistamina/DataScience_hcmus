@@ -1,3 +1,6 @@
+Random Forest part 1: https://www.youtube.com/watch?v=J4Wdy0Wc_xQ
+Random Forest part 2: https://www.youtube.com/watch?v=sQ870aTKqiM
+
 #--------------------------------------------------#
 #---------------- Random Forest -------------------#
 #--------------------------------------------------#
