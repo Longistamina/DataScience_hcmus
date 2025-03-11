@@ -1,0 +1,112 @@
+#------------------------------------------------------#
+#------- Random Forest - Regressor example ------------#
+#------------------------------------------------------#
+
+Let's work through a simple regression example with a small dataset.
+
+ID  Size(sqft)  Bedrooms  Age(years)  Price($1000s)
+1   1500        3         20          220
+2   2000        4         15          330
+3   1300        2         5           275
+4   1800        3         10          290
+5   2500        4         25          370
+6   1100        2         30          185
+7   2200        3         15          350
+8   1600        3         8           265
+
+
+#--------------------------------------#
+#------- Build Tree 1 -----------------#
+#--------------------------------------#
+
+Tree 1 Bootstrap Dataset
+
+Sample_ID  Original_ID  Size(sqft)  Bedrooms  Age(years)  Price($1000s)
+1          1           1500        3         20          220
+2          2           2000        4         15          330
+3          4           1800        3         10          290
+4          5           2500        4         25          370
+5          5           2500        4         25          370
+6          7           2200        3         15          350
+7          8           1600        3         8           265
+
+
+Feature Subset: Size, Age
+Root Node: Split on Size (≤1750 vs >1750)
+
+If Size ≤ 1750 → Average price = (220 + 265)/2 = $242.5K
+
+If Size > 1750 → Split on Age
+	If Age ≤ 15 → Average price = (330 + 290 + 350)/3 = $323.3K
+	If Age > 15 → Average price = (370 + 370)/2 = $370K
+
+
+                     Root (Size)
+                    /          \
+                   /            \
+                  /              \
+             Size ≤ 1750      Size > 1750
+                 |                |
+            Avg: $242.5K         Age
+                                /   \
+                               /     \
+                          Age ≤ 15  Age > 15
+                             |         |
+                        Avg: $323.3K  Avg: $370K
+
+
+#--------------------------------------#
+#------- Build Tree 2 -----------------#
+#--------------------------------------#
+
+Tree 2 Bootstrap Dataset
+
+Sample_ID  Original_ID  Size(sqft)  Bedrooms  Age(years)  Price($1000s)
+1          1           1500        3         20          220
+2          3           1300        2         5           275
+3          3           1300        2         5           275
+4          4           1800        3         10          290
+5          6           1100        2         30          185
+6          7           2200        3         15          350
+7          8           1600        3         8           265
+
+
+Feature Subset: Bedrooms, Age
+Root Node: Split on Bedrooms (≤2 vs >2)
+
+If Bedrooms ≤ 2 → Split on Age
+	If Age ≤ 10 → Average price = (275 + 275)/2 = $275K
+	If Age > 10 → Average price = $185K
+
+
+If Bedrooms > 2 → Split on Age
+	If Age ≤ 10 → Average price = (290 + 265)/2 = $277.5K
+	If Age > 10 → Average price = (220 + 350)/2 = $285K
+
+
+               Root (Bedrooms)
+                    /                            \
+                  /                                \
+                /                                    \
+       Bedrooms ≤ 2            Bedrooms > 2
+                   |                                             |
+                 Age                                       Age
+              /        \                               /              \
+            /            \                           /                   \
+     Age            Age                    Age                Age 
+  ≤ 10    > 10       ≤ 10      > 10
+           |                  |                       |                      |
+      Avg:              Avg:      Avg:      Avg:         
+$275K               $185K   $277.5K    $285K
+
+
+#-----------------------------------------#
+#------ Predict new data ------------#
+#----------------------------------------#
+
+New Example: 1900 sqft, 3 bedrooms, 12 years
+
+Tree 1: Size: > 1750 →  Age:  ≤ 15  →  $323.3K
+Tree 2: Bedrooms: > 2  →  Age: > 10  →  $285K
+
+Final Prediction: ($323.3K + $285K)/2 = $304.15K

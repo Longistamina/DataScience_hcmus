@@ -1,0 +1,11 @@
+#--------------------------------------------------#
+#---------------- Random Forest -------------------#
+#--------------------------------------------------#
+
+Random Forest is an ensemble learning method that combines multiple decision trees to improve prediction accuracy and reduce overfitting. 
+
+Core Concepts:
+# Ensemble Learning: Random Forest combines predictions from multiple decision trees.
+# Bootstrapping: Each tree is trained on a random sample of the original data (with replacement).
+# Feature Randomization: For each split, only a random subset of features is considered.
+# Voting/Averaging: Classification uses majority voting; regression uses averaging.

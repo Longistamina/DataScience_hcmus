@@ -1,0 +1,177 @@
+#-----------------------------------------------------------#
+#------- Random Forest - Classification example ------------#
+#-----------------------------------------------------------#
+
+Let's work through a simple classification example with a small dataset.
+
+ID  Color   Size    Shape     Class
+1   Red     Small   Round     Apple
+2   Red     Large   Irregular Apple
+3   Green   Small   Round     Apple
+4   Yellow  Small   Round     Lemon
+5   Yellow  Large   Oval      Lemon
+6   Yellow  Large   Round     Lemon
+7   Green   Large   Oval      Watermelon
+8   Green   Large   Round     Watermelon
+
+
+#--------------------------------------#
+#------- Build Tree 1 -----------------#
+#--------------------------------------#
+
+Tree 1 Bootstrap Dataset
+
+Sample_ID  Original_ID  Color   Size    Shape     Class
+1          1           Red     Small   Round     Apple
+2          2           Red     Large   Irregular Apple
+3          2           Red     Large   Irregular Apple
+4          4           Yellow  Small   Round     Lemon
+5          5           Yellow  Large   Oval      Lemon
+6          7           Green   Large   Oval      Watermelon
+7          8           Green   Large   Round     Watermelon
+
+
+Feature Subset: Color, Size
+Root Node: Split on Color
+
+If Color = Red → Apple (2/2 correct)
+
+If Color = Yellow → Lemon (2/2 correct)
+
+If Color = Green → Split on Size
+	If Size = Small → Apple (0/0 samples)
+	If Size = Large → Watermelon (2/2 correct)
+
+
+		       Root (Color)
+                      /     |     \
+                     /      |      \
+                    /       |       \
+                   /        |        \
+                  /         |         \
+               Red        Yellow     Green
+                |           |          |
+             "Apple"     "Lemon"      Size
+                                     /   \
+                                    /     \
+                                Small     Large
+                                  |         |
+                              "Apple"   "Watermelon"
+                              (empty)
+
+
+#--------------------------------------#
+#------- Build Tree 2 -----------------#
+#--------------------------------------#
+
+Tree 2 Bootstrap Dataset
+
+Sample_ID  Original_ID  Color   Size    Shape     Class
+1          1           Red     Small   Round     Apple
+2          3           Green   Small   Round     Apple
+3          4           Yellow  Small   Round     Lemon
+4          4           Yellow  Small   Round     Lemon
+5          6           Yellow  Large   Round     Lemon
+6          7           Green   Large   Oval      Watermelon
+7          8           Green   Large   Round     Watermelon
+
+
+Feature Subset: Color, Shape
+Root Node: Split on Color
+
+If Color = Red → Apple (1/1 correct)
+
+If Color = Yellow → Lemon (2/2 correct)
+
+If Color = Green → Split on Shape
+	If Shape = Round → Split on Size* (*available because we need another feature)
+		If Size = Small → Apple (1/1 correct)
+		If Size = Large → Watermelon (1/1 correct)
+
+If Shape = Oval → Watermelon (1/1 correct)
+
+                       Root (Color)
+                      /     |     \
+                     /      |      \
+                    /       |       \
+                   /        |        \
+                  /         |         \
+               Red        Yellow     Green
+                |           |          |
+             "Apple"     "Lemon"     Shape
+                                    /    \
+                                   /      \
+                                Round     Oval
+                                 |          |
+                               Size    "Watermelon"
+                              /   \
+                             /     \
+                          Small    Large
+                            |        |
+                        "Apple"  "Watermelon"
+
+
+#--------------------------------------#
+#------- Build Tree 3 -----------------#
+#--------------------------------------#
+
+Tree 3 Bootstrap Dataset
+
+Sample_ID  Original_ID  Color   Size    Shape     Class
+1          2           Red     Large   Irregular Apple
+2          3           Green   Small   Round     Apple
+3          5           Yellow  Large   Oval      Lemon
+4          6           Yellow  Large   Round     Lemon
+5          6           Yellow  Large   Round     Lemon
+6          7           Green   Large   Oval      Watermelon
+7          8           Green   Large   Round     Watermelon
+
+
+Feature Subset: Size, Shape
+Root Node: Split on Size
+
+If Size = Small → Apple (1/1 correct)
+
+If Size = Large → Split on Shape
+	If Shape = Round → Split on Color* (*available as we need another feature)
+		If Color = Red → Apple (1/1 correct)
+		If Color = Yellow → Lemon (1/1 correct)
+		If Color = Green → Watermelon (1/1 correct)
+	If Shape = Oval → Split on Color
+		If Color = Yellow → Lemon (1/1 correct)
+		If Color = Green → Watermelon (1/1 correct)
+	If Shape = Irregular → Apple (1/1 correct)
+
+
+                      Root (Size)
+                      /        \
+                     /          \
+                    /            \
+                   /              \
+                Small             Large
+                  |                |
+              "Apple"            Shape
+                                /  |  \
+                               /   |   \
+                              /    |    \
+                          Round   Oval  Irregular
+                            |      |        |
+                          Color   Color   "Apple"
+                         /  |  \    / \
+                        /   |   \  /   \
+                      Red Yellow Green Yellow Green
+                       |     |     |      |     |
+                   "Apple" "Lemon" "W.melon" "Lemon" "W.melon"
+
+
+#-----------------------------------#
+#------ Predict new data -----------#
+#-----------------------------------#
+
+New input: "Green", "Large", "Round"
+
+Tree 1: Color: Green → Size: Large → output: Watermelon
+Tree 2: Color: Green → Shape: Round → Size: Large → output: Watermelon
+Tree 3: Size: Large → Shape: Round → Color: Green → output: Watermelon
+
+Final Prediction: Watermelon (3 votes)
