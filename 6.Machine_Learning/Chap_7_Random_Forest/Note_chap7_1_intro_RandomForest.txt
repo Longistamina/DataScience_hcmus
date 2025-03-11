@@ -18,12 +18,25 @@ Core Concepts:
 # Averaging for final output: Regression uses averaging to calculate the final regression value.
 
 
-Since the Random Forest is a combination of many Decision Trees, so the calculation will take longer,
-and more difficult to explain the model (too many tree to visualize)
-
-
 Model calculating steps:
 1) Use bootstrapping method to create new datasets from original one (with a little difference)
 2) Build new trees on new-generated datasets (each dataset -> each tree)
 3) Use these trees to predict new outcomes
 4) To select final outcome, use voting for classification task, or averaging for regression task
+
+
+#-----------------------------------------#
+#---------------- Pros -------------------#
+#-----------------------------------------#
+
+Random Forest module in sklearn of python have methods to help select the best features to build Tree
+
+=> Help avoid overfitting and enhance training time
+
+
+#-----------------------------------------#
+#---------------- Cons -------------------#
+#-----------------------------------------#
+
+Since the Random Forest is a combination of many Decision Trees, so the calculation will take longer,
+and more difficult to explain the model (too many tree to visualize)
