@@ -2,10 +2,25 @@
 #---------------- Random Forest -------------------#
 #--------------------------------------------------#
 
+Random Forest is developed to handle the weak points of Decision Tree
+(Decision Tree is very easy to be overfitted. When training dataset changes, the outcome might change a lot)
+
 Random Forest is an ensemble learning method that combines multiple decision trees to improve prediction accuracy and reduce overfitting. 
 
 Core Concepts:
 # Ensemble Learning: Random Forest combines predictions from multiple decision trees.
 # Bootstrapping: Each tree is trained on a random sample of the original data (with replacement).
 # Feature Randomization: For each split, only a random subset of features is considered.
-# Voting/Averaging: Classification uses majority voting; regression uses averaging.
+# Voting for final output: Classification task uses majority voting to select the final predicted class 
+# Averaging for final output: Regression uses averaging to calculate the final regression value.
+
+
+Since the Random Forest is a combination of many Decision Trees, so the calculation will take longer,
+and more difficult to explain the model (too many tree to visualize)
+
+
+Model calculating steps:
+1) Use bootstrapping method to create new datasets from original one (with a little difference)
+2) Build new trees on new-generated datasets (each dataset -> each tree)
+3) Use these trees to predict new outcomes
+4) To select final outcome, use voting for classification task, or averaging for regression task
