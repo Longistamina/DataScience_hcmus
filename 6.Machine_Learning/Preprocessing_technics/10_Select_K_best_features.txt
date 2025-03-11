@@ -16,7 +16,7 @@ If we use too much features / inputs to train model
 => CHOOSE ESSENTIAL FEATURES ONLY
 
 #---------------------------------------------------------------------------------------#
-#--------------------- Use Select K best features Library --------------------#
+#--------------------- Use Select K best features Library ------------------------------#
 #---------------------------------------------------------------------------------------#
 
 from sklearn.feature_selection import SelectKBest
