@@ -171,7 +171,7 @@ If Size = Large → Split on Shape
 New input: "Green", "Large", "Round"
 
 Tree 1: Color: Green → Size: Large → output: Watermelon
-Tree 2: Color: Green → Shape: Round → Size: Large → output: Watermelon
-Tree 3: Size: Large → Shape: Round → Color: Green → output: Watermelon
+Tree 2: Color: Green → Shape: Round → Size: Large => output: Watermelon
+Tree 3: Size: Large → Shape: Round → Color: Green => output: Watermelon
 
 Final Prediction: Watermelon (3 votes)
