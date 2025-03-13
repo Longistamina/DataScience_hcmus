@@ -126,4 +126,4 @@ forestC.fit(x_train, y_train)
 
 forestC.feature_importances #To see the list of important features selected by random forest
 
-df_imp_features = pd.Series(forestR.feature_importances, index = x.coluns)sort_values(ascending = False)
+df_imp_features = pd.Series(forestR.feature_importances, index = x.colums)sort_values(ascending = False)
