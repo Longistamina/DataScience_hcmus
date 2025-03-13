@@ -131,7 +131,7 @@ forestC_pipe = Pipeline([
 
 forestC_pipe.fit(x_train, y_train)
 
-forestC.feature_importances #To see the list of important features selected by random forest
+forestC.feature_importances #To see the list of features' scores calculated by random forest
 
 ###################### df_features_scores #######################
 
