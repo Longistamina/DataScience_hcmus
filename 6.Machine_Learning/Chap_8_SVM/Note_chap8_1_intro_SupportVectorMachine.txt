@@ -1,0 +1,38 @@
+SVM part 1 - Main ideas: https://www.youtube.com/watch?v=efR1C6CvhmE
+SVM part 2 - Polynomial kernel: https://www.youtube.com/watch?v=Toet3EiSFcM
+SVM part 3 - The Radial (RBF) kernel: https://www.youtube.com/watch?v=Qc5IyLW_hns
+
+#---------------------------------------------------------------#
+#------------------ Support Vector Machine (SVM) ---------------#
+#---------------------------------------------------------------#
+
+SVM can be used for both regression and classification tasks
+
+SVM can also help detect outliers
+
+SVM is very stable => many people like it (including me :> )
+
+
+
+Support Vector Machine (SVM) is a powerful supervised learning algorithm used for both classification and regression tasks. 
+The core idea behind SVM is to find the optimal hyperplane that maximizes the margin between different classes (for classification) or that best fits the data (for regression).
+
+
+SVM for Classification
+In classification, SVM finds a hyperplane that separates data points of different classes with the maximum margin. 
+The data points that lie closest to this hyperplane are called "support vectors" because they support or define the position of the hyperplane.
+
+
+SVM for Regression (SVR)
+For regression, SVM introduces an ε-insensitive loss function. 
+Predictions within ε of the actual value incur no penalty, while those outside this tube are penalized linearly.
+
+
+
+Key SVM Concepts
+#	Kernel Trick: For non-linearly separable data, SVM uses kernel functions (like polynomial, RBF) to map data to higher dimensions where it becomes linearly separable.
+#	C parameter: Controls the trade-off between maximizing the margin and minimizing the classification error.
+#	Support Vectors: The data points closest to the hyperplane that influence its position and orientation.
+#	Margin: The distance between the hyperplane and the closest data points (support vectors).
+
+=> SVMs are particularly valuable when dealing with high-dimensional data, as they're effective at finding the optimal separating hyperplane even in complex feature spaces.

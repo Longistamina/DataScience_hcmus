@@ -1,0 +1,60 @@
+SVM part 1 - Main ideas: https://www.youtube.com/watch?v=efR1C6CvhmE
+SVM part 2 - Polynomial kernel: https://www.youtube.com/watch?v=Toet3EiSFcM
+SVM part 3 - The Radial (RBF) kernel: https://www.youtube.com/watch?v=Qc5IyLW_hns
+
+#---------------------------------------------------------------#
+#------------------ Example SVM classification -----------------#
+#---------------------------------------------------------------#
+
+SVM for Classification
+In classification, SVM finds a hyperplane that separates data points of different classes with the maximum margin. 
+The data points that lie closest to this hyperplane are called "support vectors" because they support or define the position of the hyperplane.
+
+
+Suppose we have the following data points:
+#	Class A: (1,2), (2,3), (3,3)
+#	Class B: (3,1), (4,2), (5,2)
+
+
+#--------------------------------------------#
+         Step 1: Define the hyperplane
+#--------------------------------------------#
+In 2D, our hyperplane is a line defined by:
+	w₁x₁ + w₂x₂ + b = 0
+
+
+#--------------------------------------------#
+	Step 2: Define the constraints
+#--------------------------------------------#
+For class A (label +1): w₁x₁ + w₂x₂ + b ≥ +1
+For class B (label -1): w₁x₁ + w₂x₂ + b ≤ -1
+
+
+#-----------------------------------------------------------#
+	Step 3: Find the optimal weights and bias
+#-----------------------------------------------------------#
+
+We need to minimize ||w|| (or 1/2 * ||w||^2) subject to these constraints.
+
+Let's try w₁ = 1, w₂ = 1, and b = -4:
+# For class A:
+	(1,2): 1(1) + 1(2) - 4 = -1 ≥ -1 ✓
+	(2,3): 1(2) + 1(3) - 4 = 1 ≥ 1 ✓
+	(3,3): 1(3) + 1(3) - 4 = 2 ≥ 1 ✓
+
+# For class B:
+	(3,1): 1(3) + 1(1) - 4 = 0 ≤ -1 ✗ (constraint violated)
+
+Since the constraints aren't satisfied, let's adjust our parameters.
+
+Let's try w₁ = 2, w₂ = -1, and b = -2:
+# For class A:
+	(1,2): 2(1) - 1(2) - 2 = -2 ≥ 1 ✗
+
+This doesn't work either. After several iterations (which I'm abbreviating), we might find:
+		w₁ = 1, w₂ = -1, and b = -1
+Checking:
+# For class A:
+	(1,2): 1(1) - 1(2) - 1 = -2 < 1 ✗
+After more iterations, we could find the optimal solution, but this is computationally intensive by hand. 
+In practice, we use quadratic programming techniques or sequential minimal optimization.
