@@ -36,3 +36,14 @@ Key SVM Concepts
 #	Margin: The distance between the hyperplane and the closest data points (support vectors).
 
 => SVMs are particularly valuable when dealing with high-dimensional data, as they're effective at finding the optimal separating hyperplane even in complex feature spaces.
+
+
+########### Support Vector Classifier = a hyperplane that separates data points
+
+If data is 1-D => the Support Vector Classifier is a point
+
+If data is 2-D => the Support Vector Classifier is a 1-D line
+
+If data is 3-D => the Support Vector Classifier is a 2-D plane
+
+If data is 4-D => the Support Vector Classifier is a 3-D hyperplane.....
