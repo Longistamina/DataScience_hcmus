@@ -1,0 +1,62 @@
+SVM part 1 - Main ideas: https://www.youtube.com/watch?v=efR1C6CvhmE
+SVM part 2 - Polynomial kernel: https://www.youtube.com/watch?v=Toet3EiSFcM
+SVM part 3 - The Radial (RBF) kernel: https://www.youtube.com/watch?v=Qc5IyLW_hns
+
+
+Kernel functions are the function that help project original data into a higher-dimension space
+
+#------------------------------------------------------#
+#------------------ Polynomial Kernel -----------------#
+#------------------------------------------------------#
+
+To apply a polynomial kernel to a dataset in Support Vector Machines (SVMs), you need to understand how the kernel function transforms the data.
+
+The polynomial kernel function is defined as:
+	K(x) = (γ⟨x, y⟩ + r)^d
+Where:
+# x and y are your input vectors
+# γ (gamma) is a scaling parameter
+# r is a constant term (often 0 or 1)
+# d is the degree of the polynomial
+⟨x, y⟩ is the dot product between vectors x and y
+
+(the dataset can have more observations, but here take x and y as 2 symbolized datapoints to form the formula)
+
+For a polynomial kernel of degree d applied to N-dimensional data, the transformed feature space will have a dimensionality of:
+	feature_space_dimension = (N+d)! / (d! * N!)
+
+This represents the number of monomials of degree less than or equal to d with N variables.
+
+
+****************** Example ****************************
+Let's say you have 2-dimensional data points (N=2):
+	x = (x₁, x₂)
+	y = (y₁, y₂)
+
+(the dataset can have more observations, but here take x and y as 2 symbolized datapoints to form the formula)
+
+With a polynomial kernel of degree 2 (d=2), γ=1, r=1:
+	K(x, y) = (⟨x, y⟩ + 1)²
+		= (x₁.y₁ + x₂.y₂ + 1)²
+
+When expanded, this equals:
+	(x₁.y₁ + x₂.y₂ + 1)² 
+	= 1 + x₁²·y₁² + x₂²·y₂² + 2x₁x₂·y₁y₂ + 2x₁·y₁ + 2x₂·y₂
+			     
+	= (1, √2·x₁, √2·x₂, x₁², √2·x₁·x₂, x₂²) @ (1, √2·y₁, √2·y₂, y₁², √2·y₁·y₂, y₂²)  #Split into dot product of 2 vectors
+
+This corresponds to the implicit feature mapping:
+	Φ(x) = (1, √2·x₁, √2·x₂, x₁², √2·x₁·x₂, x₂²) #6 coordinates
+
+feature_space_dimension = (N+d)! / (d! * N!) = (2+2)! / (2! * 2!) = 6
+
+So, first 2-D   space with original features    x = (x₁, x₂)
+now becomes 6-D space with transformed features x = (1, √2·x₁, √2·x₂, x₁², √2·x₁·x₂, x₂²)
+
+Then, apply the SVM to this new transformed features
+
+
+
+#--------------------------------------------------#
+#------------------ Radial Kernal -----------------#
+#--------------------------------------------------#
