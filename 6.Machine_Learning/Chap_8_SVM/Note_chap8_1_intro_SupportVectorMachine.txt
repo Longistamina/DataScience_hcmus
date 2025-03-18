@@ -15,6 +15,7 @@ SVM is very stable => many people like it (including me :> )
 Steps:
 # Start SVM with low-dimension data
 # If it doesn't work, then "Move" the data into a higher dimension (using Kernel functions)
+  (like Polynomial Kernal or Radial Kernal)
 # Do SVM with "high-dimension" data
 
 
