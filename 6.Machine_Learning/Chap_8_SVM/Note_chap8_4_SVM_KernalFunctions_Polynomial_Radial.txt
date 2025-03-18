@@ -14,13 +14,13 @@ RBF: https://www.youtube.com/watch?v=Q7vT0--5VII
 To apply a polynomial kernel to a dataset in Support Vector Machines (SVMs), you need to understand how the kernel function transforms the data.
 
 The polynomial kernel function is defined as:
-	K(x) = (γ⟨x, y⟩ + r)^d
+	K(x) = (γ⟨x@y⟩ + r)^d
 Where:
 # x and y are your input vectors
 # γ (gamma) is a scaling parameter
 # r is a constant term (often 0 or 1)
 # d is the degree of the polynomial
-⟨x, y⟩ is the dot product between vectors x and y
+⟨x@y⟩ is the dot product between vectors x and y
 
 (the dataset can have more observations, but here take x and y as 2 symbolized datapoints to form the formula)
 
@@ -38,7 +38,7 @@ Let's say you have 2-dimensional data points (N=2):
 (the dataset can have more observations, but here take x and y as 2 symbolized datapoints to form the formula)
 
 With a polynomial kernel of degree 2 (d=2), γ=1, r=1:
-	K(x, y) = (⟨x, y⟩ + 1)²
+	K(x, y) = (⟨x@y⟩ + 1)²
 		= (x₁.y₁ + x₂.y₂ + 1)²
 
 When expanded, this equals:
