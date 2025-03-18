@@ -15,7 +15,6 @@ SVM is very stable => many people like it (including me :> )
 Steps:
 # Start SVM with low-dimension data
 # If it doesn't work, then "Move" the data into a higher dimension (using Kernel functions)
-  (like Polynomial Kernal or Radial Kernal)
 # Do SVM with "high-dimension" data
 
 
@@ -44,12 +43,12 @@ Key SVM Concepts
 => SVMs are particularly valuable when dealing with high-dimensional data, as they're effective at finding the optimal separating hyperplane even in complex feature spaces.
 
 
-########### Support Vector Classifier = a hyperplane that separates data points
+########### Support Vector Classifier/Regressor = a hyperlane used to predict outcomes
 
-If data is 1-D => the Support Vector Classifier is a point
+If data is 1-D => the Support Vector Classifier/Regressor is a point
 
-If data is 2-D => the Support Vector Classifier is a 1-D line
+If data is 2-D => the Support Vector Classifier/Regressor is a 1-D line
 
-If data is 3-D => the Support Vector Classifier is a 2-D plane
+If data is 3-D => the Support Vector Classifier/Regressor is a 2-D plane
 
-If data is 4-D => the Support Vector Classifier is a 3-D hyperplane.....
+If data is 4-D => the Support Vector Classifier/Regressor is a 3-D hyperplane.....
