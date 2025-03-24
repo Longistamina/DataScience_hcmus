@@ -52,3 +52,24 @@ If data is 2-D => the Support Vector Classifier/Regressor is a 1-D line
 If data is 3-D => the Support Vector Classifier/Regressor is a 2-D plane
 
 If data is 4-D => the Support Vector Classifier/Regressor is a 3-D hyperplane.....
+
+
+#-----------------------------------------------------#
+#-------------------- Pros of SVM --------------------#
+#-----------------------------------------------------#
+
+Very useful when we haven't had any idea about how is the data yet
+Can work well with non-structred or semi-strutred datasets like image or text
+Its powerful Kernel Functions are very useful
+Handle well multi-dimension data
+Low risk of overfitting
+
+
+#-----------------------------------------------------#
+#-------------------- Cons of SVM --------------------#
+#-----------------------------------------------------#
+
+Hard to choose suitable Kernel Functions (and its parameters like gamma or degree)
+The training is very time-consuming for large datasets
+Hard to explain the final model/weights
+Since it's hard to perceive the model, hard to adjust the model too
