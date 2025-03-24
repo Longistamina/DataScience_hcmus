@@ -51,4 +51,18 @@ y = data['output']
 from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.2, random_state = 1)
 
+
 from sklearn.svm import SVR
+
+svmR_rbf = SVR(kernel = 'rbf', C = 100, gamma = 'scale')
+svmR_lin = SVR(kernel = 'linear', C = 100)
+svmR_poly = SVR(kernel = 'poly', C = 100, degree = 3)
+
+svmR_rbf.fit(x_train, y_train)
+svmR_rbf.score(x_test, y_test)
+
+svmR_lin.fit(x_train, y_train)
+svmR_lin.score(x_test, y_test)
+
+svmR_poly.fit(x_train, y_train)
+svmR_poly.score(x_test, y_test)
