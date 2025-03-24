@@ -21,7 +21,8 @@ svmC = SVC(gamma = 'scale', C = 100, kernel = 'rbf')
 # gamma: Kernel coefficient for ‘rbf’, ‘poly’ and ‘sigmoid’. If gamma = 'scale' (default) is passed then it uses 1 / (n_features * X.var()) as value of gamma
 #                                                            If gamma = ‘auto’, uses 1 / n_features
 # kernal: {‘linear’, ‘poly’, ‘rbf’, ‘sigmoid’, ‘precomputed’} or callable, default=’rbf’
-# C: A larger C value gives a higher penalty to misclassification. 
+# C: the bigger the C, the narrower the margins (and vice versa)
+#    A larger C value gives a higher penalty to misclassification. 
 #    This means the SVM will try harder to classify all training points correctly, even if it results in a smaller margin between the classes
 #    If C too large, can be overfitted
 
