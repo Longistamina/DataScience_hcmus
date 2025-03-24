@@ -124,3 +124,16 @@ So, take γ = 0.5
 (0.01831563888 describes the relationship between x and y in the infinite dimension)
 # closed to 1 means the points are identical 
 # closed to 0 means the points are very different.
+
+
+#----------------------------------------------------------------------#
+#------------------ Best thing about kernel functions -----------------#
+#----------------------------------------------------------------------#
+For both polynomial kernel and radial kernel:
+	K(x) = (γ⟨x@y⟩ + r)^d
+	K(x, y) = e^(-γ * ∥x-y∥^2)
+
+SVM only uses these formulas to calculate the relationship between x and y in the higher dimension or infinite dimension,
+without creating a higer-dimeinsion inputs like explaining above (or like Polynomial Regression)
+
+=> Reduce the burden of computing, enhance the training time
