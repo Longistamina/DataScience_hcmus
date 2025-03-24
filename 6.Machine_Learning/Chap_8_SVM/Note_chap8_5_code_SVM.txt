@@ -15,6 +15,7 @@ y = data['output']
 from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.2, random_state = 1)
 
+
 from sklearn.svm import SVC
 svmC = SVC(gamma = 'scale', C = 100, kernel = 'rbf')
 # gamma: Kernel coefficient for ‘rbf’, ‘poly’ and ‘sigmoid’. If gamma = 'scale' (default) is passed then it uses 1 / (n_features * X.var()) as value of gamma
@@ -23,6 +24,14 @@ svmC = SVC(gamma = 'scale', C = 100, kernel = 'rbf')
 # C: A larger C value gives a higher penalty to misclassification. 
 #    This means the SVM will try harder to classify all training points correctly, even if it results in a smaller margin between the classes
 #    If C too large, can be overfitted
+
+svmC.fit(x_train, y_train)
+
+y_test_pred = svmC.predict(x_test)
+
+svmC.score(x_test, y_test) #Or use sklearn.metrics.accuracy_score
+
+#Use metrics like confusion_matrix, classification_report, ROC_AUC,... to evaluate this SVM classification model
 
 #----------------------------------------------#
 #--------------- SVM Regression ---------------#
