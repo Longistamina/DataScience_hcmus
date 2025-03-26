@@ -8,8 +8,9 @@ Train the model many times, each time with different train - test data size:
 # 70 - 30
 ...
 
-Until find the optimal train - test ratio (where the accuracy is the highest)
-
+Until find the optimal train - test ratio, where:
+# the accuracy is the highest
+# the difference between accuracy on train and test sets is the lowest
 
 #-------------------------------------------------------------#
 #---------- K-fold Cross Validation explain ------------------#
