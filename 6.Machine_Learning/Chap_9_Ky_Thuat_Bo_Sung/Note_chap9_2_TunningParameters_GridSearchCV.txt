@@ -34,12 +34,13 @@ from sklearn.ensemble import RandomForestClassifier
 
 #parameters to check
 param_grid = { 
-    'n_estimators': [30, 50, 100, 150, 200, 250, 300],
-    'max_features': ['auto', 'sqrt', 'log2'],
-    'bootstrap': [True, False],
-    'criterion': ["gini", "entropy"]    
+    'n_estimators': [30, 50, 100, 150, 200, 250, 300],    #7 parameters
+    'max_features': ['auto', 'sqrt', 'log2'],             #3 parameters
+    'bootstrap': [True, False],                           #2 parameters
+    'criterion': ["gini", "entropy"]                      #2 parameters
 }
 
+#So, there will be 7*3*2*2 = 84 versions of this model to check
 
 from datetime import datetime
 from datetime import timedelta
@@ -49,6 +50,8 @@ start_time = datetime.now()
 #GridSeachCV class
 CV_rfc = GridSearchCV(estimator=RandomForestClassifier(), param_grid=param_grid, cv= 5)
 CV_rfc.fit(X_train, y_train)
+
+#Each of 84 versions will go through 5-fold cross validation, returning 84 means of accuracy scores
 
 end_time = datetime.now()
 
