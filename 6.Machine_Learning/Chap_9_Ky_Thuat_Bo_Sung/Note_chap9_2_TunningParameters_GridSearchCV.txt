@@ -61,3 +61,8 @@ seconds_1 = (dt.days * 24 * 60 * 60 + dt.seconds)
 print(seconds_1)
 
 print(CV_rfc.best_params_)
+
+
+# After the GridSearchCV, the resulted model will also be the best model, so can use it to predict
+y_pred_1=CV_rfc.predict(X_test)
+
