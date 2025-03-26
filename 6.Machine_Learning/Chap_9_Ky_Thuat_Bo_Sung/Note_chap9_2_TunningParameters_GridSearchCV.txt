@@ -9,8 +9,8 @@ For example, when building a Random Forest, some questions may come up:
 => Use Tunning Parameters to find out
 
 There are 2 sklearn modules help in Tunning Parameters
-# GridSearchCV
-# RandomizedSearchCV
+# GridSearchCV: search through all the given parameters to examine => time-consuming
+# RandomizedSearchCV: pick out random given parameters to examine => faster, but can overlook some more optimized cases
 
 
 #--------------------------------------------------------------------------#
