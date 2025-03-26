@@ -1,3 +1,7 @@
+#------------------------------------------------------#
+#---------- Cross Validation explain ------------------#
+#------------------------------------------------------#
+
 In case the dataset is so small, not enough to split into train-test set
 => Use cross validation
 
@@ -28,3 +32,14 @@ std of Accuracy scores = R_cross.std()
 MSE_cross = cross_val_score(multi_lr_model, x, y, cv=4, scoring='neg_mean_squared_error')
 
 MSE_model = MSE_cross.mean()
+
+
+#------------------------------------------------------#
+#---------- Why use Cross Validation ------------------#
+#------------------------------------------------------#
+
+Effective for dataset with small observations
+
+Help examine the stability of the Accuracy Score (by comparing the accuracy of all cross validation row)
+
+Help avoid overfitting and underfitting
