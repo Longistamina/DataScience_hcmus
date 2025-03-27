@@ -161,6 +161,6 @@ Final prediction:
 Suppose we have a new point: feature=5.
 	Classifier 1: 5 < 7 → Predict 1 (h1 = 1)
 	Classifier 2: 5 ≥ 3 → Predict 0 (h2 = -1)
-Weighted sum = = 0.5493 - 0.659 ≈ -0.1097
+Weighted sum = α1*h1 + α2*h2 = 0.5493 - 0.659 ≈ -0.1097
 
 => H(x) = sign(-0.1097) = -1 → Predict 0 (negative)
