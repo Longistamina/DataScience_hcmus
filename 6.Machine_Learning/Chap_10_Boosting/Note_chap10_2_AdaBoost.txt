@@ -18,11 +18,12 @@ Key concepts:
 ++++++++++++++
 Amount of Say (α):
 	
-	α = 0.5 * ln((1 - error) / error)
+	α = 0.5 * ln((1 - error) / error) + ln(K - 1)
 
 # error is the weighted error rate of the classifier (between 0 and 1).
 # ln is the natural logarithm.
 # α measures how much influence the classifier has in the final decision. A lower error gives a higher α.
+# K is the number of classes
 
 ++++++++++++++
 New Sample Weight:
@@ -39,11 +40,16 @@ New Sample Weight:
 
 +++++++++++
 Final prediction:
-	H(x) = sign(Σ α_t * h_t(x))
+	
+	Score(k) = Σ (α_t * I(h_t(x) = k))
 
-# α_t is the weight of the t-th classifier.
-# h_t(x) is the prediction of the t-th classifier for input x (e.g., 1 or -1).
-# sign() outputs 1 if the argument is positive, -1 if negative, 0 if zero (though zero is rare in practice).
+# k: The class being evaluated (e.g., 0, 1, 2 in a 3-class problem).
+# α_t: The "Amount of Say" (weight) of the t-th weak classifier, based on its performance during training.
+# h_t(x): The prediction made by the t-th weak classifier for input x (e.g., 0, 1, or 2).
+# I(h_t(x) = k): An indicator function that equals 
+	         1 if the t-th classifier predicts class k for input
+                 0 otherwise.
+# Σ: Sum over all weak classifiers (t = 1 to T, where T is the number of iterations).
 
 #----------------------------------------#
 #---------- Example ---------------------#
@@ -78,9 +84,9 @@ Weighted error = sum of weights of misclassified points.
 => error = w2 = 0.25
 
 Calculate Amount of Say (α1)
-α1 = 0.5 * ln((1 - error) / error)
-   = 0.5 * ln((1 - 0.25) / 0.25)
-   = 0.5 * ln(0.75 / 0.25)
+α1 = 0.5 * ln((1 - error) / error) + ln(2 - 1)
+   = 0.5 * ln((1 - 0.25) / 0.25) + ln(1)
+   = 0.5 * ln(0.75 / 0.25) + 0
    = 0.5 * ln(3)
    ≈ 0.5 * 1.0986  (using ln(3) ≈ 1.0986)
    ≈ 0.5493
@@ -89,7 +95,7 @@ Calculate Amount of Say (α1)
 # Step 3: Update Sample Weights
 Using the formula w_new = w_old * e^(α * I(prediction ≠ true_label)):
 	Point 1: Correct (I=0),  w_new = 0.25 * e^(0.5493 * 0) = 0.25 * 1 = 0.25
-	Point 2: Wrong (I=1),       w_new = 0.25 * e^(0.5493 * 1) = 0.25 * e^0.5493 ≈ 0.25 * 1.732 = 0.433
+	Point 2: Wrong (I=1),    w_new = 0.25 * e^(0.5493 * 1) = 0.25 * e^0.5493 ≈ 0.25 * 1.732 = 0.433
 	Point 3: Correct (I=0),  w_new = 0.25 * e^(0 * 0.5493) = 0.25 * 1 = 0.25
 	Point 4: Correct (I=0),  w_new = 0.25 * e^(0 * 0.5493) = 0.25 * 1 = 0.25
 
@@ -106,9 +112,9 @@ Iteration 2: Second Weak Classifier
 
             Feature     Label      New_Weight
 Point 1        2          1          0.211
-Point 2        4          0          0.211
-Point 3        6          1          0.25
-Point 4        8          0            0.25
+Point 2        4          0          0.366
+Point 3        6          1          0.211
+Point 4        8          0          0.211
 
 Using new weights: w1=0.211, w2=0.366, w3=0.211, w4=0.211.
 	
@@ -124,9 +130,9 @@ Point 4: feature=8 ≥ 3 → Predict 0 (True=0, Correct)
 => error = 0.211
 
 # Step 2: Calculate Amount of Say (α2)
-α2 = 0.5 * ln((1 - 0.211) / 0.211)
-   = 0.5 * ln(0.789 / 0.211)
-   = 0.5 * ln(3.739)
+α2 = 0.5 * ln((1 - 0.211) / 0.211) + ln(2 - 1)
+   = 0.5 * ln(0.789 / 0.211) + ln(1)
+   = 0.5 * ln(3.739) + 0
    ≈ 0.5 * 1.318 (ln(3.739) ≈ 1.318)
    ≈ 0.659
 
@@ -153,14 +159,28 @@ Combine classifiers with weights
 using a weighted vote.
 
 Final prediction:
-	H(x) = sign(Σ α_t * h_t(x))
-# α_t is the weight of the t-th classifier.
-# h_t(x) is the prediction of the t-th classifier for input x (e.g., 1 or -1).
-# sign() outputs 1 if the argument is positive, -1 if negative, 0 if zero (though zero is rare in practice).
+	Score(k) = Σ (α_t * I(h_t(x) = k))
+# k: The class being evaluated (e.g., 0, 1, 2 in a 3-class problem).
+# α_t: The "Amount of Say" (weight) of the t-th weak classifier, based on its performance during training.
+# h_t(x): The prediction made by the t-th weak classifier for input x (e.g., 0, 1, or 2).
+# I(h_t(x) = k): An indicator function that equals 
+	         1 if the t-th classifier predicts class k for input
+                 0 otherwise.
+# Σ: Sum over all weak classifiers (t = 1 to T, where T is the number of iterations).
 
 Suppose we have a new point: feature=5.
-	Classifier 1: 5 < 7 → Predict 1 (h1 = 1)
-	Classifier 2: 5 ≥ 3 → Predict 0 (h2 = -1)
-Weighted sum = α1*h1 + α2*h2 = 0.5493 - 0.659 ≈ -0.1097
+	Classifier 1: 5 < 7 → Predict 1
+	Classifier 2: 5 ≥ 3 → Predict 0 
 
-=> H(x) = sign(-0.1097) = -1 → Predict 0 (negative)
+Score for class k = 1:
+	 Classifier 1, predit 1 => I(h_1(x) = 1) = 1
+	 Classifier 2, predit 0 => I(h_2(x) = 1) = 0
+	 Score(k = 1) = α1*1 + α2*0 = α1 = 0.5493
+
+Score for class k = 0:
+	 Classifier 1, predit 1 => I(h_1(x) = 0) = 0
+	 Classifier 2, predit 0 => I(h_2(x) = 0) = 1
+	 Score(k = 0) = α1*0 + α2*1 = α1 = 0.659
+
+Score(k=0) > Score(k=0)
+	=> Final predict is Class 0
