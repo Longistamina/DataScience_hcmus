@@ -62,6 +62,9 @@ Assume a learning rate of 0.5:
 Repeat the process, fitting new trees to the new residuals until convergence (where prediction = ground truth value).
 
 
+#### Step 6: New Prediction
+
+Y_new = model_1(Xnew) + LRate*residual_model_2(Xnew) + LRate*residual_model_3(Xnew) + ... + LRate*residual_model_n(Xnew)
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -139,7 +142,7 @@ Thus, the initial predicted probabilities are:
 Residuals = Actual Class (One-Hot Encoding) - Predicted Probabilities  
 
 | Day  | Sunny Residual   | Rainy Residual   | Cloudy Residual  |
-|------|------------------|------------------|---[--------------|
+|------|------------------|------------------|------------------|
 | D1   | 1 - 0.33 = 0.67  | 0 - 0.33 = -0.33 | 0 - 0.33 = -0.33 |
 | D2   | 0 - 0.33 = -0.33 | 1 - 0.33 = 0.67  | 0 - 0.33 = -0.33 |
 | D3   | 0 - 0.33 = -0.33 | 0 - 0.33 = -0.33 | 1 - 0.33 = 0.67  |
@@ -166,15 +169,15 @@ New logits = Previous logits + (Learning Rate * Weak Learner Prediction)
 Assume a learning rate of 0.5 and weak learners predict:
 
 | Day  | Sunny Correction | Rainy Correction | Cloudy Correction |
-|------|----------------|----------------|----------------|
-| D1   | +0.4           | -0.2           | -0.2           |
-| D2   | -0.2           | +0.4           | -0.2           |
-| D3   | -0.2           | -0.2           | +0.4           |
+|------|------------------|------------------|-------------------|
+| D1   | +0.4             | -0.2             | -0.2              |
+| D2   | -0.2             | +0.4             | -0.2              |
+| D3   | -0.2             | -0.2             | +0.4              |
 
 Updating the logits:
 
-| Day  | Updated Logit (Sunny) | Updated Logit (Rainy) | Updated Logit (Cloudy) |
-|------|----------------------|----------------------|----------------------|
+| Day  | Updated Logit (Sunny)          | Updated Logit (Rainy)          | Updated Logit (Cloudy)         |
+|------|--------------------------------|--------------------------------|--------------------------------|
 | D1   | -0.693 + (0.5 * 0.4) = -0.493  | -0.693 + (0.5 * -0.2) = -0.793 | -0.693 + (0.5 * -0.2) = -0.793 |
 | D2   | -0.693 + (0.5 * -0.2) = -0.793 | -0.693 + (0.5 * 0.4) = -0.493  | -0.693 + (0.5 * -0.2) = -0.793 |
 | D3   | -0.693 + (0.5 * -0.2) = -0.793 | -0.693 + (0.5 * -0.2) = -0.793 | -0.693 + (0.5 * 0.4) = -0.493  |
@@ -190,10 +193,10 @@ p_k = exp(logit_k) / (exp(logit_0) + exp(logit_1) + exp(logit_2))
 Applying this:
 
 | Day  | Sunny Probability | Rainy Probability | Cloudy Probability |
-|------|------------------|------------------|------------------|
-| D1   | exp(-0.493) / (exp(-0.493) + exp(-0.793) + exp(-0.793)) |
-| D2   | exp(-0.793) / (exp(-0.793) + exp(-0.493) + exp(-0.793)) |
-| D3   | exp(-0.793) / (exp(-0.793) + exp(-0.793) + exp(-0.493)) |
+|------|-------------------|-------------------|--------------------|
+| D1   | exp(-0.493) / (exp(-0.493) + exp(-0.793) + exp(-0.793))    |
+| D2   | exp(-0.793) / (exp(-0.793) + exp(-0.493) + exp(-0.793))    |
+| D3   | exp(-0.793) / (exp(-0.793) + exp(-0.793) + exp(-0.493))    |
 
 Approximating exponentiation:
 
@@ -215,6 +218,13 @@ Final probabilities:
 ### Step 6: Repeat Until Convergence
 
 Additional weak learners will continue to correct the residuals, improving classification accuracy.
+
+---
+### Step 7: New Prediction
+Y_new = model_1(Xnew) + LRate*residual_model_2(Xnew) + LRate*residual_model_3(Xnew) + ... + LRate*residual_model_n(Xnew)
+
+Y_new will be a list of probabilities for each class => get the class having the highest probability => final predict
+
 
 ---
 
