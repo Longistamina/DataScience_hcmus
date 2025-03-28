@@ -28,7 +28,7 @@ Key Steps:
 ### Example 1: Regression Task (Predicting House Prices)
 
 #### Dataset:
-| House | Size (sqft) | Price (target) |
+| House | Size (sqft)| Price (target)|
 |-------|------------|---------------|
 | A     | 1          | 100           |
 | B     | 2          | 150           |
@@ -48,7 +48,7 @@ Key Steps:
 #### Step 3: Train a Weak Learner
 A simple decision stump (a small tree with one split) might predict:
 - If Size ≤ 2 → Predict -50
-- If Size > 2 → Predict +50
+- Elif Size > 2 → Predict +50
 
 #### Step 4: Update Predictions
 New prediction = Initial + Learning Rate * New Tree
@@ -67,7 +67,11 @@ Assume a learning rate of 0.5:
 
 Repeat the process, fitting new trees to the new residuals until convergence (where prediction = ground truth value).
 
+
+
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
 
 ### Example 2:  Gradient Boosting for Multi-Class Classification (Using Softmax)
 
@@ -85,10 +89,10 @@ We have three weather types:
 
 Our dataset contains two features: **Temperature (°C)** and **Humidity (%)**.
 
-| Day  | Temperature | Humidity | Weather Type (Class) |
-|-------|------------|----------|----------------------|
-| D1      | 30         | 40       | Sunny (0)           |
-| D2     | 20         | 80       | Rainy (1)           |
+| Day  | Temperature| Humidity | Weather Type (Class)|
+|------|------------|----------|---------------------|
+| D1   | 30         | 40       | Sunny (0)           |
+| D2   | 20         | 80       | Rainy (1)           |
 | D3   | 25         | 60       | Cloudy (2)          |
 
 ---
@@ -109,19 +113,19 @@ log-odds_k = log(p_k / (1 - p_k))
 
 So, the initial logits for all classes are:  
 
-| Day  | Logit (Sunny) | Logit (Rainy) | Logit (Cloudy) |
+| Day  | Logit (Sunny)| Logit (Rainy)| Logit (Cloudy)|
 |------|--------------|--------------|---------------|
-| D1   | -0.693      | -0.693       | -0.693        |
-| D2   | -0.693      | -0.693       | -0.693        |
-| D3   | -0.693      | -0.693       | -0.693        |
+| D1   | -0.693       | -0.693       | -0.693        |
+| D2   | -0.693       | -0.693       | -0.693        |
+| D3   | -0.693       | -0.693       | -0.693        |
 
 Convert to initial probabilities using the softmax function:
 
 Softmax formula:  
-p_k = exp(logit_k) / (exp(logit_0) + exp(logit_1) + exp(logit_2))  
+  
+    p_k = exp(logit_k) / (exp(logit_0) + exp(logit_1) + exp(logit_2))  
 
 Since all logits are equal:
-
 p_k = exp(-0.693) / (exp(-0.693) + exp(-0.693) + exp(-0.693))  
     = 0.5 / (0.5 + 0.5 + 0.5)  
     = 1/3  
@@ -140,11 +144,11 @@ Thus, the initial predicted probabilities are:
 
 Residuals = Actual Class (One-Hot Encoding) - Predicted Probabilities  
 
-| Day  | Sunny Residual | Rainy Residual | Cloudy Residual |
-|------|--------------|--------------|---------------|
-| D1   | 1 - 0.33 = 0.67 | 0 - 0.33 = -0.33 | 0 - 0.33 = -0.33 |
-| D2   | 0 - 0.33 = -0.33 | 1 - 0.33 = 0.67 | 0 - 0.33 = -0.33 |
-| D3   | 0 - 0.33 = -0.33 | 0 - 0.33 = -0.33 | 1 - 0.33 = 0.67 |
+| Day  | Sunny Residual   | Rainy Residual   | Cloudy Residual  |
+|------|------------------|------------------|---[--------------|
+| D1   | 1 - 0.33 = 0.67  | 0 - 0.33 = -0.33 | 0 - 0.33 = -0.33 |
+| D2   | 0 - 0.33 = -0.33 | 1 - 0.33 = 0.67  | 0 - 0.33 = -0.33 |
+| D3   | 0 - 0.33 = -0.33 | 0 - 0.33 = -0.33 | 1 - 0.33 = 0.67  |
 
 ---
 
@@ -154,7 +158,7 @@ We train separate decision trees for each class using the residuals.
 
 Example decision stumps:
 - If Temperature > 25 → Increase probability of Sunny.
-- If Humidity > 70 → Increase probability of Rainy.
+- Elif Humidity > 70 → Increase probability of Rainy.
 - Otherwise → Increase probability of Cloudy.
 
 These decision trees will output small correction values.
@@ -206,8 +210,8 @@ Total sum per row: 0.61 + 0.45 + 0.45 = 1.51
 
 Final probabilities:
 
-| Day  | Sunny | Rainy | Cloudy |
-|------|-------|-------|--------|
+| Day  | Sunny            | Rainy            | Cloudy           |
+|------|------------------|------------------|------------------|
 | D1   | 0.61/1.51 = 0.40 | 0.45/1.51 = 0.30 | 0.45/1.51 = 0.30 |
 | D2   | 0.45/1.51 = 0.30 | 0.61/1.51 = 0.40 | 0.45/1.51 = 0.30 |
 | D3   | 0.45/1.51 = 0.30 | 0.45/1.51 = 0.30 | 0.61/1.51 = 0.40 |
