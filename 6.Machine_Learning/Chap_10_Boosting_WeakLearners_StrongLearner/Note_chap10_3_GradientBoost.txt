@@ -1,6 +1,6 @@
-Gradient Boost part 1 (regression):      https://www.youtube.com/watch?v=3CC4N4z3GJc
-Gradient Boost part 2 (reg detail):      https://www.youtube.com/watch?v=2xudPOBz-vs
-Gradient Boost part 3 (classification):  https://www.youtube.com/watch?v=jxuNLH5dXCs
+Gradient Boost part 1 (regression):     https://www.youtube.com/watch?v=3CC4N4z3GJc
+Gradient Boost part 2 (reg detail):     https://www.youtube.com/watch?v=2xudPOBz-vs
+Gradient Boost part 3 (classification): https://www.youtube.com/watch?v=jxuNLH5dXCs
 Gradient Boost part 4 (classif detail): https://www.youtube.com/watch?v=StWY5QWMXCw
 
 Gradient Boost:
