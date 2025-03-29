@@ -1,3 +1,7 @@
+Regularization part 1 (Ridge L2 Regression):    https://www.youtube.com/watch?v=Q81RR3yKn30&t=100s
+Regularization part 2 (Lasso L1 Regression):    https://www.youtube.com/watch?v=NGf0voTMlcs
+Regularization part 3 (Elastic Net Regression): https://www.youtube.com/watch?v=1dKRdX9bfIo
+
 XGBoost part 1 (Regression):      https://www.youtube.com/watch?v=OtD8wVaFm6E&t=90s
 XGBoost part 2 (Classification):  https://www.youtube.com/watch?v=8b1JEDvenQU
 XGBoost part 3 (Math details):    https://www.youtube.com/watch?v=ZVFeW798-2I
@@ -145,4 +149,3 @@ w_j* = -Σ g_i / (Σ h_i + λ)
 
 Step 5: Update Predictions:
 ŷ_new = ŷ^(0) + η * w_j
-
