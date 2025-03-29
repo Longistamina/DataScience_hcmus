@@ -31,6 +31,7 @@ Here, λ controls the strength of regularization, and  are the model's weights (
 Increasing λ applies stronger regularization, shrinking coefficients further, which can reduce overfitting but may lead to underfitting if λ is too large. 
 Conversely, when λ is close to 0, the regularization term has little effect, and ridge regression behaves like ordinary linear regression.
 
+L2 is suitable when all features/variables are useful. It shrinks the coefficients, but does not eliminate them
 
 ******** Code *************
 from sklearn.linear_model import Ridge
@@ -53,6 +54,7 @@ Here, λ controls the strength of regularization, and  are the model's weights (
 Increasing λ applies stronger regularization, shrinking coefficients further, which can reduce overfitting but may lead to underfitting if λ is too large. 
 Conversely, when λ is close to 0, the regularization term has little effect, and ridge regression behaves like ordinary linear regression.
 
+L1 is suitable when some features are not useful. It shrinks the coefficients, and also eliminates some of them
 
 ******** Code *************
 from sklearn.linear_model import Lasso
