@@ -72,8 +72,10 @@ print(f"Number of features: {sum(lasso.coef_ != 0)}")
 
 ElasticNet Cost Function:
 
-	ENet = Loss_function + (1/2)*λ*(Σw_j^2)*r + λ*(Σ|w_j|)*(1-r)
+	ENet = Loss_function + (1/2)*λ2*(Σw_j^2)*r + λ1*(Σ|w_j|)*(1-r)
 
+# λ2 controls L2
+# λ1 controls L1
 
 The Elastic Net is a regularized regression technique combining ridge and lasso's regularization terms. 
 
@@ -82,7 +84,7 @@ The r parameter controls the combination ratio.
 #	When r = 1, the L1 term will be removed.
 
 Although combining the penalties of lasso and ridge usually works better than only using one of the regularization techniques, 
-adjusting two parameters, λ and r, is a little tricky.
+adjusting three parameters, λ1 and λ2 and r, is a little tricky.
 
 
 **************** Code ****************
