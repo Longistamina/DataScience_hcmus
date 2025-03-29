@@ -227,7 +227,7 @@ Additional weak learners will continue to correct the residuals, improving class
 ### Step 7: New Prediction
 Y_new = model_1(Xnew) + LRate*residual_model_2(Xnew) + LRate*residual_model_3(Xnew) + ... + LRate*residual_model_n(Xnew)
 
-Y_new will be a list of probabilities for each class => get the class having the highest probability => final predict
+Y_new will be a list of Log(odds) for each class => get the class having the highest Log(odds) => final predict
 
 
 ---
