@@ -22,14 +22,14 @@ Extreme Gradient Boosting (XGBoost)
 -------------------------
 
 Objective Function:
-L = Σ l(y_i, ŷ_i) + Σ Ω(f_t)
+L = ΣL(y_i, ŷ_i) + ΣΩ(f_t)
 
 where:
-- l(y_i, ŷ_i) is the loss function (Mean Squared Error for regression)
+- L(y_i, ŷ_i) is the loss function (Mean Squared Error for regression)
 - Ω(f_t) is the regularization term for tree complexity
 
 For squared loss:
-l(y_i, ŷ_i) = (1/2) * (y_i - ŷ_i)^2
+L(y_i, ŷ_i) = (1/2) * (y_i - ŷ_i)^2
 
 Regularization:
 Ω(f_t) = γT + (1/2)*λ*Σw_j^2
