@@ -46,7 +46,7 @@ h_i = ∂²l(y_i, ŷ_i) / ∂ŷ_i² = 1
 
 Leaf Weight Calculation:
 Optimal leaf weight:
-w_j* = -Σg_i / (Σ h_i + λ)
+w_j* = -Σg_i / (Σh_i + λ)
 
 Split Gain:
 Gain = (1/2) * [(Σg_L)² / (Σh_L + λ) + (Σg_R)² / (Σh_R + λ) - (Σg)² / (Σh + λ)] - γ
