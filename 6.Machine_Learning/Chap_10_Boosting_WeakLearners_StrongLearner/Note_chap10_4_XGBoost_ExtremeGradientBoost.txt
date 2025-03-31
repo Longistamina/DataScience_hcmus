@@ -106,10 +106,10 @@ where η is the learning rate.
 
 For classification with K classes, we use Softmax Loss:
 
-p_ik = exp(ŷ_ik) / Σ_j exp(ŷ_ij)
+p_ik = exp(ŷ_ik) / Σexp(ŷ_ij)
 
 Loss function:
-L(y_i, ŷ_i) = - Σ_k y_ik log(p_ik)
+L(y_i, ŷ_i) = - Σy_ik*log(p_ik)
 
 Gradient and Hessian:
 g_i = p_ik - y_ik
