@@ -35,7 +35,7 @@ Regularization:
 Ω(f_t) = γT + (1/2)*λ*Σw_j^2
 
 where:
-- γ controls the number of leaves (higher γ will result in smaller number of leaves)
+- γ controls the number of leaves (higher γ will result in smaller number of leaves, it will prune the tree stronger)
 - λ controls L2 regularization on leaf weights (higher λ will result in smaller leaf weights)
 - w_j are the leaf weights
 
