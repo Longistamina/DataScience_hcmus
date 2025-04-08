@@ -25,6 +25,8 @@ plt.xlabel("Predict values", size=15)
 plt.ylabel("True values", size=15)
 plt.title(f'Confusion Matrix \nAccuracy: {forestC_pipe.score(x_test, y_test):.2f}', size=20)
 
+#plot_confusion_matrix(model, x_test, y_test, values_format = 'd', display_labels = ['label1', 'label2',...])
+                                                                                    #follow alphabet orders
 
 
 #ROC and AUC are only for binary classification
