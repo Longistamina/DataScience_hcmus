@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import seaborn as sbn
-from sklearn.metrics import confusion_matrix, classification_report, roc_curve, auc
+from sklearn.metrics import confusion_matrix, plot_confusion_matrix, classification_report, roc_curve, auc
 
 model.fit(x_train, y_train)
 
