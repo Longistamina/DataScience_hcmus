@@ -11,8 +11,10 @@ This package also allows parallel computing => can utilize GPU to enhance traini
 
 
 x = data[['col1', 'col2', ...]]
-y = data['output']
 
+from sklearn.preprocessing import LabelEncoder
+label_encd = LabelEncoder()
+y = label_encd.fit_transform(data['output'])
 
 from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.2, random_state = 1)
@@ -27,15 +29,7 @@ xgb_clf = xgb.XGBClassifier(objective = 'binary:logistic', missing = None, seed 
 
 xgb_clf.fit(x_train, y_train,
 	    verbose = True,                  # This will print progress messages during training (like evaluation scores at each boosting round
-	    early_stopping_rounds = 10,      # If the model's performance on the evaluation set doesn’t improve for 10 consecutive rounds, training will stop early.
-	    eval_metric = 'aucpr',           # Tells the model to use the Area Under the Precision-Recall Curve (AUC-PR) as the performance metric
 	    eval_set = [(x_test, y_test)])
-
-from sklearn.metrics import plot_confusion_matrix
-plot_confusion_matrix(xgb_clf,
-		      x_test, y_test,
-                      values_format = 'd',
-                      display_labels = ['label1', 'label2',...] #follow alphabet orders)
 
 
 XGBoostClassifier parameters
@@ -54,6 +48,9 @@ XGBoostClassifier parameters
 # random_state        Random seed for reproducibility
 # n_jobs              Number of parallel threads
 
+# min_child_weight    Also known as "Cover", controls the minimum sum of instance weight (or the total Hessian, depending on the implementation) in a child node
+                      If the sum of the instance weights in a leaf is less than this value, the algorithm will stop splitting and will not create a new child node.
+                      So, higher min_child_weight means less child nodes
 
 #--------------------------------------------------------------------------------#
 #----------------- XGBoost - Extreme Gradient Boost Regressor -------------------#
@@ -84,3 +81,7 @@ XGBoostRegressor parameters
 # booster             Which booster to use: gbtree, gblinear, or dart
 # random_state        Random seed for reproducibility
 # n_jobs              Number of parallel threads
+
+# min_child_weight    Also known as "Cover", controls the minimum sum of instance weight (or the total Hessian, depending on the implementation) in a child node
+                      If the sum of the instance weights in a leaf is less than this value, the algorithm will stop splitting and will not create a new child node.
+                      So, higher min_child_weight means less child nodes
