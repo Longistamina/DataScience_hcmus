@@ -57,6 +57,21 @@ inputs['Group'] = pd.Series(labels) #Add the classified group/label column to se
 print(inputs)
 
 
+#--------------------------------------------------------#
+#------ Find optimal K with Silhoutte Score -------------#
+#--------------------------------------------------------#
+from sklearn.metrics import silhouette_score
+distortions = []
+
+k_nums = range(1, 8) #Can set more k values to try out
+
+for k in k_nums:
+	kmeansModel = KMeans(n_cluster = k)
+	kmeansModel.fit(inputs)
+	print(f'Silhouette score for k = {k}: {silhouette_score(inputs, kmeansModel.labels_)}')
+
+#Choose k value where the silhouette score is HIGHEST
+
 #--------------------------------------------------------------#
 #------ Visualize result for data with 2 features -------------#
 #--------------------------------------------------------------#
