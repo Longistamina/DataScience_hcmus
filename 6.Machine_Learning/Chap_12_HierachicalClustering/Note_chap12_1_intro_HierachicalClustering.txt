@@ -109,3 +109,21 @@ Let's consider four data points: A(1, 2), B(1, 4), C(4, 2), and D(4, 5).
 AB        C
 / \    
 A  B
+
+
+
+#-----------------------------------------#
+#-------------- Pros----------------------#
+#-----------------------------------------#
+Easy to deploy
+Don't have to define optimal number of clusters (like in KMeans)
+Dendrogram is very useful for extracting insights of the data
+Very convenient for non-labeled data
+
+
+#-----------------------------------------#
+#-------------- Cons----------------------#
+#-----------------------------------------#
+Cannot undo any steps once run
+Can result in long clustering time
+Hard to identify the exact number of dendograms
