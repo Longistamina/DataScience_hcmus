@@ -20,6 +20,7 @@ for group in data_group['Group'].unique():
 #---------------------------------------------------------------------#
 
 for group in data_group['Group'].unique():
+    print(f'\n=============== Cluster group {group} =========================\n')
     print(data_group[data_group['Group'] == group].describe())
     print()
 
