@@ -34,12 +34,7 @@ df_k_best_score = pd.DataFrame({
 #Sort in descending order
 df_k_best_score = df_k_best_score.sort_values('Score', ascending=False).reset_index(drop = True)
 
-cummulative_percentage = []
-for i in range(df_k_best_score.shape[0]):
-    cummulative_score = df_k_best_score.loc[:i, 'Score'].to_numpy().sum()
-    cummulative_percentage.append(cummulative_score/df_k_best_score['Score'].sum())
-
-df_k_best_score['Cumulative_Percentage'] = cummulative_percentage
+df_k_best_score['Cumulative_Percentage'] = np.cumsum(df_k_best_score['Score']) / df_k_best_score['Score'].sum()
 
 print(df_k_best_score)
 
@@ -142,12 +137,7 @@ df_features_scores = pd.DataFrame({
 df_features_scores = df_features_scores.sort_values('Scores', ascending=False)
 df_features_scores = df_features_scores.reset_index(drop = True)
 
-cummulative_percentage = []
-for i in range(df_features_scores.shape[0]):
-    cummulative_score = df_features_scores.loc[:i, 'Score'].to_numpy().sum()
-    cummulative_percentage.append(cummulative_score/df_features_scores['Score'].sum())
-
-df_features_scores['Cumulative_Percentage'] = cummulative_percentage
+df_features_scores['Cumulative_Percentage'] = np.cumsum(df_features_scores['Score']) / df_features_scores['Score'].sum()
 
 print(df_features_scores)
 
