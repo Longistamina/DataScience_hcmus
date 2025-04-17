@@ -115,7 +115,8 @@ Step-by-step execution:
      => Add point D to Cluster 1, and use D to extend epsilon_radius and "catch" other points and core points
 
 (Set initial core point for a cluster, extend epsilon_radius to catch more core points in that cluster.
-If all core points are caught, then catch the non-core points, but don't use non-core points to extend epsilon_radius)
+If all core points are caught, then catch the non-core points, but don't use non-core points to extend epsilon_radius.
+After finishing the first cluster, move to other clusters until all data points are scanned)
 
 Cannot add any more points to Cluster 1 
 ==> Start Cluster 2 = {E, F, G}.
@@ -152,6 +153,7 @@ Noise Points: {H(5, 6)}
 This example shows how DBSCAN groups dense regions into clusters and identifies isolated points as noise.
 
 (Set initial core point for a cluster, extend epsilon_radius to catch more core points in that cluster.
-If all core points are caught, then catch the non-core points, but don't use non-core points to extend epsilon_radius)
+If all core points are caught, then catch the non-core points, but don't use non-core points to extend epsilon_radius.
+After finishing the first cluster, move to other clusters until all data points are scanned)
 
 The choice of eps and MinPts is crucial for the algorithm's performance.
