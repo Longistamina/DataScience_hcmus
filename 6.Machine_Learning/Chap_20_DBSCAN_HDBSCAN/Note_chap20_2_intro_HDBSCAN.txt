@@ -90,56 +90,47 @@ We will use the Euclidean distance.
 **Step 2: Compute the Reachability Distance**
 
 * reach_dist_2(P_1, P_2) = max(core_dist_2(P_2), distance(P_1, P_2)) = max(3, 1) = 3
-* reach_dist_2(P_2, P_1) = max(core_dist_2(P_1), distance(P_2, P_1)) = max(3, 1) = 3
 * reach_dist_2(P_1, P_3) = max(core_dist_2(P_3), distance(P_1, P_3)) = max(3, 3) = 3
-* reach_dist_2(P_3, P_1) = max(core_dist_2(P_1), distance(P_3, P_1)) = max(3, 3) = 3
 * reach_dist_2(P_1, P_4) = max(core_dist_2(P_4), distance(P_1, P_4)) = max(3, sqrt{10} ~ 3.16) = 3.16
-* reach_dist_2(P_4, P_1) = max(core_dist_2(P_1), distance(P_4, P_1)) = max(3, sqrt{10} ~ 3.16) = 3.16
 * reach_dist_2(P_2, P_3) = max(core_dist_2(P_3), distance(P_2, P_3)) = max(3, sqrt{10} ~ 3.16) = 3.16
-* reach_dist_2(P_3, P_2) = max(core_dist_2(P_2), distance(P_3, P_2)) = max(3, sqrt{10} ~ 3.16) = 3.16
 * reach_dist_2(P_2, P_4) = max(core_dist_2(P_4), distance(P_2, P_4)) = max(3, 3) = 3
-* reach_dist_2(P_4, P_2) = max(core_dist_2(P_2), distance(P_4, P_2)) = max(3, 3) = 3
 * reach_dist_2(P_3, P_4) = max(core_dist_2(P_4), distance(P_3, P_4)) = max(3, 1) = 3
-* reach_dist_2(P_4, P_3) = max(core_dist_2(P_3), distance(P_4, P_3)) = max(3, 1) = 3
 
 **Step 3: Construct the Minimum Spanning Tree (MST)**
 
-We need to find a tree connecting all points with the minimum total reachability distance. The edges and their weights (reachability distances) are:
+A possible MST connecting all four points with minimum total reachability distance (total weight 9) can be formed 
+by choosing any three of the edges with weight 3 that connect all points. For example:
 
-* (P_1, P_2): 1
-* (P_3, P_4): 1
-* (P_1, P_3): 3 (or (P_2, P_4): 3)
+(weight is reach_dist_2(p,q))
 
-The MST could consist of edges (P_1, P_2), (P_3, P_4), and either (P_1, P_3) or (P_2, P_4). 
-Let's choose (P_1, P_3). The edges in the MST with their weights are:
+* (P_1, P_2) with weight 3
+* (P_3, P_4) with weight 3
+* (P_1, P_3) with weight 3
 
-* (P_1, P_2): 1
-* (P_3, P_4): 1
-* (P_1, P_3): 3
+Another valid MST would be:
+
+* (P_1, P_2) with weight 3
+* (P_3, P_4) with weight 3
+* (P_2, P_4) with weight 3
 
 **Step 4 & 5: Condense the Tree and Calculate Cluster Stability (Simplified for this example)**
 
 We consider removing edges in increasing order of their weights:
 
-* **Removing edge (P_1, P_2) (weight 1):** This splits the tree into two components: {P_1, P_2} and {P_3, P_4}. 
-    The lambda-value for this edge is 1/1 = 1.
+Regardless of the specific MST chosen (as long as it uses the edges with weight 3), 
+the process of removing edges in increasing order of weight (all the initial MST edges have a weight of 3) will lead to the separation of the two intuitive clusters.
 
-* **Removing edge (P_3, P_4) (weight 1):** This split already occurred when (P_1, P_2) was removed, so it doesn't further divide these components. 
-    The lambda-value for this edge is 1/1 = 1
+For the first MST option:
 
-* **Removing edge (P_1, P_3) (weight 3):** This merges the two components {P_1, P_2} and {P_3, P_4} back into a single cluster before it was removed. 
-    The lambda-value for this edge is 1/3 ~ 0.33
+* Removing (P_1, P_2) (weight 3, lambda = 1/3 = 0.33) separates {P_1, P_2}.
+* Removing (P_3, P_4) (weight 3, lambda = 1/3 = 0.33) separates {P_3, P_4}.
+* Removing (P_1, P_3) (weight 3, lambda = 1/3 = 0.33) connects the components before.
 
-To roughly estimate stability, we can think about how long a cluster persists (i.e., before a high $\lambda$-value edge splits it).
+For the second MST option:
 
-
-* Cluster {P_1, P_2}: Formed when the edge (P_1, P_2) with lambda=1 is considered. 
-  It would only be further split if an edge within this component (which doesn't exist in the MST) were considered. 
-  Its stability is related to the lambda-value that caused its separation.
-
-* Cluster {P_3, P_4}: Similarly, formed by the edge (P_3, P_4) with lambda=1.
-
-The edge (P_1, P_3) with a lower lambda-value connects these two potential clusters.
+* Removing (P_1, P_2) (weight 3, lambda = 1/3 = 0.33) separates {P_1, P_2}.
+* Removing (P_3, P_4) (weight 3, lambda = 1/3 = 0.33) separates {P_3, P_4}.
+* Removing (P_2, P_4) (weight 3, lambda = 1/3 = 0.33) connects the components before.
 
 **Step 6: Extract the Flat Clustering**
 
@@ -150,7 +141,7 @@ Therefore, HDBSCAN would likely identify two clusters:
 * Cluster 1: {P_1, P_2}
 * Cluster 2: {P_3, P_4}
 
-In a more complex scenario, the stability calculation would involve summing the $\lambda$-values over the lifespan of a cluster in the hierarchy. 
+In a more complex scenario, the stability calculation would involve summing the lambda-values over the lifespan of a cluster in the hierarchy. 
 However, for this simple example, we can infer the clustering structure from the MST and the order of edge removal.
 
 ---
