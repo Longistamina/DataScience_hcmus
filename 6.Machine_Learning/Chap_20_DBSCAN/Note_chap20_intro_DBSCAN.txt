@@ -95,29 +95,38 @@ Step-by-step execution:
      - dist(A, H) = sqrt{(1-5)^2 + (2-6)^2}     = sqrt{(-4)^2 + (-4)^2}     ~ 5.657 (greater than eps)
    - Neighbors of A within eps: {C, D}. 
      Number of neighbors (2) is less than MinPts (3) => So, A is initially marked as noise.
+     Add A to Cluster 1, but NOT use it to extend epsilon_radius
 
 2. Visit point B(1.5, 1.8) (already in Cluster 1):
    - Find neighbors within distance 1.0: {A, D}. 
      Number of neighbors (2) is greater than or equal to MinPts (2) => B is a core point. 
      Its neighbors are already in the cluster.
+     => Assign point B to be inside Cluster 1, and use B to extend epsilon_radius and "catch" other points and core points
 
 3. Visit point C(0.8, 2.1) (already in Cluster 1):
    - Find neighbors within distance 1.0: {A}. 
      Number of neighbors (1) is less than MinPts (2) => C is a border point (because it's a neighbor of the core point A).
+     Add C to Cluster 1, but NOT use it to extend epsilon_radius
 
 4. Visit point D(1, 1.6) (already in Cluster 1):
    - Find neighbors within distance 1.0: {A, B}. 
      Number of neighbors (2) is greater than or equal to MinPts (2) => D is a core point. 
      Its neighbors are already in the cluster.
+     => Add point D to Cluster 1, and use D to extend epsilon_radius and "catch" other points and core points
+
+(Set initial core point for a cluster, extend epsilon_radius to catch more core points in that cluster.
+If all core points are caught, then catch the non-core points, but don't use non-core points to extend epsilon_radius)
+
+Cannot add any more points to Cluster 1 
+==> Start Cluster 2 = {E, F, G}.
 
 5. Visit point E(3, 4):
    - Find neighbors within distance 1.0:
      - dist(E, F) ~ 0.283 (within 1.0)
      - dist(E, G) ~ 0.539 (within 1.0)
    - Neighbors of E within eps: {F, G}. 
-     Number of neighbors (2) is greater than or equal to MinPts (2) => So, E is a core point. 
-     
-==> Start Cluster 2 = {E, F, G}.
+     Number of neighbors (2) is greater than or equal to MinPts (2) => So, E is a core point.
+
 
 6. Visit point F(3.2, 3.8) (already in Cluster 2):
    - Find neighbors within distance 1.0: {E, G}. 
@@ -138,5 +147,11 @@ Cluster 1: {A(1, 2), B(1.5, 1.8), C(0.8, 2.1), D(1, 1.6)}
 Cluster 2: {E(3, 4), F(3.2, 3.8), G(3.5, 4.1)}
 Noise Points: {H(5, 6)}
 
-This example shows how DBSCAN groups dense regions into clusters and identifies isolated points as noise. 
+####
+
+This example shows how DBSCAN groups dense regions into clusters and identifies isolated points as noise.
+
+(Set initial core point for a cluster, extend epsilon_radius to catch more core points in that cluster.
+If all core points are caught, then catch the non-core points, but don't use non-core points to extend epsilon_radius)
+
 The choice of eps and MinPts is crucial for the algorithm's performance.
