@@ -1,0 +1,27 @@
+#--------------------------------------------------------------------------------#
+#--------------------- DBSCAN and HDBSCAN Pipeline ------------------------------#
+#--------------------------------------------------------------------------------#
+
+from sklearn.cluster import DBSCAN
+from sklearn.metrics import silhouette_score
+from imblearn.pipeline import Pipeline
+from sklearn.preprocessing import MinMaxScaler, OneHotEncoder
+from sklearn.compose import make_column_transformer
+import math
+
+
+dbscan_pipe = Pipeline([
+        ('OneHotEncoder', make_column_transformer((OneHotEncoder(drop='first', handle_unknown='ignore'), ['categ']), remainder='passthrough')),
+        ('MinMaxScaler', MinMaxScaler()),
+        ('DBSCAN', DBSCAN(eps=0.3, min_samples=5))
+    ])
+
+dbscan_pipe.fit(data)
+
+data_transform = dbscan_pipe.named_steps['OneHotEncoder'].transform(data)  #Transform original data with onehotencoder
+
+labels = dbscan_pipe.named_steps['DBSCAN'].labels_
+
+data_group = data_transform.copy()
+data_group['Group'] = labels
+
