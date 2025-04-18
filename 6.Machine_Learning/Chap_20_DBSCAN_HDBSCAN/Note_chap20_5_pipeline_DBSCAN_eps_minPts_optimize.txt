@@ -11,7 +11,7 @@ silh_score = []
 for epsilon in np.arange(0.1, 0.5, 0.005):
     for min_points in np.arange(3, 15, 1):
         dbscan_pipe = Pipeline([
-            ('Encoder', make_column_transformer((OneHotEncoder(drop='first', handle_unknown='ignore'), ['Genre']), remainder='passthrough')),
+            ('Encoder', make_column_transformer((OneHotEncoder(drop='first', handle_unknown='ignore'), ['categorical']), remainder='passthrough')),
             ('Scaler', MinMaxScaler()),
             ('DBSCAN', DBSCAN(eps=epsilon, min_samples=min_points))
         ])
