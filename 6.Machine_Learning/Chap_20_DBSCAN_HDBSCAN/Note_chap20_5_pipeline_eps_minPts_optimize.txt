@@ -8,7 +8,7 @@ eps = []
 minPts = []
 silh_score = []
 
-for epsilon in np.arange(0.1, 0.5, 0.01):
+for epsilon in np.arange(0.1, 0.5, 0.005):
     for min_points in np.arange(3, 15, 1):
         dbscan_pipe = Pipeline([
             ('Encoder', make_column_transformer((OneHotEncoder(drop='first', handle_unknown='ignore'), ['Genre']), remainder='passthrough')),
@@ -43,6 +43,12 @@ df_eps_minPts_score = pd.DataFrame({
     'silhoutte_score': silh_score
 })
 
-df_eps_minPts_score = df_eps_minPts_score[df_eps_minPts_score['silhoutte_score'] != 'Not_enough_cluster_for_scoring']
-df_eps_minPts_score = df_eps_minPts_score.sort_values(by='silhoutte_score', ascending=False)
-print(df_eps_minPts_score)
+print(df_eps_minPts_score[df_eps_minPts_score['silhoutte_score'] == 'Not_enough_cluster_for_scoring'].head())
+
+df_final_score = (
+    df_eps_minPts_score[df_eps_minPts_score['silhoutte_score'] != 'Not_enough_cluster_for_scoring']
+    .sort_values(by='silhoutte_score', ascending=False)
+)
+
+print()
+print(df_final_score)
