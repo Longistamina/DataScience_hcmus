@@ -1,16 +1,12 @@
-#--------------------------------------------------------------------------------#
-#--------------------- DBSCAN and HDBSCAN Pipeline ------------------------------#
-#--------------------------------------------------------------------------------#
-
 from sklearn.cluster import DBSCAN
 from sklearn.metrics import silhouette_score
 from sklearn.preprocessing import MinMaxScaler, OneHotEncoder
 from sklearn.compose import make_column_transformer
 from imblearn.pipeline import Pipeline
 
-for epsilon in np.arange(0.1, 0.5, 0.025):
+for epsilon in np.arange(0.1, 0.5, 0.05):
     dbscan_pipe = Pipeline([
-        ('Encoder', make_column_transformer((OneHotEncoder(drop='first', handle_unknown='ignore'), ['categ']), remainder='passthrough')),
+        ('Encoder', make_column_transformer((OneHotEncoder(drop='first', handle_unknown='ignore'), ['Genre']), remainder='passthrough')),
         ('Scaler', MinMaxScaler()),
         ('DBSCAN', DBSCAN(eps=epsilon, min_samples=10))
     ])
@@ -32,5 +28,5 @@ for epsilon in np.arange(0.1, 0.5, 0.025):
     labels = data_evaluate['Group']
     data_evaluate = data_evaluate.drop('Group', axis = 1)
     
-    print(f'With epsilon = {epsilon} ____ silhoutte score = {silhouette_score(data_evaluate, labels)}')
+    print(f'With epsilon = {np.round(epsilon, 3)} ____ silhoutte score = {silhouette_score(data_evaluate, labels)}')
     
