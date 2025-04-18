@@ -4,24 +4,33 @@
 
 from sklearn.cluster import DBSCAN
 from sklearn.metrics import silhouette_score
-from imblearn.pipeline import Pipeline
 from sklearn.preprocessing import MinMaxScaler, OneHotEncoder
 from sklearn.compose import make_column_transformer
-import math
+from imblearn.pipeline import Pipeline
 
-
-dbscan_pipe = Pipeline([
-        ('OneHotEncoder', make_column_transformer((OneHotEncoder(drop='first', handle_unknown='ignore'), ['categ']), remainder='passthrough')),
-        ('MinMaxScaler', MinMaxScaler()),
-        ('DBSCAN', DBSCAN(eps=0.3, min_samples=5))
+for epsilon in np.arange(0.1, 0.5, 0.025):
+    dbscan_pipe = Pipeline([
+        ('Encoder', make_column_transformer((OneHotEncoder(drop='first', handle_unknown='ignore'), ['categ']), remainder='passthrough')),
+        ('Scaler', MinMaxScaler()),
+        ('DBSCAN', DBSCAN(eps=epsilon, min_samples=10))
     ])
+    data = shopping.drop('CustomerID', axis = 1)
+    dbscan_pipe.fit(data)
+    labels = dbscan_pipe.fit_predict(data)
+    data_encode = dbscan_pipe.named_steps['Encoder'].transform(data)
 
-dbscan_pipe.fit(data)
+    data_evaluate = pd.DataFrame(data_encode, columns=dbscan_pipe.named_steps['Encoder'].get_feature_names_out())
+    data_evaluate['Group'] = labels
 
-data_transform = dbscan_pipe.named_steps['OneHotEncoder'].transform(data)  #Transform original data with onehotencoder
+    #Noise filter
+    data_evaluate = data_evaluate[data_evaluate['Group'] != -1]
 
-labels = dbscan_pipe.named_steps['DBSCAN'].labels_
-
-data_group = data_transform.copy()
-data_group['Group'] = labels
-
+    if data_evaluate.empty or data_evaluate['Group'].nunique() < 2:
+        print(f'With epsilon = {np.round(epsilon, 3)} ____ Not enough clusters or data to calculate silhouette score.')
+        continue
+    
+    labels = data_evaluate['Group']
+    data_evaluate = data_evaluate.drop('Group', axis = 1)
+    
+    print(f'With epsilon = {epsilon} ____ silhoutte score = {silhouette_score(data_evaluate, labels)}')
+    
