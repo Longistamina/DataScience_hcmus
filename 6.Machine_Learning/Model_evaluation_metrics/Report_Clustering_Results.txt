@@ -38,7 +38,7 @@ categ_cols = [....... categorical variables/columns ........]
 
 ##### Function building ##############
 
-def boxplot_numeric(df, numeric_cols, figsize=(20, 10), categorical = None):
+def boxplot_numeric(df, numeric_cols, figsize=(20, 10), groups = None):
     col = 3
     if (len(numeric_cols) % 3) == 0:
         row = len(numeric_cols) // 3
@@ -49,7 +49,7 @@ def boxplot_numeric(df, numeric_cols, figsize=(20, 10), categorical = None):
     row: số lượng dòng trong lưới đồ thị
     col: số lượng cột trong lưới đồ thị
     figsize: kích thước biểu đồ
-    categorical: tên cột chứa biến phân nhóm như 'Group' hoặc 'Class' hoặc 'Label'
+    groups: tên cột chứa biến phân nhóm như 'Group' hoặc 'Class' hoặc 'Label'
     '''
     print(f'Number of numeric fields: {len(numeric_cols)}')
     print()
@@ -60,7 +60,7 @@ def boxplot_numeric(df, numeric_cols, figsize=(20, 10), categorical = None):
     for i in range(1, len(numeric_cols)+1, 1):
       try:
         plt.subplot(row, col, i)
-        sbn.boxplot(data = df, x = categorical, y = numeric_cols[i-1], notch = True, hue = categorical)
+        sbn.boxplot(data = df, x = categorical, y = numeric_cols[i-1], notch = True, hue = groups)
         plt.title(numeric_cols[i-1])
       except:
         print('Error {}'.format(numeric_cols[i-1]))
@@ -68,7 +68,7 @@ def boxplot_numeric(df, numeric_cols, figsize=(20, 10), categorical = None):
     plt.show()
 
 
-def countplot_categ(df, categ_cols, figsize=(20, 10), categorical = None):
+def countplot_categ(df, categ_cols, figsize=(20, 10), groups = None):
     col = 3
     if (len(categ_cols) % 3) == 0:
         row = len(categ_cols) // 3
@@ -79,7 +79,7 @@ def countplot_categ(df, categ_cols, figsize=(20, 10), categorical = None):
     row: số lượng dòng trong lưới đồ thị
     col: số lượng cột trong lưới đồ thị
     figsize: kích thước biểu đồ
-    categorical: tên cột chứa biến phân nhóm như 'Group' hoặc 'Class' hoặc 'Label'
+    groups: tên cột chứa biến phân nhóm như 'Group' hoặc 'Class' hoặc 'Label'
     '''
     print(f'Number of categorical fields: {len(categ_cols)}')
     print()
@@ -90,14 +90,14 @@ def countplot_categ(df, categ_cols, figsize=(20, 10), categorical = None):
     for i in range(1, len(categ_cols)+1, 1):
       try:
         plt.subplot(row, col, i)
-        sbn.countplot(data = df, x = categorical, hue = categ_cols[i-1])
+        sbn.countplot(data = df, x = groups, hue = categ_cols[i-1])
         plt.title(categ_cols[i-1])
       except:
-        print('Error {}'.format(numeric_cols[i-1]))
+        print('Error {}'.format(categ_cols[i-1]))
         break
     plt.show()
 
 ## Draw
-boxplot_numeric(data_group, numeric_cols, categorical = data_group['Group'])
+boxplot_numeric(data_group, numeric_cols, groups = data_group.iloc[:,-1])
 print('\n-----------------------------------------------------------------------------------------------------------------------------\n')
-countplot_categ(data_group, categ_cols, categorical = data_group['Group'])
+countplot_categ(data_group, categ_cols, groups = data_group.iloc[:,-1])
