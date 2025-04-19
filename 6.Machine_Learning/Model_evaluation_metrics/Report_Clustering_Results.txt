@@ -100,5 +100,5 @@ def countplot_categ(df, categ_cols, figsize=(20, 10), groups = None):
 ## Draw
 sbn.set_theme(style ='darkgrid')
 boxplot_numeric(data_group, numeric_cols, groups = data_group.iloc[:,-1])
-print('\n-----------------------------------------------------------------------------------------------------------------------------\n')
+print('\n-----------------------------------------------------------------------------------------------------------------------------\n'*2)
 countplot_categ(data_group, categ_cols, groups = data_group.iloc[:,-1])
