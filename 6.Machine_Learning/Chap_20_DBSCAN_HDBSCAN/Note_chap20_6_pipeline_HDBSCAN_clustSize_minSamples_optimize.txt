@@ -18,13 +18,14 @@ for min_cluster_size in np.arange(4, 20, 2):
         data = shopping.drop('CustomerID', axis = 1)
         hdbscan_pipe.fit(data)
         labels = hdbscan_pipe.fit_predict(data)
-        data_encode = hdbscan_pipe.named_steps['Encoder'].transform(data)
-        
-        data_evaluate = pd.DataFrame(data_encode, columns=hdbscan_pipe.named_steps['Encoder'].get_feature_names_out())
-        data_evaluate['Group'] = labels
-        
-        #Noise filter
-        data_evaluate = data_evaluate[data_evaluate['Group'] != -1]
+
+        col_names = hdbscan_pipe.named_steps['Encoder'].get_feature_names_out()
+
+        data_evaluate = (
+            data.pipe(lambda df: pd.DataFrame(hdbscan_pipe.named_steps['Encoder'].transform(df), columns = col_names))
+            .assign(Group = labels)
+            .pipe(lambda df: df[df['Group'] != -1]) #Noise filter
+        )
         
         min_cluster_sizes.append(min_cluster_size)
         min_samples.append(min_sample)
@@ -52,3 +53,19 @@ df_final_score = (
 
 print()
 print(df_final_score)
+
+
+#############################
+
+labels = hdbscan_pipe.fit_predict(data)
+
+col_names = hdbscan_pipe.named_steps['Encoder'].get_feature_names_out()
+
+data_clustered = (
+    data.pipe(lambda df: pd.DataFrame(hdbscan_pipe.named_steps['Encoder'].transform(df), columns = col_names))
+    .assign(Group = labels)
+    .pipe(lambda df: df.set_axis(
+        df.columns.str.replace('onehotencoder__', '', regex=False).str.replace('remainder__', '', regex=False),
+        axis = 1
+    ))
+)
