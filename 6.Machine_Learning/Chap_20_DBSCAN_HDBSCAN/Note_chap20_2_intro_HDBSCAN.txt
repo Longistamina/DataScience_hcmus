@@ -71,7 +71,7 @@ We will use the Euclidean distance.
 
 * For P_1:
     Nearest neighbors are P_2 (distance sqrt{(1-1)^2 + (2-1)^2} = 1) and P_3 (distance sqrt{(4-1)^2 + (1-1)^2} = 3).
-    core_dist_2(P_1) = 1 (distance to the 2nd nearest neighbor)
+    core_dist_2(P_1) = 3 (distance to the 2nd nearest neighbor)
 
 * For P_2:
     Nearest neighbors are P_1 (distance 1) and P_4 (distance sqrt{(4-1)^2 + (2-2)^2} = 3).
