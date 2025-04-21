@@ -184,11 +184,11 @@ Summary Table
 Rule                          	 | Support | Confidence | Lift   | Leverage | Conviction   | Comment
 ---------------------------------|---------|------------|--------|----------|--------------|-------------------------------
 Milk => Bread                    | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8          | High confidence, weak lift
-Bread => Milk                	   | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8          | Symmetrical, same weakness
-Milk => Butter             	   | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8          | High confidence, low predictive gain
-Butter => Milk            	      | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8          | Symmetrical
-Bread => Butter             	   | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8          | Weak association despite frequency
-Butter => Bread              	   | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8          | Same
+Bread => Milk                	 | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8          | Symmetrical, same weakness
+Milk => Butter             	 | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8          | High confidence, low predictive gain
+Butter => Milk            	 | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8          | Symmetrical
+Bread => Butter             	 | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8          | Weak association despite frequency
+Butter => Bread              	 | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8          | Same
 {Milk, Bread} => Butter          | 0.40    | 0.6667     | 0.8333 | -0.08    | ~0.6         | Slight drop in confidence, low lift
 {Milk, Butter} => Bread          | 0.40    | 0.6667     | 0.8333 | -0.08    | ~0.6         | Weak 3-itemset rule
 {Bread, Butter} => Milk          | 0.40    | 0.6667     | 0.8333 | -0.08    | ~0.6         | Same
