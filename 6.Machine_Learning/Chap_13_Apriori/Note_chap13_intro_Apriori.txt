@@ -17,9 +17,11 @@ Key Definitions and Metrics:
 
 1. **Support**:
    Support(X) = (Number of transactions containing X) / (Total number of transactions)
+   The frequency of item X across all transactions
 
 2. **Confidence**:
    Confidence(X => Y) = Support(X ∪ Y) / Support(X)
+   The likelihood of buying item Y along with a transaction containing item X (buy X, then buy Y for the same transaction)
 
 3. **Lift**:
    Lift(X => Y) = Confidence(X => Y) / Support(Y)
