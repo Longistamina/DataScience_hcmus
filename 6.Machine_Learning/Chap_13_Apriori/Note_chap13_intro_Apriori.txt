@@ -63,6 +63,10 @@ Apriori Algorithm Steps
 7. Generate association rules from the frequent itemsets using the confidence and lift thresholds.
 
 
+{Bread, Butter} ⇒ Milk
+LHS = Left-Hand Side of the rule = {Bread, Butter}
+RHS = Right-Hand Side of the rule = Milk
+
 #-------------------------------------------------#
 #------------ Example: 2-itemsets ----------------#
 #-------------------------------------------------#
