@@ -189,7 +189,8 @@ Rule 3: {Bread, Butter} ⇒ Milk
 - Lift = 0.67 / 0.8 = 0.8375 
 
 (or Lift {Bread, Butter ⇒ Milk} = Support({Milk, Bread, Butter}) / [Support({Bread, Butter}) * Support(Milk)]
-                         	 =              0.4              /  [       0.6               *       0.8    ]  )
+                         	 =              0.4              /  [       0.6               *       0.8    ]  
+                                 =                             0.8375                                          )
 
 Interpretation:
 ---------------
