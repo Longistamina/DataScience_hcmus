@@ -92,43 +92,42 @@ Butter: 4/5 = 0.80
 2-Itemsets and Rules
 ========================
 
-Itemset: {Milk, Bread}
-Support: 3/5 = 0.60
+## Itemset: {Milk, Bread}
+Support: 3/5 = 0.60 (Moderate-High Support)
 
 Rule: Milk => Bread
-  Confidence: 3/4 = 0.75
-  Lift: 0.75 / 0.80 = 0.9375
-  Leverage: 0.60 - (0.80 * 0.80) = -0.04
-  Conviction: (1 - 0.80) / (1 - 0.75) = 0.20 / 0.25 = 0.8
+  Confidence: 3/4 = 0.75 (High)
+  Lift: 0.75 / 0.80 = 0.9375 (Below 1: Weak association)
+  Leverage: 0.60 - (0.80 * 0.80) = -0.04 (Negative: Appears together less than expected)
+  Conviction: (1 - 0.80) / (1 - 0.75) = 0.20 / 0.25 = 0.8  (Low predictive power)
+→ Comment: Despite high confidence, Lift and Leverage indicate no real dependency.
 
-Rule: Bread => Milk
-  Confidence: 3/4 = 0.75
-  Lift: 0.9375
-  Leverage: -0.04
-  Conviction: 0.8
+Rule: Bread => Milk (same as above
 
 
-Itemset: {Milk, Butter}
-Support: 3/5 = 0.60
+## Itemset: {Milk, Butter}
+Support: 3/5 = 0.60 (Moderate-High Support)
 
 Rule: Milk => Butter
-  Confidence: 0.75
-  Lift: 0.9375
-  Leverage: -0.04
-  Conviction: 0.8
+  Confidence: 0.75 (High)
+  Lift: 0.9375 (Weak association)
+  Leverage: -0.04 (Negative)
+  Conviction: 0.8 (Low)
+ → Comment: Like previous, confidence is high but correlation is not meaningful.
 
 Rule: Butter => Milk
   Same values as above
 
 
-Itemset: {Bread, Butter}
-Support: 3/5 = 0.60
+## Itemset: {Bread, Butter}
+Support: 3/5 = 0.60 (Moderate-High Support)
 
 Rule: Bread => Butter
-  Confidence: 0.75
-  Lift: 0.9375
-  Leverage: -0.04
-  Conviction: 0.8
+  Confidence: 0.75 (High)
+  Lift: 0.9375 (Weak association)
+  Leverage: -0.04 (Negative)
+  Conviction: 0.8 (Low)
+→ Comment: Frequent pair, but Lift and Leverage show weak/no dependency.
 
 Rule: Butter => Bread
   Same values as above
@@ -136,7 +135,7 @@ Rule: Butter => Bread
 
 ========================
 3-Itemset: {Milk, Bread, Butter}
-Support: 2/5 = 0.40
+Support: 2/5 = 0.40 (Moderate Support)
 
 Subsets:
 --------
@@ -145,23 +144,31 @@ Subsets:
 {Bread, Butter}: 3/5
 
 Rule: {Milk, Bread} => Butter
-  Confidence: 2/3 = 0.6667
-  Lift: 0.6667 / 0.80 = 0.8333
-  Leverage: 0.40 - 0.48 = -0.08
-  Conviction: (1 - 0.80) / (1 - 0.6667) ≈ 0.6
+  Confidence: 2/3 = 0.6667 (Moderate)
+  Lift: 0.6667 / 0.80 = 0.8333 (Low correlation)
+  Leverage: 0.40 - 0.48 = -0.08 (More negative)
+  Conviction: (1 - 0.80) / (1 - 0.6667) ≈ 0.6 (Very low)
+→ Comment: Adding a third item reduces confidence; association is weak.
+
 
 Rule: {Milk, Butter} => Bread
   Same as above
+  → Comment: No improvement in predictability with third item.
+
 
 Rule: {Bread, Butter} => Milk
   Same as above
+  → Comment: Adding Milk does not strongly follow from Bread+Butter.
+
 
 Rule: Milk => {Bread, Butter}
-  Confidence: 2/4 = 0.50
+  Confidence: 2/4 = 0.50 (Low)
   Support({Bread, Butter}) = 3/5
   Lift: 0.50 / 0.60 = 0.8333
   Leverage: 0.40 - 0.48 = -0.08
   Conviction: 0.40 / 0.50 = 0.8
+  → Comment: Weak rule with poor predictive power.
+
 
 Rule: Bread => {Milk, Butter}
   Same as above
@@ -174,20 +181,20 @@ Rule: Butter => {Milk, Bread}
 Summary Table
 ========================
 
-Rule                          	 | Support | Confidence | Lift   | Leverage | Conviction
----------------------------------|---------|------------|--------|----------|-----------
-Milk => Bread                    | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8
-Bread => Milk                	 | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8
-Milk => Butter             	 | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8
-Butter => Milk            	 | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8
-Bread => Butter             	 | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8
-Butter => Bread              	 | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8
-{Milk, Bread} => Butter          | 0.40    | 0.6667     | 0.8333 | -0.08    | ~0.6
-{Milk, Butter} => Bread          | 0.40    | 0.6667     | 0.8333 | -0.08    | ~0.6
-{Bread, Butter} => Milk          | 0.40    | 0.6667     | 0.8333 | -0.08    | ~0.6
-Milk => {Bread, Butter}          | 0.40    | 0.50       | 0.8333 | -0.08    | 0.8
-Bread => {Milk, Butter}          | 0.40    | 0.50       | 0.8333 | -0.08    | 0.8
-Butter => {Milk, Bread}          | 0.40    | 0.50       | 0.8333 | -0.08    | 0.8
+Rule                          	 | Support | Confidence | Lift   | Leverage | Conviction   | Comment
+---------------------------------|---------|------------|--------|----------|--------------|-------------------------------
+Milk => Bread                    | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8          | High confidence, weak lift
+Bread => Milk                	   | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8          | Symmetrical, same weakness
+Milk => Butter             	   | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8          | High confidence, low predictive gain
+Butter => Milk            	      | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8          | Symmetrical
+Bread => Butter             	   | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8          | Weak association despite frequency
+Butter => Bread              	   | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8          | Same
+{Milk, Bread} => Butter          | 0.40    | 0.6667     | 0.8333 | -0.08    | ~0.6         | Slight drop in confidence, low lift
+{Milk, Butter} => Bread          | 0.40    | 0.6667     | 0.8333 | -0.08    | ~0.6         | Weak 3-itemset rule
+{Bread, Butter} => Milk          | 0.40    | 0.6667     | 0.8333 | -0.08    | ~0.6         | Same
+Milk => {Bread, Butter}          | 0.40    | 0.50       | 0.8333 | -0.08    | 0.8          | Low confidence, weak association
+Bread => {Milk, Butter}          | 0.40    | 0.50       | 0.8333 | -0.08    | 0.8          | Same
+Butter => {Milk, Bread}          | 0.40    | 0.50       | 0.8333 | -0.08    | 0.8          | Same
 
 
 ========================
