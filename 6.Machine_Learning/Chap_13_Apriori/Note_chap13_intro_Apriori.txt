@@ -12,30 +12,27 @@ After deploying the Apriori, we will know which item is usually bought along wit
 => But them closer in the shelf, so that customers can see them both and make them want to buy them both
 => Enhance sales
 
-Key Concepts
-------------
+Key Definitions and Metrics:
+----------------------------
 
-1. Itemset: A collection of one or more items.
+1. **Support**:
+   Support(X) = (Number of transactions containing X) / (Total number of transactions)
 
+2. **Confidence**:
+   Confidence(X => Y) = Support(X ∪ Y) / Support(X)
 
-2. Support: How frequently an itemset appears in the dataset.
-   Formula:
-   	
-	Support(A) = (Number of transactions containing A) / (Total number of transactions)
+3. **Lift**:
+   Lift(X => Y) = Confidence(X => Y) / Support(Y)
+   Interpretation: Lift > 1 implies positive correlation, < 1 implies negative, = 1 implies independence.
 
+4. **Leverage**:
+   Leverage(X => Y) = Support(X ∪ Y) - (Support(X) * Support(Y))
+   Interpretation: The difference between actual and expected co-occurrence.
 
+5. **Conviction**:
+   Conviction(X => Y) = (1 - Support(Y)) / (1 - Confidence(X => Y))
+   Interpretation: Measures the degree of implication; higher values suggest stronger rules.
 
-3. Confidence: Likelihood that item B is also bought when item A is bought.
-   Formula:
-
-	 Confidence(A ⇒ B) = Support(A ∪ B) / Support(A)
-
-
-
-4. Lift: How much more likely B is purchased when A is purchased compared to B being purchased independently.
-   Formula:
-
-	 Lift(A ⇒ B) = Confidence(A ⇒ B) / Support(B)
 
 Lift > 1:
     - A and B appear together more often than expected.
@@ -71,138 +68,135 @@ Apriori Algorithm Steps
 LHS = Left-Hand Side of the rule = {Bread, Butter}
 RHS = Right-Hand Side of the rule = Milk
 
-#-------------------------------------------------#
-#------------ Example: 2-itemsets ----------------#
-#-------------------------------------------------#
+Apriori Algorithm - Full Manual Calculation
+===========================================
 
-Given Transactions:
-
-T1: {Milk, Bread, Butter}
-T2: {Bread, Butter}
-T3: {Milk, Bread}
-T4: {Milk, Butter}
-T5: {Bread, Butter}
-
-Total Transactions = 5
-Minimum Support Threshold = 0.6 (or 60%)
-
-Step 1: Count Support for 1-Itemsets
-
-- Milk: appears in T1, T3, T4 → 3/5 = 0.6
-- Bread: T1, T2, T3, T5 → 4/5 = 0.8
-- Butter: T1, T2, T4, T5 → 4/5 = 0.8
-
-All 1-itemsets meet the support threshold.
-
-Step 2: Generate 2-Itemsets and Count Support
-
-- {Milk, Bread} → T1, T3 → 2/5 = 0.4 → discard
-- {Milk, Butter} → T1, T4 → 2/5 = 0.4 → discard
-- {Bread, Butter} → T1, T2, T5 → 3/5 = 0.6 → keep
-
-Step 3: Generate Association Rules from {Bread, Butter}
-
-Rule: Bread ⇒ Butter
-- Support(Bread ∩ Butter) = 3/5 = 0.6
-- Support(Bread) = 4/5 = 0.8
-- Confidence = 0.6 / 0.8 = 0.75
-- Support(Butter) = 4/5 = 0.8
-- Lift = 0.75 / 0.8 = 0.9375
-
-Rule: Butter ⇒ Bread
-- Confidence = 0.6 / 0.8 = 0.75
-- Lift = 0.75 / 0.8 = 0.9375
-
-Conclusion
-----------
-
-- The only frequent 2-itemset is {Bread, Butter}.
-- Both rules have a confidence of 0.75 and lift of 0.9375.
-- Since lift is < 1, this suggests a slight negative correlation — Bread and Butter are bought together, but not more often than chance.
-
-
-
-#-------------------------------------------------#
-#------------ Example: 3-itemsets ----------------#
-#-------------------------------------------------#
-
-Transactions:
--------------
-T1: {Milk, Bread, Butter}
-T2: {Milk, Bread, Butter}
-T3: {Milk, Bread}
-T4: {Bread, Butter}
-T5: {Milk, Butter}
-
-Total Transactions: 5
-Minimum Support Threshold: 0.6 (or 60%)
-
-Step 1: 1-Itemsets with Support
--------------------------------
-- Milk: appears in T1, T2, T3, T5 → 4/5 = 0.8 ✅
-- Bread: T1, T2, T3, T4 → 4/5 = 0.8 ✅
-- Butter: T1, T2, T4, T5 → 4/5 = 0.8 ✅
-
-All 1-itemsets are frequent.
-
-Step 2: 2-Itemsets with Support
--------------------------------
-- {Milk, Bread}: T1, T2, T3 → 3/5 = 0.6 ✅
-- {Milk, Butter}: T1, T2, T5 → 3/5 = 0.6 ✅
-- {Bread, Butter}: T1, T2, T4 → 3/5 = 0.6 ✅
-
-All these 2-itemsets are frequent.
-
-Step 3: 3-Itemsets with Support
--------------------------------
-- {Milk, Bread, Butter}: appears in T1, T2 → 2/5 = 0.4 ❌
-(does not meet 0.6 threshold)
-
-Let's reduce the support threshold to 0.4 for this example:
-
-Updated Minimum Support Threshold = 0.4 (40%)
-
-Now {Milk, Bread, Butter} is frequent.
-
-Frequent 3-itemset:
+Transaction Dataset:
 --------------------
-- {Milk, Bread, Butter} → support = 2/5 = 0.4 ✅
+T1: {Milk, Bread, Butter}
+T2: {Milk, Bread}
+T3: {Milk, Butter}
+T4: {Bread, Butter}
+T5: {Milk, Bread, Butter}
 
-Step 4: Generate Association Rules from 3-Itemset
--------------------------------------------------
+Total Transactions (N) = 5
 
-Rule 1: {Milk, Bread} ⇒ Butter
-- Support({Milk, Bread, Butter}) = 2/5 = 0.4
-- Support({Milk, Bread}) = 3/5 = 0.6
-- Confidence = 0.4 / 0.6 = 0.67
-- Support(Butter) = 4/5 = 0.8
-- Lift = 0.67 / 0.8 = 0.8375
+Item Frequencies:
+-----------------
+Milk:   4/5 = 0.80
+Bread:  4/5 = 0.80
+Butter: 4/5 = 0.80
 
-Rule 2: {Milk, Butter} ⇒ Bread
-- Support({Milk, Bread, Butter}) = 0.4
-- Support({Milk, Butter}) = 3/5 = 0.6
-- Confidence = 0.4 / 0.6 = 0.67
-- Support(Bread) = 0.8
-- Lift = 0.67 / 0.8 = 0.8375
 
-Rule 3: {Bread, Butter} ⇒ Milk
-- Support({Milk, Bread, Butter}) = 0.4
-- Support({Bread, Butter}) = 3/5 = 0.6
-- Confidence = 0.4 / 0.6 = 0.67
-- Support(Milk) = 0.8
-- Lift = 0.67 / 0.8 = 0.8375 
+========================
+2-Itemsets and Rules
+========================
 
-(or Lift {Bread, Butter ⇒ Milk} = Support({Milk, Bread, Butter}) / [Support({Bread, Butter}) * Support(Milk)]
-                         	 =              0.4              /  [       0.6               *       0.8    ]  
-                                 =                             0.8375                                          )
+Itemset: {Milk, Bread}
+Support: 3/5 = 0.60
 
-Interpretation:
----------------
-- All rules have confidence = 0.67 (i.e., 67% of the time, the RHS item appears with the LHS items).
-- Lift < 1 → there is a slight negative correlation.
-- Still, the confidence is decent, so these rules may still be of interest, especially in smaller datasets.
+Rule: Milk => Bread
+  Confidence: 3/4 = 0.75
+  Lift: 0.75 / 0.80 = 0.9375
+  Leverage: 0.60 - (0.80 * 0.80) = -0.04
+  Conviction: (1 - 0.80) / (1 - 0.75) = 0.20 / 0.25 = 0.8
 
-Summary:
+Rule: Bread => Milk
+  Confidence: 3/4 = 0.75
+  Lift: 0.9375
+  Leverage: -0.04
+  Conviction: 0.8
+
+
+Itemset: {Milk, Butter}
+Support: 3/5 = 0.60
+
+Rule: Milk => Butter
+  Confidence: 0.75
+  Lift: 0.9375
+  Leverage: -0.04
+  Conviction: 0.8
+
+Rule: Butter => Milk
+  Same values as above
+
+
+Itemset: {Bread, Butter}
+Support: 3/5 = 0.60
+
+Rule: Bread => Butter
+  Confidence: 0.75
+  Lift: 0.9375
+  Leverage: -0.04
+  Conviction: 0.8
+
+Rule: Butter => Bread
+  Same values as above
+
+
+========================
+3-Itemset: {Milk, Bread, Butter}
+Support: 2/5 = 0.40
+
+Subsets:
 --------
-- With a support threshold of 0.4, we found the frequent 3-itemset: {Milk, Bread, Butter}.
-- From this, we derived 3 association rules with confidence = 0.67 and lift = 0.8375.
+{Milk, Bread}: 3/5
+{Milk, Butter}: 3/5
+{Bread, Butter}: 3/5
+
+Rule: {Milk, Bread} => Butter
+  Confidence: 2/3 = 0.6667
+  Lift: 0.6667 / 0.80 = 0.8333
+  Leverage: 0.40 - 0.48 = -0.08
+  Conviction: (1 - 0.80) / (1 - 0.6667) ≈ 0.6
+
+Rule: {Milk, Butter} => Bread
+  Same as above
+
+Rule: {Bread, Butter} => Milk
+  Same as above
+
+Rule: Milk => {Bread, Butter}
+  Confidence: 2/4 = 0.50
+  Support({Bread, Butter}) = 3/5
+  Lift: 0.50 / 0.60 = 0.8333
+  Leverage: 0.40 - 0.48 = -0.08
+  Conviction: 0.40 / 0.50 = 0.8
+
+Rule: Bread => {Milk, Butter}
+  Same as above
+
+Rule: Butter => {Milk, Bread}
+  Same as above
+
+
+========================
+Summary Table
+========================
+
+Rule                          	 | Support | Confidence | Lift   | Leverage | Conviction
+---------------------------------|---------|------------|--------|----------|-----------
+Milk => Bread                    | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8
+Bread => Milk                	 | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8
+Milk => Butter             	 | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8
+Butter => Milk            	 | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8
+Bread => Butter             	 | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8
+Butter => Bread              	 | 0.60    | 0.75       | 0.9375 | -0.04    | 0.8
+{Milk, Bread} => Butter          | 0.40    | 0.6667     | 0.8333 | -0.08    | ~0.6
+{Milk, Butter} => Bread          | 0.40    | 0.6667     | 0.8333 | -0.08    | ~0.6
+{Bread, Butter} => Milk          | 0.40    | 0.6667     | 0.8333 | -0.08    | ~0.6
+Milk => {Bread, Butter}          | 0.40    | 0.50       | 0.8333 | -0.08    | 0.8
+Bread => {Milk, Butter}          | 0.40    | 0.50       | 0.8333 | -0.08    | 0.8
+Butter => {Milk, Bread}          | 0.40    | 0.50       | 0.8333 | -0.08    | 0.8
+
+
+========================
+Conclusions
+========================
+
+- All item pairs have strong individual supports (>= 0.60).
+- However, most rule metrics suggest weak or negative correlation (Lift < 1, Leverage < 0).
+- Confidence scores are decent (~0.75 for pairs), but Lift and Conviction indicate the items do not improve prediction over chance.
+- The 3-itemsets are less confident and even weaker in association.
+
+Apriori can reveal that even frequent co-occurrence does not imply strong association.
