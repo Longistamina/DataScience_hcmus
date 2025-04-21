@@ -8,6 +8,10 @@ The Apriori algorithm is a fundamental algorithm in data mining used for frequen
 
 "If an itemset is frequent, then all of its subsets must also be frequent."
 
+After deploying the Apriori, we will know which item is usually bought along with which item
+=> But them closer in the shelf, so that customers can see them both and make them want to buy them both
+=> Enhance sales
+
 Key Concepts
 ------------
 
