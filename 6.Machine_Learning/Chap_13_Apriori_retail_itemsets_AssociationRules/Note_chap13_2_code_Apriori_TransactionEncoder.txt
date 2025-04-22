@@ -4,6 +4,8 @@
 from mlxtend.preprocessing import TransactionEncoder
 from mlxtend.frequent_patterns import apriori, association_rules
 
+
+#Must create a transactions_lst like below first before passing into TransactionEncoder
 transactions_lst = [['Eggs', 'Milk', 'Onion', 'Nutmeg', 'Kidney Beans', 'Yogurt'],
            	['Dill', 'Onion', 'Nutmeg', 'Eggs', 'Yogurt'],
            	['Milk', 'Apple', 'Kidney Beans', 'Eggs'],
@@ -38,3 +40,11 @@ print(asc_rules)
 #Run with lift
 asc_rules = association_rules(frequent_itemsets, metric = 'lift', min_threshold = 1.4) #Run with minimum lift threshold = 1.4
 print(asc_rules)
+
+for row in asc_rules.iterrows():
+	if "Milk" in row[1][0]:
+		print(row)
+
+support = asc_rules['support'].values
+confidence = asc_rules['confidence'].values
+lift = asc_rules['lift'].values
