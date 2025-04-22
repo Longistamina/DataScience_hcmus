@@ -17,3 +17,20 @@ def remove_outliers_rows(data, column_list):
     
 x_train = remove_outliers_rows(x_train, lst_quantitative)
 x_train
+
+
+#### Only remove rows that are outliers in all columns
+from functools import reduce
+
+def remove_outliers_rows_strict(data, column_list):
+    outlier_indices_per_column = []
+    for col in column_list:
+        q1 = data[col].quantile(0.25)
+        q3 = data[col].quantile(0.75)
+        iqr = q3 - q1
+        condition = (data[col] < (q1 - 1.5 * iqr)) | (data[col] > (q3 + 1.5 * iqr))
+        outlier_indices_per_column.append(set(data[condition].index))
+    
+    # Only remove rows that are outliers in all columns
+    common_outliers = set.intersection(*outlier_indices_per_column)
+    return data.drop(common_outliers).reset_index(drop=True)
