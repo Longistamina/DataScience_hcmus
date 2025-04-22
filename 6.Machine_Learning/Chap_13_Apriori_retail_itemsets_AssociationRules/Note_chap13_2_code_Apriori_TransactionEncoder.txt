@@ -32,13 +32,13 @@ print(frequent_itemsets)
 
 ## Find association rules within itemsets
 asc_rules = association_rules(frequent_items, metric='confidence', min_threshold=0.3, #Run with minimum confidence threshold = 0.3
-                             return_metrics=['support', 'confidence', 'lift', 'representativity', 'leverage', 'conviction'])
+                             return_metrics=['support', 'confidence', 'lift', 'leverage', 'conviction'])
 print(asc_rules)
 
 
 #Run with lift
 asc_rules = association_rules(frequent_items, metric='lift', min_threshold=1.1, asc_rules #Run with minimum lift threshold = 1.1
-                              return_metrics=['support', 'confidence', 'lift', 'representativity', 'leverage', 'conviction'])
+                              return_metrics=['support', 'confidence', 'lift', 'leverage', 'conviction'])
 print(asc_rules)
 
 
