@@ -24,17 +24,26 @@ transaction_id_set = eclat_instance.fit(min_support=0.5, min_combination=2, max_
 # eclat_instance.uniq_ => return a list of all items (1-itemset)
 # eclat_instance.support() => Return a dictionary. The key is the feature (1-itemset) and value is support
 
-### Create df_tid
-itemset_lst = [itemset.split(' & ') for itemset in list(transaction_id_set[1].keys())]
-support_lst = list(transaction_id_set[1].values())
+
+################ Create df_tid ##########################
+individual_item = eclat_instance.support()
+del individual_item[None] #use this if there is None in individual_item dictionary
+
+# Fix individual items to be singleton lists
+itemset_lst = [[item] for item in individual_item.keys()] + [itemset.split(' & ') for itemset in transaction_id_set[1].keys()]
+support_lst = list(individual_item.values()) + list(transaction_id_set[1].values())
 
 df_tid = pd.DataFrame({
-    'support':support_lst,
-    'itemsets':itemset_lst
+    'support': support_lst,
+    'itemsets': itemset_lst
 })
 
-# Convert your lists to frozensets first
-df_tid['itemsets'] = df_tid['itemsets'].apply(lambda x: frozenset(x))
+# Now safely convert to frozenset
+df_tid['itemsets'] = df_tid['itemsets'].apply(frozenset)
+
+df_tid
+
+############### Apply association_rules to df_tid ########################
 
 from mlxtend.frequent_patterns import association_rules
 
