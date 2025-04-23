@@ -54,7 +54,7 @@ T5: A, B, C
 Minimum Support = 2 transactions (40% if 5 transactions)
 
 Step 1: Vertical format  
-A -> {T1, T2, T3, T5}  
+A -> {T1, T2, T3, T5}
 B -> {T1, T2, T4, T5}  
 C -> {T1, T3, T4, T5}  
 
