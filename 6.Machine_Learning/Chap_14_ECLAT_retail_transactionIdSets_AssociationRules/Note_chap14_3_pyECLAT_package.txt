@@ -25,7 +25,10 @@ transaction_id_set = eclat_instance.fit(min_support=0.5, min_combination=2, max_
 # eclat_instance.support() => Return a dictionary. The key is the feature (1-itemset) and value is support
 
 
-################ Create df_tid ##########################
+##################################################################################################################
+############# Create frequent_itemsets from transaction_id_set and eclat_instance.support ########################
+##################################################################################################################
+
 individual_item = eclat_instance.support()
 del individual_item[None] #use this if there is None in individual_item dictionary
 
@@ -33,34 +36,36 @@ del individual_item[None] #use this if there is None in individual_item dictiona
 itemset_lst = [[item] for item in individual_item.keys()] + [itemset.split(' & ') for itemset in transaction_id_set[1].keys()]
 support_lst = list(individual_item.values()) + list(transaction_id_set[1].values())
 
-df_tid = pd.DataFrame({
+frequent_itemsets = pd.DataFrame({
     'support': support_lst,
     'itemsets': itemset_lst
 })
 
 # Now safely convert to frozenset
-df_tid['itemsets'] = df_tid['itemsets'].apply(frozenset)
+frequent_itemsets['itemsets'] = df_tid['itemsets'].apply(frozenset)
 
-print(df_tid)
+print(frequent_itemsets)
 
-############### Apply association_rules to df_tid ########################
+######################################################################################
+############### Apply association_rules for frequent_itemsets ########################
+######################################################################################
 
 from mlxtend.frequent_patterns import association_rules
 
 ## Find association rules within itemsets
-asc_rules = association_rules(df_tid, metric='confidence', min_threshold=0.3, #Run with minimum confidence threshold = 0.3
+asc_rules = association_rules(frequent_itemsets, metric='confidence', min_threshold=0.3, #Run with minimum confidence threshold = 0.3
                              return_metrics=['support', 'confidence', 'lift', 'leverage', 'conviction'])
 print(asc_rules)
 
 
 #Run with lift
-asc_rules = association_rules(df_tid, metric='lift', min_threshold=1.1, asc_rules #Run with minimum lift threshold = 1.1
+asc_rules = association_rules(frequent_itemsets, metric='lift', min_threshold=1.1, asc_rules #Run with minimum lift threshold = 1.1
                               return_metrics=['support', 'confidence', 'lift', 'leverage', 'conviction'])
 print(asc_rules)
 
 
 for row in asc_rules.iterrows():
-	if "Milk" in row[1][0]:
+	if "milk" in row[1][0]:
 		print(row)
 
 support = asc_rules['support'].values
