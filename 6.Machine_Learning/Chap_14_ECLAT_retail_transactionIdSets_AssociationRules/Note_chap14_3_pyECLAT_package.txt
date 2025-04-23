@@ -41,7 +41,7 @@ df_tid = pd.DataFrame({
 # Now safely convert to frozenset
 df_tid['itemsets'] = df_tid['itemsets'].apply(frozenset)
 
-df_tid
+print(df_tid)
 
 ############### Apply association_rules to df_tid ########################
 
