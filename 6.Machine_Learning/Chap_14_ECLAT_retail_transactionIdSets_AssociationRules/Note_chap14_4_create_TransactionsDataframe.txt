@@ -13,22 +13,16 @@ df_transaction = pd.DataFrame.from_dict(data=transaction_dict, orient = 'index')
 print(df_transaction)
 
 
-
-#### Example 2: use one-hot encoder or pd.get_dummies instead of TransactionEncoder ###
-lenses = pd.read_csv('Data/contact_lenses.txt', sep = '\t')
-lenses_encode = pd.get_dummies(lenses)
-frequent_items = apriori(lenses_encode, min_support=0.3, use_colnames=True)
-
-
-
-### Example 3: use .groupby().agg(lambda x: list(x)).tolist() ###
+### Example 2: use .groupby().agg(lambda x: list(x)).tolist() ###
 dataset_group = (
     pd.read_csv('Data/dataset_group.csv', header=None)
     .set_axis(['Date', 'Order', 'Items'], axis = 1) #set columns' names
 )
 
-dataset_group_condensed = dataset_group.groupby('Order')['Items'].agg(lambda x: list(x))
+transaction_id = dataset_group.groupby('Order')['Items'].agg(lambda x: list(x)).reset_index()['Order'].to_list()
+item_lst = dataset_group.groupby('Order')['Items'].agg(lambda x: list(x)).reset_index()['Items'].to_list()
 
-transactions_lst = dataset_group_condensed.tolist()
+transaction_dict = {f'T{tid}': items for tid, items in zip(transaction_id, item_lst)}
 
-#Or transactions_lst = dataset_group.groupby('Order')['Items'].agg(lambda x: list(x)).tolist()
+df_transaction = pd.DataFrame.from_dict(transaction_dict, orient='index')
+print(df_transaction)
