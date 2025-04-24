@@ -13,14 +13,18 @@ k_nums = range(2,10)
 
 for k in k_nums:
     hierclust_pipe = Pipeline([
-        ('OneHotEncoder', make_column_transformer((OneHotEncoder(drop='first', handle_unknown='ignore'), ['categ']), remainder='passthrough')),
+        ('OneHotEncoder', make_column_transformer((OneHotEncoder(drop='first', handle_unknown='ignore'), categ_feats), remainder='passthrough')),
         ('MinMaxScaler', MinMaxScaler()),
         ('HierachichalClustering', AgglomerativeClustering(n_clusters = k))
     ])
     hierclust_pipe.fit(data)
-    data_transform = hierclust_pipe.named_steps['OneHotEncoder'].transform(data)  #Transform original data with onehotencoder
+    data_scaled = (
+        pd.DataFrame(hierclust_pipe.named_steps['OneHotEncoder'].transform(data)) #Transform original data with onehotencoder
+        .pipe(lambda df: pd.DataFrame(hierclust_pipe.named_steps['MinMaxScaler'].transform(df))) #Transform original data with MinMaxScaler
+        .pipe(lambda df: df.set_axis(hierclust_pipe.named_steps['OneHotEncoder'].get_feature_names_out(), axis =1))
+    )
     labels = hierclust_pipe.named_steps['HierachichalClustering'].labels_
-    print(f'Silhouette score for k = {k}: {silhouette_score(data_transform, labels)}')
+    print(f'Silhouette score for k = {k}: {silhouette_score(data_scaled, labels)}')
 
 
 print('\nChoose K = ....')
