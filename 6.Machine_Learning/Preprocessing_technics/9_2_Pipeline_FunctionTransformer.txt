@@ -11,7 +11,7 @@ from sklearn.preprocessing import FunctionTransformer
 
 +++++ Method 1: +++++
 #Create a transformer based on np.log() function using FunctionTransformer()
-log_scaler = FunctionTransformer(func=lambda x: np.log(x), validate = True) 
+log_scaler = FunctionTransformer(func = np.log, inverse_func = np.exp,  validate = True) 
 
 num_feats = [... names of numerical continuous features ....]
 
