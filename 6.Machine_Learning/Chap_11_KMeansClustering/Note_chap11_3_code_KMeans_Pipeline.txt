@@ -17,11 +17,11 @@ k_nums = range(2,10)
 
 for k in k_nums:
     kmeans_pipe = Pipeline([
-        ('OneHotEncoder', make_column_transformer((OneHotEncoder(drop='first', handle_unknown='ignore'), ['gender']), remainder='passthrough')),
+        ('OneHotEncoder', make_column_transformer((OneHotEncoder(drop='first', handle_unknown='ignore'), [categ_cols]), remainder='passthrough')),
         ('MinMaxScaler', MinMaxScaler()),
         ('KMeansModel', KMeans(n_clusters = k, random_state = 2))
     ])
-    kmeans_pipe.fit(customer)
+    kmeans_pipe.fit(data)
     data_scaled = (
         pd.DataFrame(kmeans_pipe.named_steps['OneHotEncoder'].transform(data)) #Transform original data with onehotencoder
         .pipe(lambda df: pd.DataFrame(kmeans_pipe.named_steps['MinMaxScaler'].transform(data))) #Transform original data with MinMaxScaler
