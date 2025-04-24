@@ -8,6 +8,9 @@ min_cluster_sizes = []
 min_samples = []
 silh_score = []
 
+data = shopping.drop('CustomerID', axis = 1)
+
+
 for min_cluster_size in np.arange(4, 20, 2):
     for min_sample in np.arange(4, 16, 1):
         hdbscan_pipe = Pipeline([
@@ -15,14 +18,14 @@ for min_cluster_size in np.arange(4, 20, 2):
             ('Scaler', MinMaxScaler()),
             ('HDBSCAN', HDBSCAN(min_cluster_size=min_cluster_size, min_samples=min_sample))
         ])
-        data = shopping.drop('CustomerID', axis = 1)
         hdbscan_pipe.fit(data)
         labels = hdbscan_pipe.fit_predict(data)
 
         col_names = hdbscan_pipe.named_steps['Encoder'].get_feature_names_out()
 
         data_evaluate = (
-            data.pipe(lambda df: pd.DataFrame(hdbscan_pipe.named_steps['Encoder'].transform(df), columns = col_names))
+            pd.DataFrame(hdbscan_pipe.named_steps['Encoder'].transform(data))
+            .pipe(lambda df: pd.DataFrame(hdbscan_pipe.named_steps['Scaler'].transform(df), columns=col_names))            
             .assign(Group = labels)
             .pipe(lambda df: df[df['Group'] != -1]) #Noise filter
         )
