@@ -23,7 +23,7 @@ hierclust_pipe = Pipeline([
 hierclust_pipe.fit(data)
 
 +++++ Method 2: +++++++
-log_scaler = FunctionTransformer(func=lambda x: np.log(x), validate = True)
+log_scaler = FunctionTransformer(func = np.log, inverse_func = np.exp,  validate = True)
 
 hierclust_pipe = Pipeline([
     ('LogScaler', log_scaler), #Not log_scaler() because it's not callable
