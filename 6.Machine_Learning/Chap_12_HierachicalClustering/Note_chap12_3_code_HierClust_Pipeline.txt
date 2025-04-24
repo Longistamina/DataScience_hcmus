@@ -13,7 +13,7 @@ k_nums = range(2,10)
 
 for k in k_nums:
     hierclust_pipe = Pipeline([
-        ('OneHotEncoder', make_column_transformer((OneHotEncoder(drop='first', handle_unknown='ignore'), categ_feats), remainder='passthrough')),
+        ('OneHotEncoder', make_column_transformer((OneHotEncoder(drop='first', handle_unknown='ignore'), [categ_feats]), remainder='passthrough')),
         ('MinMaxScaler', MinMaxScaler()),
         ('HierachichalClustering', AgglomerativeClustering(n_clusters = k))
     ])
