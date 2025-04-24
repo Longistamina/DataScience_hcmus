@@ -8,6 +8,9 @@ eps = []
 minPts = []
 silh_score = []
 
+data = shopping.drop('CustomerID', axis = 1)
+
+
 for epsilon in np.arange(0.1, 0.5, 0.005):
     for min_points in np.arange(3, 15, 1):
         dbscan_pipe = Pipeline([
@@ -15,14 +18,14 @@ for epsilon in np.arange(0.1, 0.5, 0.005):
             ('Scaler', MinMaxScaler()),
             ('DBSCAN', DBSCAN(eps=epsilon, min_samples=min_points))
         ])
-        data = shopping.drop('CustomerID', axis = 1)
         dbscan_pipe.fit(data)
         labels = dbscan_pipe.fit_predict(data)
 
         col_names = dbscan_pipe.named_steps['Encoder'].get_feature_names_out()
 
         data_evaluate = (
-            data.pipe(lambda df: pd.DataFrame(dbscan_pipe.named_steps['Encoder'].transform(df), columns= col_names))
+            pd.DataFrame(dbscan_pipe.named_steps['Encoder'].transform(data))
+            .pipe(lambda df: pd.DataFrame(dbscan_pipe.named_steps['Scaler'].transform(df), columns=col_names))
             .assign(Group = labels)
             .pipe(lambda df: df[df['Group'] != -1])
                 )
