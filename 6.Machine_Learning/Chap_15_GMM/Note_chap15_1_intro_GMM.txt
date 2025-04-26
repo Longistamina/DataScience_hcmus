@@ -40,7 +40,7 @@ To learn GMM parameters (π_k, μ_k, σ²_k), we use the EM algorithm:
 3. **Maximization Step (M-Step)**
     - Update parameters:
     
-        N_k = Σ (over all data points) γ(z_k)
+        N_k = Σ γ(z_k) (sum of all the probabilities belonging to k-th cluster of all databpoints)
 
         μ_k = (1 / N_k) * Σ (γ(z_k) * x)
 
