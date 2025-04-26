@@ -1,0 +1,98 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_moons
+from sklearn.cluster import DBSCAN
+from sklearn.preprocessing import StandardScaler
+
+# Generate sample data
+X, y = make_moons(n_samples=300, noise=0.1, random_state=0)
+
+# Standardize features
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# Apply DBSCAN
+dbscan = DBSCAN(eps=0.3, min_samples=5)
+labels = dbscan.fit_predict(X_scaled)
+
+X_group = pd.DataFrame({'X_inputs':X, 'Group':labels})
+
+# Plot the results
+plt.figure(figsize=(8, 6))
+plt.scatter(X_scaled[:, 0], X_scaled[:, 1], c=labels, cmap='plasma', s=50)
+plt.title('DBSCAN Clustering')
+plt.xlabel('Feature 1')
+plt.ylabel('Feature 2')
+plt.show()
+
+
+#-------------------------------------#
+#---------- Parameters ---------------#
+#-------------------------------------#
+DBSCAN(
+    eps=0.5,
+    min_samples=5,
+    metric='euclidean',
+    metric_params=None,
+    algorithm='auto',
+    leaf_size=30,
+    p=None,
+    n_jobs=None
+)
+
+
+1. eps (default = 0.5)
+   - Radius of the neighborhood around a point.
+   - Two points are neighbors if their distance is <= eps.
+   - Too small -> many points labeled as noise.
+   - Too large -> clusters may merge.
+
+2. min_samples (default = 5)
+   - Minimum number of samples (including the point itself) to be a core point.
+   - Higher = conservative, fewer clusters.
+   - Lower = more clusters, more noise.
+
+3. metric (default = 'euclidean')
+   - Distance metric for computing distances between points.
+   - Options include: 'euclidean', 'manhattan', 'chebyshev', 'minkowski', 'cosine', etc.
+   - Can also be a custom function.
+
+4. metric_params (default = None)
+   - Optional dictionary of additional arguments for the metric function.
+   - Used when a custom distance metric requires extra parameters.
+
+5. algorithm (default = 'auto')
+   - Algorithm for nearest neighbor search:
+     - 'auto': selects the best
+     - 'ball_tree', 'kd_tree', 'brute'
+
+6. leaf_size (default = 30)
+   - Affects speed of 'ball_tree' or 'kd_tree' algorithms.
+   - Used for building and querying the tree.
+
+7. p (default = None)
+   - Power parameter for the Minkowski metric:
+     - p=1: Manhattan
+     - p=2: Euclidean
+   - Only used with metric='minkowski'.
+
+8. n_jobs (default = None)
+   - Number of parallel jobs to run:
+     - None: 1 core
+     - -1: use all processors
+   - Speeds up large dataset processing.
+
+Summary:
+--------
+
+| Parameter       | Role                                         |
+|----------------|----------------------------------------------|
+| eps            | Radius of neighborhood                       |
+| min_samples    | Minimum number of points to form a core point|
+| metric         | Distance metric                              |
+| metric_params  | Extra parameters for metric                  |
+| algorithm      | Neighbor search method                       |
+| leaf_size      | Speed-related for tree-based algorithms      |
+| p              | Minkowski power parameter                    |
+| n_jobs         | Number of parallel jobs                      |
+
