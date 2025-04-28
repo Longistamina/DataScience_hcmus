@@ -24,8 +24,7 @@ for epsilon in np.arange(0.1, 0.5, 0.005):
         col_names = dbscan_pipe.named_steps['Encoder'].get_feature_names_out()
 
         data_evaluate = (
-            pd.DataFrame(dbscan_pipe.named_steps['Encoder'].transform(data))
-            .pipe(lambda df: pd.DataFrame(dbscan_pipe.named_steps['Scaler'].transform(df), columns=col_names))
+            pd.DataFrame(dbscan_pipe[:-1].transform(data), columns=col_names)
             .assign(Group = labels)
             .pipe(lambda df: df[df['Group'] != -1])
                 )
