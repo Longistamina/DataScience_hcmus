@@ -26,6 +26,7 @@ for k in k_nums:
     )
     labels = gmm_pipe.fit_predict(data)
     print(f'Silhouette score for k = {k}: {silhouette_score(data_scaled, labels)}')
+    silh_score.append(silhouette_score(inputs, labels))
 
 
 #Plot the Silhouette Score
