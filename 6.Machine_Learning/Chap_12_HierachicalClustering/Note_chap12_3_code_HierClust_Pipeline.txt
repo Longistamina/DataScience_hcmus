@@ -19,8 +19,7 @@ for k in k_nums:
     ])
     hierclust_pipe.fit(data)
     data_scaled = (
-        pd.DataFrame(hierclust_pipe.named_steps['OneHotEncoder'].transform(data)) #Transform original data with onehotencoder
-        .pipe(lambda df: pd.DataFrame(hierclust_pipe.named_steps['MinMaxScaler'].transform(df))) #Transform original data with MinMaxScaler
+        pd.DataFrame(hierclust_pipe[:-1].transform(data)) #Transform original data with onehotencoder and MinMaxScaler
         .pipe(lambda df: df.set_axis(hierclust_pipe.named_steps['OneHotEncoder'].get_feature_names_out(), axis =1))
     )
     labels = hierclust_pipe.named_steps['HierachichalClustering'].labels_
