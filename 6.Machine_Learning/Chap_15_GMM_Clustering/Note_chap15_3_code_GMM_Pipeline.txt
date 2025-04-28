@@ -16,12 +16,11 @@ for k in k_nums:
     gmm_pipe = Pipeline([
         ('OneHotEncoder', make_column_transformer((OneHotEncoder(drop='first', handle_unknown='ignore'), [categ_feats]), remainder='passthrough')),
         ('MinMaxScaler', MinMaxScaler()),
-        ('GMM', GaussianMixture(n_components = k))
+        ('GMM', GaussianMixture(n_components = k, random_state = 1))
     ])
     gmm_pipe.fit(data)
     data_scaled = (
-        pd.DataFrame(gmm_pipe.named_steps['OneHotEncoder'].transform(data)) #Transform original data with onehotencoder
-        .pipe(lambda df: pd.DataFrame(gmm_pipe.named_steps['MinMaxScaler'].transform(df))) #Transform original data with MinMaxScaler
+        pd.DataFrame(gmm_pipe[:-1].transform(data)) #Transform original data with onehotencoder and MinMaxScaler
         .pipe(lambda df: df.set_axis(gmm_pipe.named_steps['OneHotEncoder'].get_feature_names_out(), axis =1))
     )
     labels = gmm_pipe.fit_predict(data)
