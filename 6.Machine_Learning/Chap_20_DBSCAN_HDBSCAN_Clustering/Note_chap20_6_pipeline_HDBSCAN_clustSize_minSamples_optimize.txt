@@ -24,8 +24,7 @@ for min_cluster_size in np.arange(4, 20, 2):
         col_names = hdbscan_pipe.named_steps['Encoder'].get_feature_names_out()
 
         data_evaluate = (
-            pd.DataFrame(hdbscan_pipe.named_steps['Encoder'].transform(data))
-            .pipe(lambda df: pd.DataFrame(hdbscan_pipe.named_steps['Scaler'].transform(df), columns=col_names))            
+            pd.DataFrame(hdbscan_pipe[:-1].transform(data), columns=col_names)            
             .assign(Group = labels)
             .pipe(lambda df: df[df['Group'] != -1]) #Noise filter
         )
