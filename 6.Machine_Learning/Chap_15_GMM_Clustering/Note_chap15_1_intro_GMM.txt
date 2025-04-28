@@ -230,6 +230,7 @@ Multivariate Gaussian density formula:
 
     N(x | μ, Σ) = (1 / (2π√|Σ|)) * exp(-0.5 * (x - μ)ᵀ Σ⁻¹ (x - μ))
 
+Σ (sigma) is the covariance matrix of the multivariate Gaussian (normal) distribution.
 Since Σ = Identity, Σ⁻¹ = Identity, |Σ| = 1.
 
 Simplified:
@@ -368,4 +369,3 @@ Assign based on higher responsibility:
 == FINAL CLUSTERS ==
 Cluster 1: {(1.0, 2.0), (1.5, 1.8)}
 Cluster 2: {(5.0, 6.0), (6.0, 5.5)}
-
