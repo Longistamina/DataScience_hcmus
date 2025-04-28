@@ -30,7 +30,7 @@ for k in k_nums:
 
 #Choose k value where the silhouette score is HIGHEST
 
-#Plot the Elbow
+#Plot the Silhouette Score
 plt.plot(k_nums, silh_score, 'bx-')
 plt.xlabel('Number of K')
 plt.ylabel('Silhouette score')
