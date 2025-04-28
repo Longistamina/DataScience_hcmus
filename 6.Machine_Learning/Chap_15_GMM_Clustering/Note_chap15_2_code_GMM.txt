@@ -22,7 +22,7 @@ silh_score = []
 k_nums = range(1, 8) #Can set more k values to try out
 
 for k in k_nums:
-	gmm = GaussianMixturen_cluster = k)
+	gmm = GaussianMixture(n_components = k)
 	gmm.fit(inputs)
 	labels = gmm.fit_predict(inputs)
 	print(f'Silhouette score for k = {k}: {silhouette_score(inputs, labels)}')
@@ -44,7 +44,7 @@ plt.show()
 #---------------------------------------------#
 #Take k=3 for example
 
-gmm = GaussianMixturen_cluster = 3)
+gmm = GaussianMixture(n_components = 3)
 gmm.fit(inputs)
 
 labels = gmm.fit_predict(inputs)
