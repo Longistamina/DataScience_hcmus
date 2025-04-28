@@ -39,7 +39,9 @@ plt.show()
 
 #Choose k value where the silhouette score is HIGHEST
 
-+++++++++++++++ Build official GMM Model ++++++++++++++++++++++++++++++++++++++
+#---------------------------------------------#
+#------ Build official GMM Model -------------#
+#---------------------------------------------#
 #Take k=3 for example
 
 gmm = GaussianMixturen_cluster = 3)
@@ -50,6 +52,12 @@ labels = gmm.fit_predict(inputs)
 inputs['Group'] = pd.Series(labels) #Add the classified group/label column to see the group where each observation belongs to
 print(inputs)
 
+
++++++++++++ GMM attributes ++++++++++++++++
+
+gmm.weights_
+gmm.means_
+gmm.covariances_
 
 #--------------------------------------------------------------#
 #------ Visualize result for data with 2 features -------------#
