@@ -33,9 +33,10 @@ plt.show()
 print()
 print('==============================================================================================================\n'*2)
 
-numeric_cols = [........]
-
 ## Visualize numerical variables
+
+numeric_cols = [.........]
+
 col = 3
 row = (len(numeric_cols)//col) if ( (len(numeric_cols)%col) == 0) else ((len(numeric_cols)//col) + 1)
 
@@ -43,11 +44,11 @@ print(f'Number of numerical fields: {len(numeric_cols)}\n')
 print(f'All numerical fields: {numeric_cols}\n')
 
 plt.figure(figsize=(20,20))
-plt.subplots_adjust(wspace=0.2, hspace=0.3)
+plt.subplots_adjust(wspace=0.2, hspace=1)
 for i in range(1, len(numeric_cols)+1):
     try:
         plt.subplot(row, col, i)
-        sbn.boxplot(data = df_heart_disease, y = numeric_cols[i-1], notch = True)
+        sbn.boxplot(data = mkt_cleaned, x = numeric_cols[i-1], notch = True)
         plt.title(numeric_cols[i-1], size = 20)
     except Exception:
         print('Error {}'.format(numeric_cols[i-1]))
