@@ -33,9 +33,11 @@ plt.show()
 print()
 print('==============================================================================================================\n'*2)
 
+numeric_cols = [........]
+
 ## Visualize numerical variables
 col = 3
-row = (len(categ_cols)//col) if ( (len(categ_cols)%col) == 0) else ((len(categ_cols)//col) + 1)
+row = (len(numeric_cols)//col) if ( (len(numeric_cols)%col) == 0) else ((len(numeric_cols)//col) + 1)
 
 print(f'Number of numerical fields: {len(numeric_cols)}\n')
 print(f'All numerical fields: {numeric_cols}\n')
