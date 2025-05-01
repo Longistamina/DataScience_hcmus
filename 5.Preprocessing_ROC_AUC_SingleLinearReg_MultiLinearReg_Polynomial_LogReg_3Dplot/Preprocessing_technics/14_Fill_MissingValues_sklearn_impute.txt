@@ -112,6 +112,9 @@ Each feature with missing values is modeled as a function of other features.
 The imputer then uses this model to predict the missing values.
 This process is done iteratively.
 
+from sklearn.experimental import enable_iterative_imputer  # This enables the experimental feature
+from sklearn.impute import IterativeImputer
+
 # Imputed with IterativeImputer:
 imp = IterativeImputer(max_iter=10, random_state=0, estimator=BayesianRidge())
 X_iterative = imp.fit_transform(X)
