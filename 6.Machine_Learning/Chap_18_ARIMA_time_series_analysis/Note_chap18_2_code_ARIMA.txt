@@ -1,9 +1,16 @@
 # !pip3 install pmdarima
 
-from pmdarima import auto_arima
+import pmdarima as pm
+from pmdarima.model_selection import train_test_split
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load/split your data
+y = pm.datasets.load_wineind()
+train, test = train_test_split(y, train_size=150)
 
 arima_model = auto_arima(
-                data,
+                data = train,
                 start_p = 2, max_p = 5,
                 start_q = 2, max_q = 5,
                 m, #m=12 means monthly, m=4 means quarter, m=7 means daily, m=52 means weekly
@@ -16,6 +23,14 @@ arima_model = auto_arima(
                 stepwise = True      
 )
 
+# make your forecasts
+forecasts = model.predict(test.shape[0])  # predict N steps into the future
+
+# Visualize the forecasts (blue=train, green=forecasts)
+x = np.arange(y.shape[0])
+plt.plot(x[:150], train, c='blue')
+plt.plot(x[150:], forecasts, c='green')
+plt.show()
 
 #------------------------------------------------------------------------------#
 #------------------ PMDARIMA auto_arima() PARAMETERS --------------------------#
@@ -177,4 +192,3 @@ KEY PARAMETERS:
 36. allow_drift
     - Type: bool, optional
     - Description: Whether to include a drift term for non-seasonal models.
-
