@@ -3,11 +3,17 @@
 import pmdarima as pm
 from pmdarima.model_selection import train_test_split
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 
 # Load/split your data
 y = pm.datasets.load_wineind()
 train, test = train_test_split(y, train_size=150)
+
+#or:
+## y['Date'] = pd.to_datetime(y['Date'], dayfirst=True, yearfirst=False)
+## train = y[y['Date'].dt.year >= 1985]
+## test = y[~(y['Date'].dt.year >= 1985)]
 
 # Check the seasonal feature of the time series data
 from statsmodels.tsa.seasonal import seasonal_decompose
@@ -206,4 +212,3 @@ KEY PARAMETERS:
 36. allow_drift
     - Type: bool, optional
     - Description: Whether to include a drift term for non-seasonal models.
-
