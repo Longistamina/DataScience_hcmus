@@ -20,7 +20,7 @@ plt.show()
 
 plt.plot(seasonal_check.trend) #Draw trend only
 plt.plot(seasonal_check.seasonal) #Draw seasonal only
-
+plt.plot(seasonal_check.resid) #Draw resid only
 
 # Build ARIMA model
 arima_model = pm.auto_arima(
