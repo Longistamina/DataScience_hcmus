@@ -1,0 +1,180 @@
+# !pip3 install pmdarima
+
+from pmdarima import auto_arima
+
+arima_model = auto_arima(
+                data,
+                start_p = 2, max_p = 5,
+                start_q = 2, max_q = 5,
+                m,
+                start_P = 1,
+                seasonal = True, #to run SARIMA
+                d = None, D = None,
+                trace = False,
+                error_action = 'warn',
+                suppress_warnings = False,
+                stepwise = True      
+)
+
+
+#------------------------------------------------------------------------------#
+#------------------ PMDARIMA auto_arima() PARAMETERS --------------------------#
+#------------------------------------------------------------------------------#
+
+auto_arima() is a function from the pmdarima library that automatically finds 
+the best ARIMA/SARIMA model based on AIC/BIC scores.
+
+SYNTAX:
+-------
+auto_arima(y, [optional arguments])
+
+KEY PARAMETERS:
+---------------
+
+1. y
+   - Type: array-like
+   - Description: The time series data to model.
+
+2. start_p
+   - Type: int, default=2
+   - Description: Starting value of p (AR order) to consider.
+
+3. start_q
+   - Type: int, default=2
+   - Description: Starting value of q (MA order) to consider.
+
+4. max_p
+   - Type: int, default=5
+   - Description: Maximum p to consider.
+
+5. max_q
+   - Type: int, default=5
+   - Description: Maximum q to consider.
+
+6. d
+   - Type: int, optional
+   - Description: Degree of differencing. If None, it is automatically determined.
+
+7. max_d
+   - Type: int, default=2
+   - Description: Maximum number of non-seasonal differences allowed.
+
+8. start_P
+   - Type: int, default=1
+   - Description: Starting seasonal AR term (P).
+
+9. seasonal
+   - Type: bool, default=True
+   - Description: Whether to consider seasonal ARIMA (SARIMA) models.
+
+10. m
+    - Type: int, default=1
+    - Description: Number of periods in each season (e.g., 12 for monthly data with yearly seasonality).
+
+11. D
+    - Type: int, optional
+    - Description: Seasonal differencing order. If None, it is automatically determined.
+
+12. max_D
+    - Type: int, default=1
+    - Description: Maximum value of seasonal differencing.
+
+13. max_P, max_Q
+    - Type: int, default=2
+    - Description: Maximum seasonal AR (P) and MA (Q) orders.
+
+14. start_Q
+    - Type: int, default=1
+    - Description: Starting seasonal MA order (Q).
+
+15. trace
+    - Type: bool, default=False
+    - Description: If True, prints the progress of fitting models.
+
+16. error_action
+    - Type: str, default='warn'
+    - Options: 'warn', 'raise', 'ignore'
+    - Description: What to do when errors occur during fitting.
+
+17. suppress_warnings
+    - Type: bool, default=False
+    - Description: Whether to suppress convergence warnings.
+
+18. stepwise
+    - Type: bool, default=True
+    - Description: Whether to use the stepwise algorithm (faster) or brute-force search.
+
+19. n_fits
+    - Type: int, default=10^6
+    - Description: Maximum number of ARIMA models to fit if not using stepwise.
+
+20. scoring
+    - Type: str, default='aic'
+    - Options: 'aic', 'bic', 'hqic'
+    - Description: Criterion to select the best model.
+
+21. scoring_args
+    - Type: dict, optional
+    - Description: Additional arguments for scoring function.
+
+22. information_criterion
+    - Alias for `scoring`
+
+23. with_intercept
+    - Type: bool, optional
+    - Description: Whether to include a constant term ("intercept") in the model.
+
+24. out_of_sample_size
+    - Type: int, optional
+    - Description: Number of observations to hold out for validation.
+
+25. n_jobs
+    - Type: int, default=1
+    - Description: Number of parallel processes to use (ignored if stepwise=True).
+
+26. return_valid_fits
+    - Type: bool, default=False
+    - Description: Whether to return all valid fitted models in addition to the best one.
+
+27. sarimax_kwargs
+    - Type: dict, optional
+    - Description: Additional arguments passed to SARIMAX model under the hood.
+
+28. random
+    - Type: bool, default=False
+    - Description: Whether to sample parameters randomly (if stepwise=False).
+
+29. random_state
+    - Type: int, optional
+    - Description: Random seed used if random=True.
+
+30. n_iter
+    - Type: int, default=10
+    - Description: Number of models to try when random=True.
+
+31. return_all
+    - Type: bool, default=False
+    - Description: If True, return a dict of all models and their scores.
+
+32. alpha
+    - Type: float, default=0.05
+    - Description: Level for statistical tests (e.g., KPSS/ADF for stationarity).
+
+33. test
+    - Type: str, default='kpss'
+    - Options: 'adf', 'kpss', 'pp'
+    - Description: Stationarity test to use to determine `d`.
+
+34. seasonal_test
+    - Type: str, default='ocsb'
+    - Options: 'ocsb', 'ch'
+    - Description: Seasonal stationarity test to determine `D`.
+
+35. allow_mean
+    - Type: bool, optional
+    - Description: Whether to allow a non-zero mean in ARIMA models.
+
+36. allow_drift
+    - Type: bool, optional
+    - Description: Whether to include a drift term for non-seasonal models.
+
