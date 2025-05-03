@@ -6,7 +6,7 @@ arima_model = auto_arima(
                 data,
                 start_p = 2, max_p = 5,
                 start_q = 2, max_q = 5,
-                m,
+                m, #m=12 means monthly, m=4 means quarter, m=7 means daily, m=52 means weekly
                 start_P = 1,
                 seasonal = True, #to run SARIMA
                 d = None, D = None,
