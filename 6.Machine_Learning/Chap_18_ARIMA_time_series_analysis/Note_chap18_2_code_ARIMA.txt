@@ -9,7 +9,21 @@ import matplotlib.pyplot as plt
 y = pm.datasets.load_wineind()
 train, test = train_test_split(y, train_size=150)
 
-arima_model = auto_arima(
+# Check the seasonal feature of the time series data
+from statsmodels.tsa.seasonal import seasonal_decompose
+
+seasonal_check = seasonal_decompose(y, model = 'multiplicative')
+
+plt.figure(figsize = (20,10))
+seasonal_check.plot() #draw all real-time data, Trend, Seasonal and Resid
+plt.show()
+
+plt.plot(seasonal_check.trend) #Draw trend only
+plt.plot(seasonal_check.seasonal) #Draw seasonal only
+
+
+# Build ARIMA model
+arima_model = pm.auto_arima(
                 data = train,
                 start_p = 2, max_p = 5,
                 start_q = 2, max_q = 5,
@@ -192,3 +206,4 @@ KEY PARAMETERS:
 36. allow_drift
     - Type: bool, optional
     - Description: Whether to include a drift term for non-seasonal models.
+
