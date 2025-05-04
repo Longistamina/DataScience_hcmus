@@ -8,17 +8,17 @@ import matplotlib.pyplot as plt
 
 # Load/split your data
 y = pm.datasets.load_wineind()
-train, test = train_test_split(y, train_size=int(0.8*data.shape[0]))
+train_set, test_set = train_test_split(y, train_size=int(0.8*data.shape[0]))
 
 #or:
 ## y['Date'] = pd.to_datetime(y['Date'], dayfirst=True, yearfirst=False)
-## train = y[y['Date'].dt.year >= 1985]
-## test = y[~(y['Date'].dt.year >= 1985)]
+## train_set = y[y['Date'].dt.year >= 1985]
+## test_set = y[~(y['Date'].dt.year >= 1985)]
 
 # Check the seasonal feature of the time series data
 from statsmodels.tsa.seasonal import seasonal_decompose
 
-seasonal_check = seasonal_decompose(candy_production, model='multiplicative')
+seasonal_check = seasonal_decompose(y, model='multiplicative')
 
 attr = ['observed', 'trend', 'seasonal', 'resid']
 
@@ -38,7 +38,7 @@ plt.plot(seasonal_check.resid) #Draw resid only
 
 # Build ARIMA model
 arima_model = pm.auto_arima(
-                data = train,
+                data = train_set,
                 start_p = 2, max_p = 5,
                 start_q = 2, max_q = 5,
                 m, #m=12 means monthly, m=4 means quarter, m=7 means daily, m=52 means weekly
@@ -52,12 +52,13 @@ arima_model = pm.auto_arima(
 )
 
 # make your forecasts
-forecasts = model.predict(test.shape[0])  # predict N steps into the future
+forecasts = model.predict(test_set.shape[0])  # predict N steps into the future
 
 # Visualize the forecasts (blue=train, green=forecasts)
-x = np.arange(y.shape[0])
-plt.plot(x[:150], train, c='blue')
-plt.plot(x[150:], forecasts, c='green')
+plt.figure(figsize=(20, 10))
+sbn.lineplot(x=train_set.index, y=train_set.values.ravel(), color='blue', label='Train')
+sbn.lineplot(x=forecasts.index, y=forecasts.values.ravel(), color='green', label='Forecast')
+plt.legend()
 plt.show()
 
 #------------------------------------------------------------------------------#
