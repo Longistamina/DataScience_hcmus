@@ -21,7 +21,7 @@ train_set, test_set = train_test_split(y, train_size=int(0.8*data.shape[0]))
 
 from statsmodels.tsa.seasonal import seasonal_decompose
 
-seasonal_check = seasonal_decompose(y, model='multiplicative')
+seasonal_check = seasonal_decompose(y, model='multiplicative', period=365)
 
 attr = ['observed', 'trend', 'seasonal', 'resid']
 
