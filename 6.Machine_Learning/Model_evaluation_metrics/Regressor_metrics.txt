@@ -11,9 +11,13 @@ y = pm.datasets.load_wineind()
 train_set, test_set = train_test_split(y, train_size=int(0.8*y.shape[0]))
 
 #or:
-## y['Date'] = pd.to_datetime(y['Date'], dayfirst=True, yearfirst=False)
-## train_set = y[y['Date'].dt.year >= 1985]
-## test_set = y[~(y['Date'].dt.year >= 1985)]
+min_temp = (
+    pd.read_csv('data/daily_min_temperatures.csv')
+    .assign(Date=lambda df: pd.to_datetime(df['Date']))
+    .set_index('Date')
+    .asfreq('D')  # Change 'D' to 'M', 'W', etc. if needed
+    .assign(Temp=lambda df: df['Temp'].fillna(df['Temp'].median()))
+)
 
 #########################
 ### Seasonality check ###
@@ -21,7 +25,11 @@ train_set, test_set = train_test_split(y, train_size=int(0.8*y.shape[0]))
 
 from statsmodels.tsa.seasonal import seasonal_decompose
 
-seasonal_check = seasonal_decompose(y, model='multiplicative', period=365)
+seasonal_check = seasonal_decompose(
+    min_temp+0.05, #Add 0.05 to avoid zero value (or negative value)
+    model='multiplicative',
+    period=365
+)
 
 attr = ['observed', 'trend', 'seasonal', 'resid']
 
@@ -42,6 +50,8 @@ plt.plot(seasonal_check.resid) #Draw resid only
 #########################
 ### Build ARIMA model ###
 #########################
+
+train_set, test_set = pm.model_selection.train_test_split(min_temp, train_size=int(0.8*min_temp.shape[0]))
 
 arima_model = pm.auto_arima(
                 data = train_set,
