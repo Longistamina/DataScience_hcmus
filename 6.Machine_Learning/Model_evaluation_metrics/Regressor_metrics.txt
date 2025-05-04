@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 
 # Load/split your data
 y = pm.datasets.load_wineind()
-train_set, test_set = train_test_split(y, train_size=int(0.8*data.shape[0]))
+train_set, test_set = train_test_split(y, train_size=int(0.8*y.shape[0]))
 
 #or:
 ## y['Date'] = pd.to_datetime(y['Date'], dayfirst=True, yearfirst=False)
