@@ -13,7 +13,7 @@ train_set, test_set = train_test_split(y, train_size=int(0.8*y.shape[0]))
 #or:
 min_temp = (
     pd.read_csv('data/daily_min_temperatures.csv')
-    .assign(Date=lambda df: pd.to_datetime(df['Date']))
+    .assign(Date=lambda df: pd.to_datetime(df['Date'], yearfirst=True, dayfirst=False))
     .set_index('Date')
     .asfreq('D')  # Change 'D' to 'M', 'W', etc. if needed
     .assign(Temp=lambda df: df['Temp'].fillna(df['Temp'].median()))
