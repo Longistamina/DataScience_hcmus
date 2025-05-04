@@ -98,7 +98,7 @@ sbn.lineplot(x = [test_set.values.min(), test_set.values.max()],
              label = 'Reference line', color = 'green')
 sbn.scatterplot(x = test_set.values.ravel(), y = forecasts_test.values.ravel())
 plt.xlabel("Test_true", size=15)
-plt.ylabel("Test_predict", size=15)
+plt.ylabel("Test_forecast", size=15)
 plt.show()
 
 #------------------------------------------------------------------------------#
