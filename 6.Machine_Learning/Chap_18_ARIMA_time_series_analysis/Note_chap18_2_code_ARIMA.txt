@@ -18,10 +18,18 @@ train, test = train_test_split(y, train_size=150)
 # Check the seasonal feature of the time series data
 from statsmodels.tsa.seasonal import seasonal_decompose
 
-seasonal_check = seasonal_decompose(y, model = 'multiplicative')
+seasonal_check = seasonal_decompose(candy_production, model='multiplicative')
 
+attr = ['observed', 'trend', 'seasonal', 'resid']
+
+#Draw all plots
+sbn.set_theme(style='darkgrid')
 plt.figure(figsize = (20,10))
-seasonal_check.plot() #draw all real-time data, Trend, Seasonal and Resid
+plt.subplots_adjust(hspace=1)
+for i in range(len(attr)):
+    plt.subplot(4,1,i+1)
+    sbn.lineplot(data=getattr(seasonal_check, attr[i]))
+    plt.title(attr[i].upper(), size = 15, color = 'green')
 plt.show()
 
 plt.plot(seasonal_check.trend) #Draw trend only
