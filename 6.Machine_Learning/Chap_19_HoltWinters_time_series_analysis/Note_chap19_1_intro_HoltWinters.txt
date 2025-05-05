@@ -1,3 +1,12 @@
+Part 1- SES (Simple Exponential Smoothing): https://www.youtube.com/watch?v=Fqge2HDH2Co
+
+    	L_t = α*y_t + (1-α)*L_{t-1}
+	        = α*y_t + α*(1-α)*y_{t-1} + α*(1-α)^2*y_{t-2} + α*(1-α)^3*y_{t-3} + .... + + α*(1-α)^n*y_{t-n}
+	    
+Part 2 - Holt's Exponential Smoothing: 
+Part 3 - Winters' Exponential Smoothing (HoltWinters):
+
+##########################################################
 HOLT-WINTERS ADDITIVE METHOD (TRIPLE EXPONENTIAL SMOOTHING)
 ------------------------------------------------------------
 
@@ -9,7 +18,7 @@ Let:
  - S_t = Seasonal component at time t
  - y_t = Actual value at time t
  - F_{t+m} = Forecast for m periods ahead from time t
-
+ 
 SMOOTHING PARAMETERS:
 ---------------------
  - α (alpha): level smoothing coefficient (0 < α < 1)
@@ -21,6 +30,7 @@ FORMULAS:
 ---------
 1. LEVEL:
    L_t = α * (y_t - S_{t-p}) + (1 - α) * (L_{t-1} + T_{t-1})
+       = 
 
 2. TREND:
    T_t = β * (L_t - L_{t-1}) + (1 - β) * T_{t-1}
@@ -102,4 +112,3 @@ F_8 = L_6 + 2 * T_6 + S_4
     = 170.5 + 2 * 15.8 + 20 = 170.5 + 31.6 + 20 = 222.1
 
 ------------------------------------------------------------
-
