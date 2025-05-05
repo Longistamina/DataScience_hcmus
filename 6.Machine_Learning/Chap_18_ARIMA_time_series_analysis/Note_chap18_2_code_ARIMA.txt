@@ -16,7 +16,7 @@ min_temp = (
     .assign(Date=lambda df: pd.to_datetime(df['Date'], yearfirst=True, dayfirst=False))
     .set_index('Date')
     .asfreq('D')  # Change 'D' to 'M', 'W', etc. if needed
-    .assign(Temp=lambda df: df['Temp'].fillna(df['Temp'].median()))
+    .assign(Temp=lambda df: df['Temp'].fillna(df['Temp'].interpolate()))
 )
 
 #########################
