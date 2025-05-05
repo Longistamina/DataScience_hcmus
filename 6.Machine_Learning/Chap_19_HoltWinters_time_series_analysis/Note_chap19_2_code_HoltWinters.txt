@@ -1,178 +1,122 @@
-# !pip3 install pmdarima
+Part 1- SES (Simple Exponential Smoothing) - no trend, no seasonality: https://www.youtube.com/watch?v=Fqge2HDH2Co
+	
+	Ft = Lt (forecast = level)
+	
+	L_t = α*y_t + (1-α)*L_{t-1}
+	    = α*y_t + α*(1-α)*y_{t-1} + α*(1-α)^2*y_{t-2} + α*(1-α)^3*y_{t-3} + .... + + α*(1-α)^n*y_{t-n}
+	    
+Part 2 - Holt's Exponential Smoothing - with trend, but no seasonality: https://www.youtube.com/watch?v=DUyZl-abnNM
 
-import pmdarima as pm
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
+	Ft = Lt + k*Tt (forecast = level + k*trend)
+	
+	L_t = α*y_t + (1-α)*(L_{t-1} + + T_{t-1})
+	
+	T_t = β*(L_t - L_{t-1}) + (1 - β)*T_{t-1}
+	
+Part 3 - Winters' Exponential Smoothing (HoltWinters) - with trend and with seasonality:
 
-# Load/split your data
-y = pm.datasets.load_wineind()
-train_set, test_set = train_test_split(y, train_size=int(0.8*y.shape[0]))
+##########################################################
+HOLT-WINTERS ADDITIVE METHOD (TRIPLE EXPONENTIAL SMOOTHING)
+------------------------------------------------------------
 
-#or:
-min_temp = (
-    pd.read_csv('data/daily_min_temperatures.csv')
-    .assign(Date=lambda df: pd.to_datetime(df['Date'], yearfirst=True, dayfirst=False))
-    .set_index('Date')
-    .asfreq('D')  # Change 'D' to 'M', 'W', etc. if needed
-    .assign(Temp=lambda df: df['Temp'].fillna(df['Temp'].median()))
-)
-
-#########################
-### Seasonality check ###
-#########################
-
-from statsmodels.tsa.seasonal import seasonal_decompose
-
-seasonal_check = seasonal_decompose(
-    min_temp+0.05, #Add 0.05 to avoid zero value (or negative value)
-    model='multiplicative', #Watch Observed data, if seasonal swings grow/shrink with the trend, use "multiplicative". If they stay constant, use "additive".
-    period=365
-)
-
-attr = ['observed', 'trend', 'seasonal', 'resid']
-
-#Draw all plots
-sbn.set_theme(style='darkgrid')
-plt.figure(figsize = (20,10))
-plt.subplots_adjust(hspace=1)
-for i in range(len(attr)):
-    plt.subplot(4,1,i+1)
-    sbn.lineplot(data=getattr(seasonal_check, attr[i]))
-    plt.title(attr[i].upper(), size = 15, color = 'green')
-plt.show()
-
-plt.plot(seasonal_check.trend) #Draw trend only
-plt.plot(seasonal_check.seasonal) #Draw seasonal only
-plt.plot(seasonal_check.resid) #Draw resid only
-
-###############################
-### Build HoltWinters model ###
-###############################
-
-train_set, test_set = pm.model_selection.train_test_split(min_temp, train_size=int(0.8*min_temp.shape[0]))
-
-from statsmodels.tsa.holtwinters import ExponentialSmoothing
-
-holtwinters_model = ExponentialSmoothing(
-                endog = train_set,
-                seasonal = 'mul',
-                seasonal_periods = 12).fit()
-
-##################
-### Forecast ###
-##################
-
-forecasts_test = holtwinters_model.predict(start = test_set.index[0],
-                                           end = test_set.index[-1])
-
-####
-s = datetime.datetime(2019, 1, 1)
-e = datetime.datetime(2019, 12, 1)
-
-predict_next_12_months =  holtwinters_model.predict(start = s,
-                                                    end = e)
-
-# Visualize the forecasts (blue=train, green=forecasts)
-plt.figure(figsize=(20, 10))
-sbn.lineplot(x=train_set.index, y=train_set.values.ravel(), color='blue', label='Train')
-sbn.lineplot(x=forecasts_test.index, y=forecasts_test.values.ravel(), color='green', label='Forecast')
-plt.legend()
-plt.show()
-
-##################
-### Evaluation ###
-##################
-
-from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
-
-forecasts_train = holtwinters_model.predict(start = train_set.index[0],
-                                           end = train_set.index[-1])
-
-print(f'Accuracy on train set: {r2_score(train_set.values, forecasts_train.values)}')
-print(f'Accuracy on test set: {r2_score(test_set.values, forecasts_test.values)}')
-print()
-
-print(f'Mean squared error test set: {mean_squared_error(test_set.values, forecasts_test.values)}')
-print(f'Mean absolute error test set: {mean_absolute_error(test_set.values, forecasts_test.values)}')
-print()
-
-sbn.set_theme(style='darkgrid')
-plt.figure(figsize=(20,6))
-plt.subplot(1,2,1)
-sbn.kdeplot(test_set.values,  label = "Test_true", color = 'green')
-sbn.kdeplot(forecasts_test.values, label = "Test_forecast", color = 'brown')
-plt.legend()
-
-plt.subplot(1,2,2)
-sbn.lineplot(x = [test_set.values.min(), test_set.values.max()], 
-             y = [test_set.values.min(), test_set.values.max()], 
-             label = 'Reference line', color = 'green')
-sbn.scatterplot(x = test_set.values.ravel(), y = forecasts_test.values.ravel())
-plt.xlabel("Test_true", size=15)
-plt.ylabel("Test_forecast", size=15)
-plt.show()
-
-
-#-----------------------------------------------------------------------------------------#
-#------------------ HoltWinters ExponentialSmoothing PARAMETERS --------------------------#
-#-----------------------------------------------------------------------------------------#
-
-Function from: statsmodels.tsa.holtwinters
-
-This function fits exponential smoothing models including simple, double (Holt’s), and triple (Holt-Winters) smoothing.
-
-Function signature:
-ExponentialSmoothing(
-    endog,
-    trend=None,
-    damped_trend=False,
-    seasonal=None,
-    seasonal_periods=None,
-    initialization_method='estimated',
-    initial_level=None,
-    initial_trend=None,
-    initial_seasonal=None,
-    use_boxcox=False,
-    bounds=None,
-    dates=None,
-    freq=None,
-    missing='none',
-    validate_specification=True
-)
-
-PARAMETERS:
+COMPONENTS:
 -----------
+Let:
+ - L_t = Level at time t
+ - T_t = Trend at time t
+ - S_t = Seasonal component at time t
+ - y_t = Actual value at time t
+ - F_{t+m} = Forecast for m periods ahead from time t
+ 
+SMOOTHING PARAMETERS:
+---------------------
+ - α (alpha): level smoothing coefficient (0 < α < 1)
+ - β (beta): trend smoothing coefficient (0 < β < 1)
+ - γ (gamma): seasonal smoothing coefficient (0 < γ < 1)
+ - p: length of the season (e.g., 4 for quarterly, 12 for monthly data with yearly seasonality)
 
-1. endog:
-   The time series data (list, NumPy array, or Pandas Series). This is the observed data.
+FORMULAS:
+---------
+1. LEVEL:
+   L_t = α * (y_t - S_{t-p}) + (1 - α) * (L_{t-1} + T_{t-1})
 
-2. trend:
-   Specifies the trend component.
-   Options:
-     'add' – additive trend
-     'mul' – multiplicative trend
-     None  – no trend
+2. TREND:
+   T_t = β * (L_t - L_{t-1}) + (1 - β) * T_{t-1}
 
-3. damped_trend:
-   Boolean (True or False). If True, the trend component is damped (i.e., gradually flattens over time).
+3. SEASONAL:
+   S_t = γ * (y_t - L_t) + (1 - γ) * S_{t-p}
 
-4. seasonal:
-   Specifies the seasonal component.
-   Options:
-     'add' – additive seasonality
-     'mul' – multiplicative seasonality
-     None  – no seasonality
+4. FORECAST:
+   F_{t+m} = L_t + m * T_t + S_{t + m - p}
 
-5. seasonal_periods:
-   Integer. The number of time steps in a full seasonal cycle.
-   Example: 12 for monthly data with yearly seasonality.
+#-----------------------------------------------------#
+#--------------- Example -----------------------------#
+#-----------------------------------------------------#
 
-6. initialization_method:
-   How to initialize the level, trend, and seasonal values.
-   Options:
-     'estimated'           – (default) estimates initial values
-     'heuristic'           – uses simple heuristic rules
-     'legacy-heuristic'    – older heuristic method (for compatibility)
-     'known'               – user supplies initial values
-     'concentrated'        – advanced optimization method
+Assume seasonal period p = 4 (quarterly data).
+We are given the following observations:
+
+Time (t):   1    2    3    4    5    6
+y_t      : 120  130  140  150  160  170
+
+We’ll assume these initial values:
+L_4 = 130 (average of first 4 values: (120+130+140+150)/4 = 135, minus avg seasonal = 130)
+T_4 = 10  (assumed from the consistent increase)
+S_1 = -10
+S_2 =  0
+S_3 = 10
+S_4 = 20
+
+Parameters:
+α = 0.5
+β = 0.4
+γ = 0.3
+
+We now calculate for t = 5 and t = 6
+
+--- t = 5 ---
+y_5 = 160
+
+LEVEL:
+L_5 = 0.5 * (160 - S_1) + 0.5 * (L_4 + T_4)
+    = 0.5 * (160 - (-10)) + 0.5 * (130 + 10)
+    = 0.5 * 170 + 0.5 * 140
+    = 85 + 70 = 155.0
+
+TREND:
+T_5 = 0.4 * (L_5 - L_4) + 0.6 * T_4
+    = 0.4 * (155 - 130) + 0.6 * 10
+    = 0.4 * 25 + 6 = 10 + 6 = 16.0
+
+SEASONAL:
+S_5 = S_1 (since p = 4, S_5 updates S_1)
+     = 0.3 * (160 - 155) + 0.7 * (-10)
+     = 0.3 * 5 + (-7) = 1.5 - 7 = -5.5
+
+--- t = 6 ---
+y_6 = 170
+
+LEVEL:
+L_6 = 0.5 * (170 - S_2) + 0.5 * (L_5 + T_5)
+    = 0.5 * (170 - 0) + 0.5 * (155 + 16)
+    = 0.5 * 170 + 0.5 * 171
+    = 85 + 85.5 = 170.5
+
+TREND:
+T_6 = 0.4 * (L_6 - L_5) + 0.6 * T_5
+    = 0.4 * (170.5 - 155) + 0.6 * 16
+    = 0.4 * 15.5 + 9.6 = 6.2 + 9.6 = 15.8
+
+SEASONAL:
+S_6 = S_2 = 0.3 * (170 - 170.5) + 0.7 * 0
+     = 0.3 * (-0.5) + 0 = -0.15
+
+--- FORECAST t = 7 ---
+F_7 = L_6 + 1 * T_6 + S_3
+    = 170.5 + 15.8 + 10 = 196.3
+
+--- FORECAST t = 8 ---
+F_8 = L_6 + 2 * T_6 + S_4
+    = 170.5 + 2 * 15.8 + 20 = 170.5 + 31.6 + 20 = 222.1
+
+------------------------------------------------------------
