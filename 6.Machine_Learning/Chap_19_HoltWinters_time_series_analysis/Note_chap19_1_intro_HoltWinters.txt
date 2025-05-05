@@ -1,7 +1,7 @@
 Part 1- SES (Simple Exponential Smoothing): https://www.youtube.com/watch?v=Fqge2HDH2Co
 
     	L_t = α*y_t + (1-α)*L_{t-1}
-	        = α*y_t + α*(1-α)*y_{t-1} + α*(1-α)^2*y_{t-2} + α*(1-α)^3*y_{t-3} + .... + + α*(1-α)^n*y_{t-n}
+	    = α*y_t + α*(1-α)*y_{t-1} + α*(1-α)^2*y_{t-2} + α*(1-α)^3*y_{t-3} + .... + + α*(1-α)^n*y_{t-n}
 	    
 Part 2 - Holt's Exponential Smoothing: 
 Part 3 - Winters' Exponential Smoothing (HoltWinters):
