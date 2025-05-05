@@ -27,7 +27,7 @@ from statsmodels.tsa.seasonal import seasonal_decompose
 
 seasonal_check = seasonal_decompose(
     min_temp+0.05, #Add 0.05 to avoid zero value (or negative value)
-    model='multiplicative', #What Observed data, if seasonal swings grow/shrink with the trend, use "multiplicative". If they stay constant, use "additive".
+    model='multiplicative', #Watch Observed data, if seasonal swings grow/shrink with the trend, use "multiplicative". If they stay constant, use "additive".
     period=365
 )
 
