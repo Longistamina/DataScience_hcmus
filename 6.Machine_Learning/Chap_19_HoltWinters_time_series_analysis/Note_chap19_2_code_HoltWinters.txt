@@ -7,11 +7,12 @@ Part 1- SES (Simple Exponential Smoothing) - no trend, no seasonality: https://w
 	    
 Part 2 - Holt's Exponential Smoothing - with trend, but no seasonality: https://www.youtube.com/watch?v=DUyZl-abnNM
 
-	Ft = Lt + k*Tt (forecast = level + k*trend)
+	Ft = Lt + k*Tt (additive trend)
+	Ft = Lt*(Tt)^k (multiplicative trend)
 	
 	L_t = α*y_t + (1-α)*(L_{t-1} + + T_{t-1})
 	
-	T_t = β*(L_t - L_{t-1}) + (1 - β)*T_{t-1}
+	T_t = β*(L_t - L_{t-1}) + (1 - β)*T_{t-1} (update trend overtime)
 	
 Part 3 - Winters' Exponential Smoothing (HoltWinters) - with trend and with seasonality:
 
