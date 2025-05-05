@@ -71,7 +71,7 @@ arima_model = pm.auto_arima(
 ### Forecast ###
 ##################
 
-forecasts_test = model.predict(test_set.shape[0])  # predict N steps into the future
+forecasts_test = arima_model.predict(test_set.shape[0])  # predict N steps into the future
 
 # Visualize the forecasts (blue=train, green=forecasts)
 plt.figure(figsize=(20, 10))
