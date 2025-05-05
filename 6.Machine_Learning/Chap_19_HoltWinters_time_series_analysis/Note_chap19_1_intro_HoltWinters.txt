@@ -1,10 +1,21 @@
-Part 1- SES (Simple Exponential Smoothing): https://www.youtube.com/watch?v=Fqge2HDH2Co
-
-    	L_t = α*y_t + (1-α)*L_{t-1}
+Part 1- SES (Simple Exponential Smoothing) - no trend, no seasonality: https://www.youtube.com/watch?v=Fqge2HDH2Co
+	
+	Ft = Lt (forecast = level)
+	
+	L_t = α*y_t + (1-α)*L_{t-1}
 	    = α*y_t + α*(1-α)*y_{t-1} + α*(1-α)^2*y_{t-2} + α*(1-α)^3*y_{t-3} + .... + + α*(1-α)^n*y_{t-n}
 	    
-Part 2 - Holt's Exponential Smoothing: 
-Part 3 - Winters' Exponential Smoothing (HoltWinters):
+Part 2 - Holt's Exponential Smoothing - with trend, but no seasonality: https://www.youtube.com/watch?v=DUyZl-abnNM
+
+	Ft = Lt + k*Tt (additive trend)
+	Ft = Lt*(Tt)^k (multiplicative trend)
+	
+	L_t = α*y_t + (1-α)*(L_{t-1} + + T_{t-1})
+	
+	T_t = β*(L_t - L_{t-1}) + (1 - β)*T_{t-1} (update trend overtime)
+	
+Part 3 - Winters' Exponential Smoothing (HoltWinters) - with trend and with seasonality: https://www.youtube.com/watch?v=mrLiC1biciY&t=73s
+	(formula below)
 
 ##########################################################
 HOLT-WINTERS ADDITIVE METHOD (TRIPLE EXPONENTIAL SMOOTHING)
@@ -29,8 +40,7 @@ SMOOTHING PARAMETERS:
 FORMULAS:
 ---------
 1. LEVEL:
-   L_t = α * (y_t - S_{t-p}) + (1 - α) * (L_{t-1} + T_{t-1})
-       = 
+   L_t = α * (y_t - S_{t-p}) + (1 - α) * (L_{t-1} + T_{t-1}) (additive)
 
 2. TREND:
    T_t = β * (L_t - L_{t-1}) + (1 - β) * T_{t-1}
@@ -39,7 +49,8 @@ FORMULAS:
    S_t = γ * (y_t - L_t) + (1 - γ) * S_{t-p}
 
 4. FORECAST:
-   F_{t+m} = L_t + m * T_t + S_{t + m - p}
+   F_{t+m} = L_t + m * T_t + S_{t + m - p} (additive)
+   F_{t+m} = (L_t + m * T_t) * S_{t + m - p} (multiplicative)
 
 #-----------------------------------------------------#
 #--------------- Example -----------------------------#
