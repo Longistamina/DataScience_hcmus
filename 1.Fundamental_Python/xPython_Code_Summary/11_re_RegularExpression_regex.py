@@ -212,9 +212,9 @@ print(x) #['The', 'rain', 'in', 'Spain']
 x = re.split("\s", txt, 1) #Split the string only at the first occurrence
 print(x) #['The', 'rain in Spain']
 
-#--------------------------------------------------------------------------#
-#-------------------------- re.split() ------------------------------------#
-#--------------------------------------------------------------------------#
+#------------------------------------------------------------------------#
+#-------------------------- re.sub() ------------------------------------#
+#------------------------------------------------------------------------#
 # The sub() function replaces the matches with the text of your choice:
 
 import re
@@ -225,3 +225,27 @@ print(x) #The_rain_in_Spain
 
 x = re.sub("\s", "_", txt, 2) #Replace only the first 2 occurrences:
 print(x) #The_rain_in Spain
+
+#------------------------------------------------------------------------#
+#-------------------------- Match Object---------------------------------#
+#------------------------------------------------------------------------#
+# A Match Object is an object containing information about the search and the result.
+# Note: If there is no match, the value None will be returned, instead of the Match Object.
+
+import re
+txt = "The rain in Spain"
+
+x = re.search("ai", txt)
+print(x) #this will print an object
+         # <_sre.SRE_Match object; span=(5, 7), match='ai'>
+
+x = re.search(r"\bS\w+", txt) #Search for an upper case "S" character in the beginning of a word, and print the word:
+
+print(x.span()) #Return a tuple containing the start, and end positions of the match
+                #Here return (12,17) means the match starts at 12, ends at 17
+
+print(x.string) #Returns the string passed into the function
+                #Here return "The rain in Spain"
+
+print(x.group()) #Returns the part of the string where there was a match
+                 #Here return "Spain"
