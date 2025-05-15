@@ -32,8 +32,7 @@ import re
 
 txt = "The rain in Spain"
 
-#Find all lower case characters alphabetically between "a" and "m":
-x = re.findall("[a-m]", txt)
+x = re.findall("[a-m]", txt) #Find all lower case characters alphabetically between "a" and "m":
 print(x) #['h', 'e', 'a', 'i', 'i', 'a', 'i']
 
 # [arn]	Returns a match where one of the specified characters (a, r, or n) is present	
@@ -53,8 +52,7 @@ import re
 
 txt = "That will be 59 dollars"
 
-#Find all digit characters:
-x = re.findall("\d", txt)
+x = re.findall("\d", txt) #Find all digit characters:
 print(x) #['5', '9']
 
 
@@ -86,10 +84,8 @@ print(x) #['5', '9']
 import re
 txt = "hello planet"
 
-#Search for a sequence that starts with "he", followed by two (any) characters, and an "o":
-x = re.findall("he..o", txt)
+x = re.findall("he..o", txt) #Search for a sequence that starts with "he", followed by two (any) characters, and an "o":
 print(x) #['hello']
-
 
 #---------------------------------------------------------------------------------#
 #-------------------------- "^" ~ Starts with ------------------------------------#
@@ -97,8 +93,7 @@ print(x) #['hello']
 import re
 txt = "hello planet"
 
-#Check if the string starts with 'hello':
-x = re.findall("^hello", txt)
+x = re.findall("^hello", txt) #Check if the string starts with 'hello':
 if x:
   print("Yes, the string starts with 'hello'")
 else:
@@ -112,8 +107,7 @@ else:
 import re
 txt = "hello planet"
 
-#Check if the string ends with 'planet':
-x = re.findall("planet$", txt)
+x = re.findall("planet$", txt) #Check if the string ends with 'planet':
 if x:
   print("Yes, the string ends with 'planet'")
 else:
@@ -127,9 +121,7 @@ else:
 import re
 txt = "hello planet"
 
-#Search for a sequence that starts with "he", followed by 0 or more  (any) characters, and an "o":
-x = re.findall("he.*o", txt)
-
+x = re.findall("he.*o", txt) #Search for a sequence that starts with "he", followed by 0 or more  (any) characters, and an "o":
 print(x) #['hello']
 
 #---------------------------------------------------------------------------------------------#
@@ -138,9 +130,7 @@ print(x) #['hello']
 import re
 txt = "hello planet"
 
-#Search for a sequence that starts with "he", followed by 1 or more  (any) characters, and an "o":
-x = re.findall("he.+o", txt)
-
+x = re.findall("he.+o", txt) #Search for a sequence that starts with "he", followed by 1 or more  (any) characters, and an "o":
 print(x)#['hello']
 
 #---------------------------------------------------------------------------------------------#
@@ -149,9 +139,7 @@ print(x)#['hello']
 import re
 txt = "hello planet"
 
-#Search for a sequence that starts with "he", followed by 0 or 1  (any) character, and an "o":
-x = re.findall("he.?o", txt)
-
+x = re.findall("he.?o", txt) #Search for a sequence that starts with "he", followed by 0 or 1  (any) character, and an "o":
 print(x) #[]
          #This time we got no match, because there were not zero, not one, but two characters between "he" and the "o"
 
@@ -161,9 +149,7 @@ print(x) #[]
 import re
 txt = "hello helllo planet"
 
-#Search for a sequence that starts with "he", followed excactly 2 (any) characters, and an "o":
-x = re.findall("he.{2}o", txt)
-
+x = re.findall("he.{2}o", txt) #Search for a sequence that starts with "he", followed excactly 2 (any) characters, and an "o":
 print(x) #['hello']
          #Not return 'helllo' cause 'helllo' has 3 characters between "he" and "o"
 
@@ -173,9 +159,7 @@ print(x) #['hello']
 import re
 txt = "The rain in Spain falls mainly in the plain!"
 
-#Check if the string contains either "falls" or "stays":
-x = re.findall("falls|stays", txt)
-
+x = re.findall("falls|stays", txt) #Check if the string contains either "falls" or "stays":
 print(x) #['falls']
 
 if x:
@@ -184,3 +168,60 @@ else:
   print("No match")
 
 #Output: Yes, there is at least one match!
+
+
+#----------------------------------------------------------------------------#
+#-------------------------- re.findall() ------------------------------------#
+#----------------------------------------------------------------------------#
+# The findall() function returns a list containing all matches.
+
+import re
+txt = "The rain in Spain"
+
+x = re.findall("ai", txt) #Return a list containing every occurrence of "ai":
+print(x) #['ai', 'ai']
+
+x = re.findall("Portugal", txt)
+print(x) #[]
+
+#---------------------------------------------------------------------------#
+#-------------------------- re.search() ------------------------------------#
+#---------------------------------------------------------------------------#
+# The search() function searches the string for a match, and returns a Match object if there is a match.
+
+import re
+txt = "The rain in Spain"
+
+x = re.search("\s", txt)
+print("The first white-space character is located in position:", x.start()) #Return 3
+
+x = re.search("Portugal", txt)
+print(x) #Return None
+
+#--------------------------------------------------------------------------#
+#-------------------------- re.split() ------------------------------------#
+#--------------------------------------------------------------------------#
+# The split() function returns a list where the string has been split at each match:
+
+import re
+txt = "The rain in Spain"
+
+x = re.split("\s", txt)
+print(x) #['The', 'rain', 'in', 'Spain']
+
+x = re.split("\s", txt, 1) #Split the string only at the first occurrence
+print(x) #['The', 'rain in Spain']
+
+#--------------------------------------------------------------------------#
+#-------------------------- re.split() ------------------------------------#
+#--------------------------------------------------------------------------#
+# The sub() function replaces the matches with the text of your choice:
+
+import re
+txt = "The rain in Spain"
+
+x = re.sub("\s", "_", txt) #Replace all white-space characters with the "_" character:
+print(x) #The_rain_in_Spain
+
+x = re.sub("\s", "_", txt, 2) #Replace only the first 2 occurrences:
+print(x) #The_rain_in Spain
