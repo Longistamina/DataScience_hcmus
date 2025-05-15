@@ -12,8 +12,9 @@ re.search()	 #Returns a Match object if there is a match anywhere in the string
 re.split()	 #Returns a list where the string has been split at each match
 re.sub()	   #Replaces one or many matches with a string
 
-
+#----------------------------------------------------------------------#
 #------------------------------- Example ------------------------------#
+#----------------------------------------------------------------------#
 import re
 
 txt = "The rain in Spain"
@@ -24,8 +25,9 @@ if x:
 else:
   print("No match")
 
-
+#----------------------------------------------------------------------------------------#
 #-------------------------- [] ~ A set of characters ------------------------------------#
+#----------------------------------------------------------------------------------------#
 import re
 
 txt = "The rain in Spain"
@@ -44,7 +46,9 @@ print(x) #['h', 'e', 'a', 'i', 'i', 'a', 'i']
 # [+]	In sets, +, *, ., |, (), $,{} has no special meaning, so [+] means: return a match for any + character in the string
 
 
+#----------------------------------------------------------------------------------------------------------------------------#
 #-------------------------- \ ~ Signals a special sequence, or escapes special character ------------------------------------#
+#----------------------------------------------------------------------------------------------------------------------------#
 import re
 
 txt = "That will be 59 dollars"
