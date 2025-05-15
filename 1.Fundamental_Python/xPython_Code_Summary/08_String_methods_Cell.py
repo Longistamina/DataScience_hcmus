@@ -36,22 +36,22 @@ print()
 
 #------------------------------------------------#
 #%%
-hoten = 'Trần Thị Anh Thư'
-i = hoten.find(' ') #Tìm ký tự ' ' đầu tiên từ trái qua rồi trả về index của nó
-j = hoten.find(' ',i+1) #Tìm ký tự ' ' bắt đầu từ vị trí i+1 trở đi
-k = hoten.rfind(' ') #Tìm ký tự ' ' theo hướng từ phải sang
+full_name = 'Trần Thị Anh Thư'
+i = full_name.find(' ') #Find the first ' ' character from left to right, and return its index
+j = full_name.find(' ', i+1) #Find ' ' character from index i to end
+k = full_name.rfind(' ') #Find the first ' ' character from RIGHT to left, and return its index
 print()
 
 # %%
-sdt = '0903123456'
-k1 = sdt.isdigit() #=> True / Nếu có dính một ký tự alphabetic vào thì sẽ thành False
-k2 = sdt.isnumeric() #=> True / Nếu có dính một ký tự alphabetic vào thì sẽ thành False
+phone = '0903123456'
+k1 = phone.isdigit() #=> True if all characters are DIGITS. Else if there is at least one alphabetic character, return False
+k2 = phone.isnumeric() #=> True if all characters are NUMERIC. Else if there is at least one alphabetic character, return False
 
-tien = '1500VND'
+money = '1500VND'
 id = 'ASDK'
-k3 = tien.isalpha() #=> F
-k4 = id.isalpha() #=> T / Nếu có dính một ký tự numeric vào thì sẽ thành False
-k5 = tien.isalnum() #=> F
+k3 = money.isalpha() #=> True if all characters are ALPHABETIC. Else if there is at least one numeric or digit character, return False
+k4 = id.isalpha() #=> True if all the characters are alphanumeric (like "Company123", "4student5")
+k5 = money.isalnum() #=> F
 k6 = id.isupper() #=> T
 k7 = id.islower()#=> F
 
