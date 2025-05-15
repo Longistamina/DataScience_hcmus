@@ -36,7 +36,7 @@ print()
 
 #------------------------------------------------#
 #%%
-full_name = 'Trần Thị Anh Thư'
+full_name = 'Tran Thi Anh Thu'
 i = full_name.find(' ') #Find the first ' ' character from left to right, and return its index
 j = full_name.find(' ', i+1) #Find ' ' character from index i to end
 k = full_name.rfind(' ') #Find the first ' ' character from RIGHT to left, and return its index
@@ -56,17 +56,17 @@ k6 = id.isupper() #=> T
 k7 = id.islower()#=> F
 
 #%%
-#------------_format()---------------#
-soTien = 1200000000.453
-str_tien1 = '{:,} VND'.format(soTien) # '1,200,000,000.453 VND'
-str_tien2 = '{:,.2f} VND'.format(soTien) # '1,200,000,000.45 VND'
-# .format() giúp chuyển dữ liệu từ số sang chuỗi 
+#------------- .format()---------------#
+price = 1200000000.453
+str_price1 = '{:,} VND'.format(price) # '1,200,000,000.453 VND'
+str_price2 = '{:,.2f} VND'.format(price) # '1,200,000,000.45 VND'
+# .format() method formats the specified value(s) and insert them inside the string's placeholder {}.
 print()
 
 #%%
-#----------------Căn lề --------------------#
+#---------------- Marginalize (canle) --------------------#
 strD = 'Abc'
 str1 = strD.center(20)     #'        Abc         '
 str2 = strD.center(20,'*') #'********Abc*********'
-str3 = strD.rjust(20) #Căn lề  phải với khoảng cách 20 ký tự
-str4 = strD.ljust(20) #Căn lề  trái với khoảng cách 20 ký tự
+str3 = strD.rjust(20) #Marginalize towards the RIGHT with the width of 20 characters
+str4 = strD.ljust(20) #Marginalize towards the LEFT with the width of 20 characters
