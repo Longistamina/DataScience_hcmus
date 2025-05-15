@@ -25,12 +25,12 @@ print(str1)
 
 print('-'*50)
 
-#Thêm dấu cách nghìn (dấu phẩy cho tiền lương) và làm tròn heSoLuong 2 chữ số thập phân
+#Add comma "," as a thousand separator for salary, and round the salary_coefficient up to 2 decimal numbers
 str2 = f'Full name: {full_name}\n Salary: {salary:,} VND\n Salary coefficient: {salary_coefficient:.2f}'
 print(str2)
 
 print('-'*50)
 
-#Thêm dấu cách nghìn và làm tròn hai số lẻ cho tiền lương
+#Add comma "," as a thousand separator for salary, and round the salary up to 2 decimal numbers
 str3 = f'Full name: {full_name}\n Salary: {salary:,.2f} VND\n Salary coefficient: {salary_coefficient}'
 print(str3)
