@@ -26,9 +26,9 @@ a*=b giống với cái trên nhưng là phép nhân
 '''
 
 ''' LOGIC
-AND: chỉ đúng khi tất cả mệnh đề đều đúng
-OR: chỉ sai khi tất cả mệnh đề đều sai
-NOT: phủ định
+AND - &: chỉ đúng khi tất cả mệnh đề đều đúng
+OR  - |: chỉ sai khi tất cả mệnh đề đều sai
+NOT - ~: phủ định
 '''
 
 ''' IN NOT-IN
