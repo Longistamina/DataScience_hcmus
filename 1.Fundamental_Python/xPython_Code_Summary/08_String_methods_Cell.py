@@ -1,26 +1,26 @@
 #%%
-s1 = '  Trung tÂm tiN học   '
-k1 = s1.capitalize() #=> '  Trung tâm tin học   ' viết hoa chữ cái đầu của từ đầu tiên
-k2 = s1.upper() #=> '  TRUNG TÂM TIN HỌC   '      viết hoa toàn bộ
-k3 = s1.lower() #=> '  trung tâm tin học   '      viết thường toàn bộ
-k4 = s1.title() #=> '  Trung Tâm Tin Học   '      viết hoa chữ cái đầu mỗi từ
-k6 = s1.strip() #=> 'Trung tÂm tiN học'           cắt bỏ khoảng trắng ở hai đầu chuỗi
+s1 = '  it CenteR one   '
+k1 = s1.capitalize() #=> '  It CenteR one   '    capitalize the first character of the string
+k2 = s1.upper()      #=> '  IT CENTER ONE   '    capitalize all characters
+k3 = s1.lower()      #=> '  it center one   '    decapitalize all characters
+k4 = s1.title()      #=> '  It CenteR One   '    capitalize the first character of each word
+k6 = s1.strip()      #=> 'it CenteR One'         remove the space character ' ' from both ends
 print()
 
 s2 = ',20 30,'
-k7 = s2.strip(',') #=> '20 30' loại bỏ dấu phẩy ở hai đầu chuỗi
+k7 = s2.strip(',') #=> '20 30' remove ',' character from both ends
 #------------------------------------------------------------------------------------------------#
 #%%
-baitho = '''
+poem = '''
 Thân em vừa trắng lại vừa tròn
 Bảy nổi ba chìm với nước non
 Rắn nát mặc dầu tay kẻ nặn
 Mà em vẫn giữ tấm lòng son
 '''
-print(baitho)
-print(baitho.count('m'))
-print(baitho.lower().count('m'))
-#method count() có phân biệt chữ hoa với chữ thường, nên hai kết quả .count('m') và .lower().count('m') khác nhau
+print(poem)
+print(poem.count('m'))
+print(poem.lower().count('m'))
+#method count() distinguished uppercase from lowercase, therefor poem.count('m') and poem.lower().count('m') give different results
 
 tieude = 'BÁNH TRÔI NƯỚC'
 print(tieude.count('N',2,10)) #Đếm xem có bao nhiêu chữ N từ vị trí số  3 đến 9 của chuỗi
