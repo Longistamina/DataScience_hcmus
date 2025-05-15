@@ -16,3 +16,9 @@ k5=eval('[12,13,14,15]') #----> eval considers this as a list, hence returns [12
 print()
 
 k=eval('abc') #--> raise error because eval considers this abc as an undefined variable
+
+
+#---------------------------------------- combine input() and eval() --------------------------------------#
+radius = eval(input("Input radius of a circle: "))
+
+print(f"Area of the circle = {3.14 * (radius**2)}")
