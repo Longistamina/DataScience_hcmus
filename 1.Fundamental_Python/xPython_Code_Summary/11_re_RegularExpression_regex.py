@@ -7,10 +7,10 @@
 
 import re
 
-re.findall() #Returns a list containing all matches
-re.search()	 #Returns a Match object if there is a match anywhere in the string
-re.split()	 #Returns a list where the string has been split at each match
-re.sub()	   #Replaces one or many matches with a string
+re.findall()  #Returns a list containing all matches
+re.search()	  #Returns a Match object if there is a match anywhere in the string
+re.split()	  #Returns a list where the string has been split at each match
+re.sub()	    #Replaces one or many matches with a string
 
 #----------------------------------------------------------------------#
 #------------------------------- Example ------------------------------#
@@ -155,3 +155,32 @@ x = re.findall("he.?o", txt)
 print(x) #[]
          #This time we got no match, because there were not zero, not one, but two characters between "he" and the "o"
 
+#------------------------------------------------------------------------------------------------------------------#
+#-------------------------- "{}" ~ Exactly the specified number of occurrences ------------------------------------#
+#------------------------------------------------------------------------------------------------------------------#
+import re
+txt = "hello helllo planet"
+
+#Search for a sequence that starts with "he", followed excactly 2 (any) characters, and an "o":
+x = re.findall("he.{2}o", txt)
+
+print(x) #['hello']
+         #Not return 'helllo' cause 'helllo' has 3 characters between "he" and "o"
+
+#-------------------------------------------------------------------------------#
+#-------------------------- "|" ~ Either or ------------------------------------#
+#-------------------------------------------------------------------------------#
+import re
+txt = "The rain in Spain falls mainly in the plain!"
+
+#Check if the string contains either "falls" or "stays":
+x = re.findall("falls|stays", txt)
+
+print(x) #['falls']
+
+if x:
+  print("Yes, there is at least one match!")
+else:
+  print("No match")
+
+#Output: Yes, there is at least one match!
