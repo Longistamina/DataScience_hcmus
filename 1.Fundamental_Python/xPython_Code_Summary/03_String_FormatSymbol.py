@@ -4,7 +4,7 @@ full_name = "Tran Ngoc Dung" #character / string
 
 #--------------------------------- Format Symbol 1 -----------------------------------------------#
 
-strTT1="Full ame: "+full_name +"\nSalary: "+str(salary)
+strTT1="Full name: "+full_name +"\nSalary: "+str(salary)
 print(strTT1)
 
 print("-"*50)
