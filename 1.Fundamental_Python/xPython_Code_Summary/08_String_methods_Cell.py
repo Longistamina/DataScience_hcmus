@@ -22,16 +22,16 @@ print(poem.count('m'))
 print(poem.lower().count('m'))
 #method count() distinguished uppercase from lowercase, therefor poem.count('m') and poem.lower().count('m') give different results
 
-tieude = 'BÁNH TRÔI NƯỚC'
-print(tieude.count('N',2,10)) #Đếm xem có bao nhiêu chữ N từ vị trí số  3 đến 9 của chuỗi
+title = 'BÁNH TRÔI NƯỚC'
+print(title.count('N',2,10)) #Count the number of character 'N' from index 2 to index 10-1 (or index 9) of the string
 
 #---------------FIND AND REPLACE--------------#
 #%%
 str = 'Hoa Chanh nở giữa vườn Chanh'
-strTim = 'Chanh'
-strThaythe = 'Cam'
-strNew = str.replace(strTim,strThaythe)
-strNew2 = str.replace(strTim,strThaythe,1) #Chỉ thay thế  một lần ở strTim đầu tiên bắt gặp
+strFind = 'Chanh'
+strReplace = 'Cam'
+strNew = str.replace(strFind, strReplace)
+strNew2 = str.replace(strFind, strReplace, 1) #Replace only one time at the first matched result
 print()
 
 #------------------------------------------------#
