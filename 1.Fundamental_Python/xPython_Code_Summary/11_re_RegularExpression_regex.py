@@ -84,7 +84,6 @@ print(x) #['5', '9']
 #-------------------------- "." ~ Any character (except newline character) ------------------------------------#
 #--------------------------------------------------------------------------------------------------------------#
 import re
-
 txt = "hello planet"
 
 #Search for a sequence that starts with "he", followed by two (any) characters, and an "o":
@@ -96,7 +95,6 @@ print(x) #['hello']
 #-------------------------- "^" ~ Starts with ------------------------------------#
 #---------------------------------------------------------------------------------#
 import re
-
 txt = "hello planet"
 
 #Check if the string starts with 'hello':
@@ -106,12 +104,12 @@ if x:
 else:
   print("No match")
 
+#Output: Yes, the string starts with 'hello'
 
 #-------------------------------------------------------------------------------#
 #-------------------------- "$" ~ Ends with ------------------------------------#
 #-------------------------------------------------------------------------------#
 import re
-
 txt = "hello planet"
 
 #Check if the string ends with 'planet':
@@ -120,3 +118,40 @@ if x:
   print("Yes, the string ends with 'planet'")
 else:
   print("No match")
+
+#Output: Yes, the string ends with 'planet'
+
+#----------------------------------------------------------------------------------------------#
+#-------------------------- "*" ~ Zero or more occurrences ------------------------------------#
+#----------------------------------------------------------------------------------------------#
+import re
+txt = "hello planet"
+
+#Search for a sequence that starts with "he", followed by 0 or more  (any) characters, and an "o":
+x = re.findall("he.*o", txt)
+
+print(x) #['hello']
+
+#---------------------------------------------------------------------------------------------#
+#-------------------------- "*" ~ One or more occurrences ------------------------------------#
+#---------------------------------------------------------------------------------------------#
+import re
+txt = "hello planet"
+
+#Search for a sequence that starts with "he", followed by 1 or more  (any) characters, and an "o":
+x = re.findall("he.+o", txt)
+
+print(x)#['hello']
+
+#---------------------------------------------------------------------------------------------#
+#-------------------------- "?" ~ Zero or one occurrences ------------------------------------#
+#---------------------------------------------------------------------------------------------#
+import re
+txt = "hello planet"
+
+#Search for a sequence that starts with "he", followed by 0 or 1  (any) character, and an "o":
+x = re.findall("he.?o", txt)
+
+print(x) #[]
+         #This time we got no match, because there were not zero, not one, but two characters between "he" and the "o"
+
