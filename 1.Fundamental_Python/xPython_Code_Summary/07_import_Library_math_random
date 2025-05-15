@@ -1,1 +1,16 @@
+#--------------------------------------------------------#
+#------------------- math Library -----------------------#
+#--------------------------------------------------------#
 
+import math
+a = math.sqrt(16) #--> a = 4
+b = math.pow(2,3) #--> b = 2**3 = 8
+math.pi #---> pi number
+dir(math) #---> list out all the functions, methods and attributes of an object
+
+#math.floor(x) => Return the smallest and nearest integer number of x, math.floor(5.25) returns 5
+
+#math.modf(x) => Separate and returns the decimal and the quotient of a float number, modf(7.5) => (0.5,7.0)
+decimal, quotient = math.modf(3.5)
+print(decimal)
+print(quotient)
