@@ -1,43 +1,45 @@
-#Khai báo biến - Định nghĩa biến
-tienluong=5000 #integer (số nguyên)
-heSoLuong=1.475 #float (số thực)
-docThan=True #kiểu luận lý boolean (True/False)
-hoten="Trần Ngọc Dung" #character / string
-nghenghiep='kỹ sư'
+#Variable definition
 
-thongtinCongty='''
-Công ty ABC
-Địa chỉ 123xyz
+salary = 5000 #integer (số nguyên)
+salary_coefficient = 1.475 #float (số thực)
+single = True #kiểu luận lý boolean (True/False)
+full_name = "Tran Ngoc Dung" #character / string
+job = 'engineer'
+
+company_info ='''
+Company ABC
+Location: 123xyz
 '''
 
-print(thongtinCongty)
+print(company_info)
 
-x,y,z=3,7,15
+#Multiple-variable definition
+x, y, z = 3, 7, 15
 print(x,y,z)
 
 #--------------GLOBAL VARIABLES ---------LOCAL VARIABLES-------------------#
 print()
-tenHocsinh = 'An' #Global variable, luôn tồn tại miễn là chương trình còn chạy, không phụ thuộc hàm hay for while loop
+student_name = 'An' #Global variable, always exists after being defined, independent from For and While loops, or Function 
 def Inthongtin1():
-    print(f'1 - Tên HS (global variable): {tenHocsinh}')
+    print(f'1 - Student name (global variable): {student_name}')
 
 def Inthongtin2():
-    hoHS = 'Lê'
-    tenHS = 'Bình' #Local variable, chỉ tồn tại khi hàm được thực thi, sau khi xong thì biến sẽ bị xoá
-    print(f'2 - Tên HS (local variable): {hoHS} {tenHS}')
+    last_name = 'Chan'
+    first_name = 'Jackie' #Local variable, only persists when the function is executed, will be erased after the execution
+    print(f'2 - Student name (local variable): {first_name} {last_name}')
 
 def Inthongtin3():
-    global hoHocsinh2 #khai báo biến hoHocsinh2 là global, dù là ở trong hàm python vẫn xem nó là global, không phải local nữa
-    hoHocsinh2 = 'Đỗ ' #nên khi hàm được thực hiện xong  thì biến này vẫn còn, không biến mất
+    global last_name2 #Define last_name2 as global. Using this way, although the variable is defined inside a function, it is still a global variable
+    last_name2 = 'Musk ' #hence, it still persists after the execution of the function
     
-    global tenHocsinh2
-    tenHocsinh2 = 'Phủ'
+    global first_name2
+    first_name2 = 'Elon'
 
 #--------------- output ---------------------#
 Inthongtin1()
 
 Inthongtin2()
-print(f'Tên HS (global): {tenHocsinh}') #biến global vẫn tồn tại
+print(f'Student name (global): {student_name}') #The global variable student_name still persists
 
 Inthongtin3()
-print(f'3 - Tên HS (Global): {hoHocsinh2} {tenHocsinh2}')
+print(f'3 - Student name (Global): {first_name2} {last_name2}')  #The global variables first_name2 and last_name2 still persist
