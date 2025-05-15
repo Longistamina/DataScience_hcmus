@@ -8,9 +8,9 @@
 import re
 
 re.findall()  #Returns a list containing all matches
-re.search()	  #Returns a Match object if there is a match anywhere in the string
-re.split()	  #Returns a list where the string has been split at each match
-re.sub()	    #Replaces one or many matches with a string
+re.search()   #Returns a Match object if there is a match anywhere in the string
+re.split()    #Returns a list where the string has been split at each match
+re.sub()      #Replaces one or many matches with a string
 
 #----------------------------------------------------------------------#
 #------------------------------- Example ------------------------------#
