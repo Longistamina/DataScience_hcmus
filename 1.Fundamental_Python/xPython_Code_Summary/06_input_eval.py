@@ -15,6 +15,9 @@ k4=eval('20,23,45') #----> eval considers this as a tuple, hence returns (20, 23
 k5=eval('[12,13,14,15]') #----> eval considers this as a list, hence returns [12, 13, 14, 15] as list
 print()
 
+print(k1)
+print(type(k1))
+
 k=eval('abc') #--> raise error because eval considers this abc as an undefined variable
 
 
