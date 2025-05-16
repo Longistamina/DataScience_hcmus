@@ -26,9 +26,9 @@ a*=b is equivalent to a = a*b
 '''
 
 ''' LOGIC
-AND - &: return True only when all are True
-OR  - |: return False only when all are False
-NOT - ~: negation
+and - &: return True only when all are True
+or  - |: return False only when all are False
+not - ~: negation
 '''
 
 ''' IN NOT-IN
