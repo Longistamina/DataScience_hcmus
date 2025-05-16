@@ -6,7 +6,8 @@ import math
 a = math.sqrt(16) #--> a = 4
 b = math.pow(2,3) #--> b = 2**3 = 8
 math.pi #---> pi number
-dir(math) #---> list out all the functions, methods and attributes of an object
+
+print(dir(math)) #---> list out all the functions, methods and attributes of an object
 
 #math.floor(x) => Return the smallest and nearest integer number of x, math.floor(5.25) returns 5
 
